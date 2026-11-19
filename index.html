@@ -80,6 +80,10 @@
                 </div>
             </div>
             <div class="flex items-center gap-4">
+                <button onclick="exportCSV()" class="hidden sm:flex items-center gap-2 p-2 rounded-md bg-green-900 hover:bg-green-800 text-white transition-colors border border-green-950 shadow-inner text-xs font-bold uppercase tracking-widest" title="Backup Database">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    CSV Backup
+                </button>
                 <div id="sync-status" class="hidden sm:flex items-center gap-2 text-xs font-bold text-wood-600 uppercase tracking-widest bg-wood-200 px-3 py-1 rounded-full border border-wood-400">
                     <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Offline/Local
                 </div>
@@ -175,16 +179,22 @@
                     <div class="bg-wood-200 dark:bg-wood-900 p-4 rounded-xl border-2 border-wood-400 dark:border-wood-700 space-y-4">
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider mb-1">Model / Name</label>
-                            <input type="text" id="gear-model" placeholder="e.g. 200A" class="w-full p-4 rounded-lg border-2 border-wood-400 font-black text-xl">
+                            <input type="text" id="gear-model" placeholder="e.g. 200A" oninput="checkColemanBrain()" class="w-full p-4 rounded-lg border-2 border-wood-400 font-black text-xl">
+                            <div id="brain-specs" class="hidden mt-2 p-3 bg-forest-800 border-2 border-green-900 rounded-lg shadow-inner text-green-200 text-xs font-bold uppercase tracking-widest grid grid-cols-2 gap-2">
+                                <div>Gen: <span id="brain-gen" class="text-white"></span></div>
+                                <div>Fuel: <span id="brain-fuel" class="text-white"></span></div>
+                                <div>Mantle: <span id="brain-mantle" class="text-white"></span></div>
+                                <div class="col-span-2 text-[10px]">Notes: <span id="brain-notes" class="text-white"></span></div>
+                            </div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-black uppercase tracking-wider mb-1">Date (Month)</label>
-                                <input type="number" id="gear-month" placeholder="MM" class="w-full p-4 rounded-lg border-2 border-wood-400 text-center font-black text-xl">
+                                <input type="number" id="gear-month" placeholder="MM" oninput="if(this.value.length >= 2) document.getElementById('gear-year').focus()" class="w-full p-4 rounded-lg border-2 border-wood-400 text-center font-black text-xl" inputmode="numeric">
                             </div>
                             <div>
                                 <label class="block text-xs font-black uppercase tracking-wider mb-1">Date (Year)</label>
-                                <input type="number" id="gear-year" placeholder="YY" class="w-full p-4 rounded-lg border-2 border-wood-400 text-center font-black text-xl">
+                                <input type="number" id="gear-year" placeholder="YY" class="w-full p-4 rounded-lg border-2 border-wood-400 text-center font-black text-xl" inputmode="numeric">
                             </div>
                         </div>
                     </div>
@@ -228,20 +238,31 @@
     <!-- MICRO-CLOUD LOGIC (JSONBIN.IO) -->
     <script>
         // --- MICRO CLOUD CONFIGURATION ---
-        // You will replace these two lines with your JSONBin keys from the setup guide!
-        const JSONBIN_MASTER_KEY = $2a$10$kO.d9vMG7Nkt6CvP.XNZsen04IZ4XKmvOXu51ax6awGzHMZTt4t2q;
-        const JSONBIN_BIN_ID = 6aff6b14ffd5d16053cf98e5;
+        const JSONBIN_MASTER_KEY = "$2a$10$kO.d9vMG7Nkt6CvP.XNZsen04IZ4XKmvOXu51ax6awGzHMZTt4t2q";
+        const JSONBIN_BIN_ID = "6aff6b14ffd5d16053cf98e5";
 
         window.myCollection = [];
         window.shopInventory = []; 
         let primaryPhotoDataUrl = null, bottomPhotoDataUrl = null;
 
         window.onload = function() {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
             }
             loadData(); // Will attempt cloud first, then fallback to local
         };
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
 
         // --- CLOUD SYNC ENGINE ---
         async function loadData() {
@@ -348,29 +369,109 @@
             reader.readAsDataURL(file);
         }
 
+        // --- THE COLEMAN BRAIN ---
+        const colemanBrain = {
+            "200a": { fuel: "White Gas", gen: "T66 / 200A5891", mantle: "1x #21", notes: "Single Mantle Classic. 1.35 pints." },
+            "220f": { fuel: "White Gas", gen: "T33 / 220E5891", mantle: "2x #21", notes: "Double Mantle. 2 pints." },
+            "220": { fuel: "White Gas", gen: "T33", mantle: "2x #21", notes: "Double Mantle Family." },
+            "228": { fuel: "White Gas", gen: "T33", mantle: "2x #21", notes: "Big Hat Double Mantle." },
+            "242": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "Single Mantle Junior." },
+            "237": { fuel: "Kerosene", gen: "237-299", mantle: "1x #111 or #11", notes: "Requires Alcohol Preheat. 2 pints." },
+            "201": { fuel: "Kerosene", gen: "201-5891", mantle: "1x #21", notes: "Requires Alcohol Preheat." },
+            "236": { fuel: "White Gas", gen: "236-299", mantle: "1x #111", notes: "Major Single Mantle. 2 pints." },
+            "252a": { fuel: "White Gas (Leaded)", gen: "Mil-Spec", mantle: "1x Quad-Tie", notes: "Mil-Spec Lantern." },
+            "413": { fuel: "White Gas", gen: "413-5621", mantle: "N/A", notes: "2-Burner Powerhouse Stove." },
+            "425": { fuel: "White Gas", gen: "412-5621", mantle: "N/A", notes: "2-Burner Compact Stove." },
+            "502": { fuel: "White Gas", gen: "502-5891", mantle: "N/A", notes: "Sportster Single Burner Stove." },
+            "339": { fuel: "Kerosene", gen: "339", mantle: "1x #111", notes: "Canadian Kerosene model." }
+        };
+
+        function checkColemanBrain() {
+            const input = document.getElementById('gear-model').value.trim().toLowerCase();
+            const brainDiv = document.getElementById('brain-specs');
+            
+            let matchedSpec = null;
+            for (const [key, spec] of Object.entries(colemanBrain)) {
+                if (input.includes(key)) {
+                    matchedSpec = spec;
+                    break;
+                }
+            }
+
+            if (matchedSpec) {
+                document.getElementById('brain-gen').innerText = matchedSpec.gen;
+                document.getElementById('brain-fuel').innerText = matchedSpec.fuel;
+                document.getElementById('brain-mantle').innerText = matchedSpec.mantle;
+                document.getElementById('brain-notes').innerText = matchedSpec.notes;
+                brainDiv.classList.remove('hidden');
+                return matchedSpec;
+            } else {
+                brainDiv.classList.add('hidden');
+                return null;
+            }
+        }
+
         // --- CORE LOGIC ---
         async function saveNewGear() {
             const id = 'gear_' + Date.now();
             let owner = document.getElementById('gear-owner').value.trim() || "COKER GEAR";
+            const specs = checkColemanBrain(); // Grab matched specs right before saving
             
             const gearData = {
                 id: id,
-                model: document.getElementById('gear-model').value,
-                month: document.getElementById('gear-month').value,
-                year: document.getElementById('gear-year').value,
+                model: document.getElementById('gear-model').value.trim(),
+                month: document.getElementById('gear-month').value.trim(),
+                year: document.getElementById('gear-year').value.trim(),
                 owner: owner,
                 priority: document.getElementById('gear-priority').checked,
-                notes: document.getElementById('gear-notes').value,
+                notes: document.getElementById('gear-notes').value.trim(),
                 opStatus: document.getElementById('gear-op-status').value,
                 photo: primaryPhotoDataUrl,
                 bottomPhoto: bottomPhotoDataUrl,
+                specs: specs // Save specs directly to the database
             };
 
             window.myCollection.unshift(gearData);
+            
+            // Clear Form
+            document.getElementById('gear-model').value = '';
+            document.getElementById('gear-month').value = '';
+            document.getElementById('gear-year').value = '';
+            document.getElementById('gear-notes').value = '';
+            document.getElementById('gear-owner').value = 'COKER GEAR';
+            document.getElementById('gear-priority').checked = false;
+            document.getElementById('gear-op-status').value = 'Intake / In Queue';
+            
+            document.getElementById('gear-photo-preview').classList.add('hidden');
+            document.getElementById('gear-photo-preview').src = '';
+            document.getElementById('gear-photo-placeholder').classList.remove('hidden');
+            
+            document.getElementById('gear-photo-preview-bottom').classList.add('hidden');
+            document.getElementById('gear-photo-preview-bottom').src = '';
+            document.getElementById('gear-photo-placeholder-bottom').classList.remove('hidden');
+            
+            document.getElementById('gear-photo-upload').value = '';
+            document.getElementById('gear-photo-upload-bottom').value = '';
+            
+            document.getElementById('brain-specs').classList.add('hidden');
+            primaryPhotoDataUrl = null;
+            bottomPhotoDataUrl = null;
+
             renderCollection();
             closeAddGearModal();
             showToast("Gear Logged!");
             await syncToCloud(); // Save to Cloud
+        }
+
+        async function duplicateGear(id) {
+            const itemToCopy = window.myCollection.find(i => i.id === id);
+            if(itemToCopy) {
+                const newItem = { ...itemToCopy, id: 'gear_' + Date.now() };
+                window.myCollection.unshift(newItem);
+                renderCollection();
+                showToast("Item Duplicated! Edit to update details.");
+                await syncToCloud();
+            }
         }
 
         async function deleteGear(id) {
@@ -385,12 +486,33 @@
         function renderCollection() {
             const container = document.getElementById('collection-container');
             container.innerHTML = '';
-            document.getElementById('item-count').innerText = window.myCollection.length;
             
-            window.myCollection.forEach(item => {
+            const searchTerm = (document.getElementById('inventory-search').value || '').toLowerCase();
+            const filteredCollection = window.myCollection.filter(item => {
+                return (item.model || '').toLowerCase().includes(searchTerm) ||
+                       (item.owner || '').toLowerCase().includes(searchTerm) ||
+                       (item.opStatus || '').toLowerCase().includes(searchTerm) ||
+                       (item.notes || '').toLowerCase().includes(searchTerm);
+            });
+
+            document.getElementById('item-count').innerText = filteredCollection.length;
+            
+            filteredCollection.forEach(item => {
                 const ownerBadge = item.owner === 'COKER GEAR' ? 'bg-wood-800 text-white' : 'bg-amber-500 text-black';
-                const prio = item.priority ? `<div class="absolute -top-2 -left-2 bg-red-600 text-white text-[10px] px-2 py-1 rounded-full animate-pulse z-10 font-bold">RUSH JOB</div>` : '';
+                const prio = item.priority ? `<div class="absolute -top-2 -left-2 bg-red-600 text-white text-[10px] px-2 py-1 rounded-full animate-pulse z-10 font-bold border-2 border-white shadow-lg">RUSH JOB</div>` : '';
                 
+                let ageString = 'Unknown Age';
+                if(item.month && item.year) {
+                    let fullYear = parseInt(item.year);
+                    if (fullYear < 100) {
+                        fullYear += (fullYear < 50) ? 2000 : 1900; // Handle 2-digit years
+                    }
+                    const age = new Date().getFullYear() - fullYear;
+                    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                    const mName = monthNames[parseInt(item.month)-1] || item.month;
+                    ageString = `${mName} ${fullYear} (${age} yrs)`;
+                }
+
                 let imgHTML = '';
                 if(item.photo) {
                     imgHTML = `<div class="w-full h-40 bg-black rounded relative mb-3 overflow-hidden border border-wood-700">
@@ -404,15 +526,25 @@
                         ${prio}
                         <div class="flex justify-between items-start mb-2">
                             <h3 class="text-xl font-slab font-black text-wood-900">${item.model || 'Unknown'}</h3>
-                            <button onclick="deleteGear('${item.id}')" class="text-red-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                            <div class="flex gap-2">
+                                <button onclick="duplicateGear('${item.id}')" class="text-wood-600 hover:text-blue-600 transition-colors" title="Duplicate"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
+                                <button onclick="deleteGear('${item.id}')" class="text-wood-600 hover:text-red-600 transition-colors" title="Delete"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                            </div>
                         </div>
                         ${imgHTML}
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold ${ownerBadge} px-2 py-1 rounded">${item.owner}</span>
-                            <span class="text-xs font-black">${item.month}/${item.year}</span>
+                            <span class="text-xs font-bold ${ownerBadge} px-2 py-1 rounded shadow-sm">${item.owner}</span>
+                            <span class="text-xs font-black text-wood-800 dark:text-wood-200">${ageString}</span>
                         </div>
-                        <p class="text-xs font-bold text-blue-800 mb-2">${item.opStatus}</p>
-                        ${item.notes ? `<p class="text-sm italic border-l-2 border-wood-400 pl-2">"${item.notes}"</p>` : ''}
+                        <p class="text-xs font-bold text-blue-800 mb-2 uppercase tracking-wide">${item.opStatus}</p>
+                        ${item.specs ? `
+                            <div class="bg-wood-800 text-wood-300 text-[10px] p-2 rounded mb-2 uppercase tracking-wide border border-wood-600 shadow-inner flex flex-wrap gap-2">
+                                <div><span class="text-wood-500">GEN:</span> <span class="text-white font-bold">${item.specs.gen}</span></div>
+                                <div><span class="text-wood-500">FUEL:</span> <span class="text-white font-bold">${item.specs.fuel}</span></div>
+                                <div><span class="text-wood-500">MANTLE:</span> <span class="text-white font-bold">${item.specs.mantle}</span></div>
+                            </div>
+                        ` : ''}
+                        ${item.notes ? `<p class="text-sm italic border-l-2 border-wood-400 pl-2 text-wood-800 dark:text-wood-300">"${item.notes}"</p>` : ''}
                     </div>`;
             });
         }
@@ -456,6 +588,20 @@
         }
 
         // --- UI UTILS ---
+        function exportCSV() {
+            let csv = "Model,Month,Year,Owner,Priority,Status,Notes\n";
+            window.myCollection.forEach(item => {
+                csv += `"${item.model||''}","${item.month||''}","${item.year||''}","${item.owner||''}","${item.priority?'Yes':'No'}","${item.opStatus||''}","${(item.notes||'').replace(/"/g, '""')}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'Coker_Shop_Inventory.csv');
+            a.click();
+            showToast("CSV Downloaded!");
+        }
+
         function showToast(msg) {
             const t = document.createElement('div');
             t.className = 'bg-wood-900 text-wood-100 px-6 py-3 rounded-xl border-2 border-wood-600 font-black text-sm toast-enter';
