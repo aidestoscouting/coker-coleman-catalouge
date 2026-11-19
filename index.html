@@ -49,6 +49,7 @@
         .condition-btn.selected { background-color: #DA291C !important; color: white !important; border-color: #991b1b !important; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
         .toast-enter { animation: slideUpFade 0.4s ease-out forwards; }
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(100%) translateX(-50%); } to { opacity: 1; transform: translateY(0) translateX(-50%); } }
+        .repair-tag { transition: all 0.2s ease; cursor: pointer; }
         .bg-wood-100, .bg-white, .dark\:bg-wood-800 { background-color: #3E2723 !important; } 
         .bg-wood-200, .dark\:bg-wood-900, .bg-wood-50 { background-color: #2D1C15 !important; } 
         .bg-forest-800 { background-color: #1a100c !important; } 
@@ -211,8 +212,21 @@
                             </label>
                         </div>
                         <div class="sm:col-span-2">
-                            <label class="block text-xs font-black uppercase tracking-wider mb-1">Work Log</label>
+                            <label class="block text-xs font-black uppercase tracking-wider mb-1">Work Log / Customer Notes</label>
                             <textarea id="gear-notes" rows="2" class="w-full p-3 rounded-lg border-2 border-wood-400 font-bold text-sm resize-none"></textarea>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-black uppercase tracking-wider mb-2">Diagnostic / Repair Needs</label>
+                            <div id="repair-tags-container" class="flex flex-wrap gap-2">
+                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Pump Leather</button>
+                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Check Valve</button>
+                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Generator</button>
+                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Cap Gasket</button>
+                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Valve Packing</button>
+                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Fount Rust / Flush</button>
+                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Missing Globe</button>
+                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Schrader Valve</button>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -244,6 +258,15 @@
         window.myCollection = [];
         window.shopInventory = []; 
         let primaryPhotoDataUrl = null, bottomPhotoDataUrl = null;
+
+        function toggleRepairTag(el) {
+            el.classList.toggle('selected-tag');
+            el.classList.toggle('bg-red-900');
+            el.classList.toggle('text-white');
+            el.classList.toggle('border-red-900');
+            el.classList.toggle('text-wood-600');
+            el.classList.toggle('border-wood-400');
+        }
 
         window.onload = function() {
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -325,6 +348,18 @@
             if (savedGear) window.myCollection = JSON.parse(savedGear);
             const savedInv = localStorage.getItem('cokerPartsInventory');
             if (savedInv) window.shopInventory = JSON.parse(savedInv);
+            
+            // Auto-seed base inventory if completely empty
+            if (window.shopInventory.length === 0) {
+                window.shopInventory = [
+                    { id: 'inv_1', name: '#21 Mantles (Tie)', qty: 0 },
+                    { id: 'inv_2', name: 'Pump Leathers', qty: 0 },
+                    { id: 'inv_3', name: '3-Piece Cap Gaskets', qty: 0 },
+                    { id: 'inv_4', name: 'Check Valves (w/ stems)', qty: 0 },
+                    { id: 'inv_5', name: 'T66 Generators (200A/242)', qty: 0 },
+                    { id: 'inv_6', name: 'T33 Generators (220/228)', qty: 0 }
+                ];
+            }
         }
 
         // --- IMAGE COMPRESSOR (Prevents Cloud Bloat) ---
@@ -371,19 +406,36 @@
 
         // --- THE COLEMAN BRAIN ---
         const colemanBrain = {
-            "200a": { fuel: "White Gas", gen: "T66 / 200A5891", mantle: "1x #21", notes: "Single Mantle Classic. 1.35 pints." },
-            "220f": { fuel: "White Gas", gen: "T33 / 220E5891", mantle: "2x #21", notes: "Double Mantle. 2 pints." },
-            "220": { fuel: "White Gas", gen: "T33", mantle: "2x #21", notes: "Double Mantle Family." },
-            "228": { fuel: "White Gas", gen: "T33", mantle: "2x #21", notes: "Big Hat Double Mantle." },
-            "242": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "Single Mantle Junior." },
-            "237": { fuel: "Kerosene", gen: "237-299", mantle: "1x #111 or #11", notes: "Requires Alcohol Preheat. 2 pints." },
-            "201": { fuel: "Kerosene", gen: "201-5891", mantle: "1x #21", notes: "Requires Alcohol Preheat." },
-            "236": { fuel: "White Gas", gen: "236-299", mantle: "1x #111", notes: "Major Single Mantle. 2 pints." },
-            "252a": { fuel: "White Gas (Leaded)", gen: "Mil-Spec", mantle: "1x Quad-Tie", notes: "Mil-Spec Lantern." },
-            "413": { fuel: "White Gas", gen: "413-5621", mantle: "N/A", notes: "2-Burner Powerhouse Stove." },
-            "425": { fuel: "White Gas", gen: "412-5621", mantle: "N/A", notes: "2-Burner Compact Stove." },
-            "502": { fuel: "White Gas", gen: "502-5891", mantle: "N/A", notes: "Sportster Single Burner Stove." },
-            "339": { fuel: "Kerosene", gen: "339", mantle: "1x #111", notes: "Canadian Kerosene model." }
+            // LANTERNS
+            "200a": { fuel: "White Gas", gen: "T66 / 200A5891", mantle: "1x #21", notes: "The Classic Single Mantle. 1.35 pints." },
+            "200b": { fuel: "White Gas", gen: "288-5891", mantle: "1x #21", notes: "Modern Classic. Uses schrader valve in valve body." },
+            "201": { fuel: "Kerosene", gen: "201-5891", mantle: "1x #21", notes: "Kerosene 200A size. Alcohol preheat required." },
+            "202": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "The Professional. Stainless steel frame/fount." },
+            "220": { fuel: "White Gas", gen: "T33 / 220E5891", mantle: "2x #21", notes: "Standard Double Mantle (B through K models)." },
+            "228": { fuel: "White Gas", gen: "T33 / 220E5891", mantle: "2x #21", notes: "Big Hat Double Mantle." },
+            "236": { fuel: "White Gas", gen: "236-299", mantle: "1x #111", notes: "Major. Blindingly bright. 2 pints." },
+            "237": { fuel: "Kerosene", gen: "237-299", mantle: "1x #111", notes: "Empire. Heavy duty kerosene. Alcohol preheat." },
+            "242a": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "Pre-war junior single mantle." },
+            "242b": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "Junior single mantle." },
+            "242c": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "Junior single mantle. Often has painted fount." },
+            "252a": { fuel: "Leaded/White", gen: "Mil-Spec (Aluminum)", mantle: "Quad-Tie", notes: "Military lantern. Roars loudly. Spares in pump tube." },
+            "275": { fuel: "White Gas", gen: "275-299 (Schrader)", mantle: "2x #21", notes: "The Turd. Brown fount. Schrader valve prone to leak." },
+            "285": { fuel: "Dual Fuel", gen: "285-5891", mantle: "2x #21", notes: "Modern dual fuel double mantle." },
+            "288": { fuel: "White Gas", gen: "288-5891", mantle: "2x #21", notes: "Adjustable two mantle." },
+            "290": { fuel: "White Gas", gen: "290-5891", mantle: "2x #21", notes: "Powerhouse large double mantle." },
+            "295": { fuel: "Dual Fuel", gen: "295-5891", mantle: "2x #21", notes: "Powerhouse dual fuel." },
+            "319": { fuel: "Gasoline", gen: "Q77", mantle: "2x", notes: "Extremely rare early 1930s." },
+            "339": { fuel: "Kerosene", gen: "339-2992", mantle: "1x #111", notes: "Canadian kerosene model." },
+            "639": { fuel: "Kerosene", gen: "639-2992", mantle: "1x #111", notes: "Modern large kerosene." },
+            // STOVES
+            "413": { fuel: "White Gas", gen: "413-5621", mantle: "N/A", notes: "Powerhouse 2-Burner Stove." },
+            "425": { fuel: "White Gas", gen: "412-5621", mantle: "N/A", notes: "Standard 2-Burner Compact Stove." },
+            "426": { fuel: "White Gas", gen: "426-5621", mantle: "N/A", notes: "Large 3-Burner Stove." },
+            "500": { fuel: "White Gas", gen: "500-299", mantle: "N/A", notes: "Speedmaster large single burner." },
+            "502": { fuel: "White Gas", gen: "502-5891", mantle: "N/A", notes: "Sportster single burner. Extremely reliable." },
+            "530": { fuel: "White Gas", gen: "530-299", mantle: "N/A", notes: "GI Pocket Stove. WWII era." },
+            "400a": { fuel: "White Gas", gen: "400-5891", mantle: "N/A", notes: "Black Peak 1 backpacking stove." },
+            "400": { fuel: "White Gas", gen: "400-5891", mantle: "N/A", notes: "Brown Peak 1 backpacking stove." }
         };
 
         function checkColemanBrain() {
@@ -415,7 +467,10 @@
         async function saveNewGear() {
             const id = 'gear_' + Date.now();
             let owner = document.getElementById('gear-owner').value.trim() || "COKER GEAR";
-            const specs = checkColemanBrain(); // Grab matched specs right before saving
+            const specs = checkColemanBrain(); 
+            
+            // Gather selected repair tags
+            const selectedTags = Array.from(document.querySelectorAll('.repair-tag.selected-tag')).map(btn => btn.innerText);
             
             const gearData = {
                 id: id,
@@ -426,9 +481,10 @@
                 priority: document.getElementById('gear-priority').checked,
                 notes: document.getElementById('gear-notes').value.trim(),
                 opStatus: document.getElementById('gear-op-status').value,
+                repairTags: selectedTags, // Save tags
                 photo: primaryPhotoDataUrl,
                 bottomPhoto: bottomPhotoDataUrl,
-                specs: specs // Save specs directly to the database
+                specs: specs
             };
 
             window.myCollection.unshift(gearData);
@@ -452,6 +508,9 @@
             
             document.getElementById('gear-photo-upload').value = '';
             document.getElementById('gear-photo-upload-bottom').value = '';
+            
+            // Reset Repair Tags visually
+            document.querySelectorAll('.repair-tag.selected-tag').forEach(el => toggleRepairTag(el));
             
             document.getElementById('brain-specs').classList.add('hidden');
             primaryPhotoDataUrl = null;
@@ -489,10 +548,12 @@
             
             const searchTerm = (document.getElementById('inventory-search').value || '').toLowerCase();
             const filteredCollection = window.myCollection.filter(item => {
+                const tagString = (item.repairTags || []).join(' ').toLowerCase();
                 return (item.model || '').toLowerCase().includes(searchTerm) ||
                        (item.owner || '').toLowerCase().includes(searchTerm) ||
                        (item.opStatus || '').toLowerCase().includes(searchTerm) ||
-                       (item.notes || '').toLowerCase().includes(searchTerm);
+                       (item.notes || '').toLowerCase().includes(searchTerm) ||
+                       tagString.includes(searchTerm);
             });
 
             document.getElementById('item-count').innerText = filteredCollection.length;
@@ -504,13 +565,13 @@
                 let ageString = 'Unknown Age';
                 if(item.month && item.year) {
                     let fullYear = parseInt(item.year);
-                    if (fullYear < 100) {
-                        fullYear += (fullYear < 50) ? 2000 : 1900; // Handle 2-digit years
+                    if (!isNaN(fullYear)) {
+                        if (fullYear < 100) fullYear += (fullYear < 50) ? 2000 : 1900; 
+                        const age = new Date().getFullYear() - fullYear;
+                        const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                        const mName = monthNames[parseInt(item.month)-1] || item.month;
+                        ageString = `${mName} ${fullYear} (${age} yrs)`;
                     }
-                    const age = new Date().getFullYear() - fullYear;
-                    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-                    const mName = monthNames[parseInt(item.month)-1] || item.month;
-                    ageString = `${mName} ${fullYear} (${age} yrs)`;
                 }
 
                 let imgHTML = '';
@@ -519,6 +580,15 @@
                                    <img src="${item.photo}" class="w-full h-full object-contain">
                                    ${item.bottomPhoto ? `<img src="${item.bottomPhoto}" class="absolute bottom-1 right-1 w-12 h-12 border-2 border-white rounded shadow-lg object-contain bg-black">` : ''}
                                </div>`;
+                }
+                
+                let tagsHTML = '';
+                if (item.repairTags && item.repairTags.length > 0) {
+                    tagsHTML = '<div class="flex flex-wrap gap-1 mt-3 mb-1 border-t border-wood-600/50 pt-2">';
+                    item.repairTags.forEach(tag => {
+                        tagsHTML += `<span class="text-[9px] bg-red-900 text-red-100 px-1.5 py-0.5 rounded shadow-inner uppercase tracking-widest font-black flex items-center gap-1"><svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>${tag}</span>`;
+                    });
+                    tagsHTML += '</div>';
                 }
 
                 container.innerHTML += `
@@ -544,7 +614,8 @@
                                 <div><span class="text-wood-500">MANTLE:</span> <span class="text-white font-bold">${item.specs.mantle}</span></div>
                             </div>
                         ` : ''}
-                        ${item.notes ? `<p class="text-sm italic border-l-2 border-wood-400 pl-2 text-wood-800 dark:text-wood-300">"${item.notes}"</p>` : ''}
+                        ${tagsHTML}
+                        ${item.notes ? `<p class="text-sm italic border-l-2 border-wood-400 pl-2 mt-2 text-wood-800 dark:text-wood-300">"${item.notes}"</p>` : ''}
                     </div>`;
             });
         }
@@ -589,9 +660,10 @@
 
         // --- UI UTILS ---
         function exportCSV() {
-            let csv = "Model,Month,Year,Owner,Priority,Status,Notes\n";
+            let csv = "Model,Month,Year,Owner,Priority,Status,Repairs_Needed,Notes\n";
             window.myCollection.forEach(item => {
-                csv += `"${item.model||''}","${item.month||''}","${item.year||''}","${item.owner||''}","${item.priority?'Yes':'No'}","${item.opStatus||''}","${(item.notes||'').replace(/"/g, '""')}"\n`;
+                const tagsStr = item.repairTags ? item.repairTags.join('; ') : '';
+                csv += `"${item.model||''}","${item.month||''}","${item.year||''}","${item.owner||''}","${item.priority?'Yes':'No'}","${item.opStatus||''}","${tagsStr}","${(item.notes||'').replace(/"/g, '""')}"\n`;
             });
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
