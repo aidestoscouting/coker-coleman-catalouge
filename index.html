@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coker Family Coleman — Catalogue, Repair Shop & Blueprints</title>
+  <title>Coker Family Coleman Shop — Catalogue, OCP Parts, 3D PartSmart &amp; Case Blueprints</title>
   <style>
     :root {
       --bg-walnut: #1c120b;
       --bg-panel: #291a10;
       --bg-panel-alt: #342114;
+      --bg-card-dark: #150d08;
       --border-wood: #6b462b;
       --border-accent: #c78d4e;
       --text-parchment: #f3e3c6;
@@ -25,6 +26,7 @@
       --bg-walnut: #110b07;
       --bg-panel: #1b110b;
       --bg-panel-alt: #24160e;
+      --bg-card-dark: #100906;
       --border-wood: #52341f;
       --text-parchment: #e8cfa6;
       --text-tan: #c7a97c;
@@ -46,7 +48,7 @@
     }
 
     .app-shell {
-      max-width: 1120px;
+      max-width: 1160px;
       margin: 0 auto;
       padding: 0.9rem;
     }
@@ -132,24 +134,35 @@
       align-items: center;
     }
 
-    button, input, select, textarea {
+    button, input, select, textarea, a.btn {
       font-family: inherit;
     }
 
     .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      text-decoration: none;
       background: var(--bg-panel-alt);
       color: var(--text-parchment);
       border: 1px solid var(--border-wood);
       border-radius: 7px;
-      padding: 0.52rem 0.8rem;
-      font-size: 0.9rem;
+      padding: 0.5rem 0.78rem;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.06s ease, background 0.15s ease;
+      transition: transform 0.06s ease, border-color 0.15s ease, background 0.15s ease;
     }
 
     .btn:hover { border-color: var(--border-accent); }
     .btn:active { transform: translateY(1px); }
+
+    .btn.active {
+      background: linear-gradient(180deg, var(--accent-red-bright), var(--accent-red));
+      border-color: #f09a82;
+      color: #fff6e6;
+    }
 
     .btn-primary {
       background: linear-gradient(180deg, var(--accent-red-bright), var(--accent-red));
@@ -163,6 +176,12 @@
       color: #eef8ef;
     }
 
+    .btn-amber {
+      background: #6e4411;
+      border-color: #d99b43;
+      color: #ffefd2;
+    }
+
     .btn-danger {
       background: #571915;
       border-color: #b5453c;
@@ -170,8 +189,8 @@
     }
 
     .btn-sm {
-      padding: 0.32rem 0.55rem;
-      font-size: 0.8rem;
+      padding: 0.3rem 0.55rem;
+      font-size: 0.79rem;
     }
 
     .coker-tab-bar {
@@ -188,14 +207,26 @@
       border-radius: 8px;
       padding: 0.6rem 0.95rem;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     .coker-tab-btn.active {
       background: linear-gradient(180deg, var(--accent-red-bright), var(--accent-red));
       color: #fff6e6;
       border-color: var(--border-accent);
+    }
+
+    .tab-alert-pill {
+      background: #d62828;
+      color: #fff;
+      font-size: 0.72rem;
+      padding: 0.08rem 0.42rem;
+      border-radius: 999px;
+      border: 1px solid #ffd166;
     }
 
     .coker-tab-panel { display: none; }
@@ -231,8 +262,8 @@
       color: var(--text-parchment);
       border: 1px solid var(--border-wood);
       border-radius: 7px;
-      padding: 0.55rem 0.68rem;
-      font-size: 0.95rem;
+      padding: 0.54rem 0.68rem;
+      font-size: 0.93rem;
     }
 
     .wood-input:focus, .wood-select:focus, .wood-textarea:focus {
@@ -240,9 +271,10 @@
       border-color: var(--border-accent);
     }
 
+    /* Gear Grid */
     .gear-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(305px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
       gap: 0.9rem;
     }
 
@@ -398,9 +430,16 @@
       border: 1px solid #3c6e47;
       color: #bce8c5;
       border-radius: 6px;
-      padding: 0.4rem 0.55rem;
+      padding: 0.42rem 0.58rem;
       font-size: 0.8rem;
-      line-height: 1.35;
+      line-height: 1.38;
+    }
+
+    .brain-warn {
+      color: #ffd180;
+      display: block;
+      margin-top: 0.2rem;
+      font-weight: 700;
     }
 
     .diag-list {
@@ -413,37 +452,71 @@
       background: #471814;
       border: 1px solid #a8382e;
       color: #ffd6d1;
-      font-size: 0.74rem;
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 0.14rem 0.45rem;
+      border-radius: 4px;
+    }
+
+    .low-pill {
+      background: #5c3b0e;
+      border: 1px solid #d49535;
+      color: #ffe7bd;
+      font-size: 0.73rem;
+      font-weight: 700;
       padding: 0.14rem 0.45rem;
       border-radius: 4px;
     }
 
     .gear-actions {
       display: flex;
-      justify-content: flex-end;
-      gap: 0.4rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.35rem;
       margin-top: auto;
-      padding-top: 0.5rem;
+      padding-top: 0.55rem;
       border-top: 1px solid rgba(107, 70, 43, 0.45);
     }
 
-    /* Parts Inventory */
+    /* Parts Inventory & OCP Lookup */
+    .ocp-launcher-bar {
+      background: var(--bg-card-dark);
+      border: 1px solid var(--border-wood);
+      border-left: 4px solid var(--border-accent);
+      border-radius: 8px;
+      padding: 0.7rem 0.85rem;
+      margin-bottom: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+
+    .cat-pills-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.65rem 0 0.85rem;
+    }
+
     .parts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 0.75rem;
+      grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+      gap: 0.8rem;
       margin-top: 0.75rem;
     }
 
     .part-card {
       background: var(--bg-panel-alt);
-      border: 1px solid var(--border-wood);
-      border-radius: 8px;
-      padding: 0.75rem;
+      border: 1.5px solid var(--border-wood);
+      border-radius: 9px;
+      padding: 0.8rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 0.55rem;
     }
 
     .part-card.out-of-stock {
@@ -451,17 +524,160 @@
       background: #361411;
     }
 
+    .part-card.low-stock {
+      border-color: #d49535;
+      background: #332210;
+    }
+
+    .code-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.3rem;
+    }
+
+    .sku-badge-ocp {
+      background: #1f3b28;
+      border: 1px solid #579468;
+      color: #d4f7dd;
+      font-family: monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.12rem 0.44rem;
+      border-radius: 4px;
+    }
+
+    .sku-badge-oem {
+      background: #23160d;
+      border: 1px solid #7d5436;
+      color: #ebd3ad;
+      font-family: monospace;
+      font-size: 0.78rem;
+      padding: 0.12rem 0.44rem;
+      border-radius: 4px;
+    }
+
+    .sku-badge-cat {
+      background: #2e1f14;
+      color: var(--text-tan);
+      font-size: 0.72rem;
+      padding: 0.12rem 0.42rem;
+      border-radius: 4px;
+    }
+
+    .part-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.45rem;
+      padding-top: 0.45rem;
+      border-top: 1px solid rgba(107, 70, 43, 0.45);
+    }
+
     .qty-stepper {
       display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .qty-num {
+      min-width: 2.1rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    /* 3D PartSmart Visualizer Tab */
+    .ps-model-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+      background: var(--bg-card-dark);
+      border: 1px solid #4d3220;
+      border-radius: 8px;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .ps-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--bg-card-dark);
+      border: 1px solid #4d3220;
+      border-radius: 8px;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .ps-slider-row input[type="range"] {
+      flex: 1;
+      accent-color: #c98d4c;
+      cursor: pointer;
+    }
+
+    #viewerStage {
+      width: 100%;
+      height: 500px;
+      min-height: 360px;
+      border-radius: 9px;
+      border: 1px solid #593922;
+      background: radial-gradient(circle at 50% 35%, #342014 0%, #0d0704 100%);
+      overflow: hidden;
+      touch-action: none;
+      position: relative;
+      user-select: none;
+    }
+
+    #psStatusOverlay {
+      display: none;
+      position: absolute;
+      inset: 1rem;
+      background: rgba(45, 16, 12, 0.94);
+      border: 1px solid #e07a5f;
+      border-radius: 8px;
+      padding: 1rem;
+      color: #ffe5df;
+      font-size: 0.9rem;
+      z-index: 10;
+      white-space: pre-wrap;
+    }
+
+    .ps-inspector-box {
+      margin-top: 0.75rem;
+      background: var(--bg-card-dark);
+      border: 1px solid #593922;
+      border-left: 4px solid var(--border-accent);
+      border-radius: 8px;
+      padding: 0.75rem 0.85rem;
+    }
+
+    .ps-spec-line {
+      margin-top: 0.45rem;
+      font-size: 0.83rem;
+      color: var(--text-tan);
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: 0.45rem;
     }
 
-    .qty-num {
-      min-width: 2rem;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.05rem;
+    .swatch-dot {
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      vertical-align: middle;
+    }
+
+    .ps-pills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.65rem;
     }
 
     /* Cases & Blueprints */
@@ -472,22 +688,23 @@
       margin-bottom: 0.85rem;
     }
 
-    .preset-btn.active {
-      background: linear-gradient(180deg, var(--accent-red-bright), var(--accent-red));
-      border-color: var(--border-accent);
-      color: #fff6e6;
-    }
-
     .form-grid-3 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
       gap: 0.7rem;
       margin-bottom: 0.85rem;
     }
 
+    .form-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+
     .field-label {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       color: var(--text-tan);
       margin-bottom: 0.25rem;
     }
@@ -522,7 +739,7 @@
 
     .case-log-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
       gap: 0.75rem;
     }
 
@@ -533,7 +750,7 @@
       padding: 0.75rem;
     }
 
-    /* Modal */
+    /* Modals */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -549,7 +766,7 @@
 
     .modal-card {
       width: 100%;
-      max-width: 640px;
+      max-width: 650px;
       max-height: 92vh;
       overflow-y: auto;
       background: var(--bg-panel);
@@ -649,6 +866,11 @@
       opacity: 1;
     }
 
+    @media (max-width: 640px) {
+      #viewerStage { height: 390px; }
+      .dual-photo-grid { grid-template-columns: 1fr; }
+    }
+
     @media (min-width: 820px) {
       .fab-add { display: none; }
     }
@@ -664,13 +886,13 @@
         </div>
         <div>
           <h1 class="brand-title">Coker Family Coleman Shop</h1>
-          <p class="brand-sub">Lantern & Stove Catalogue · Repair Bench · Parts & Case Plans</p>
+          <p class="brand-sub">Lantern &amp; Stove Bench &middot; OCP Parts Cross-Ref &middot; 3D PartSmart &middot; Case Plans</p>
           <div id="syncStatusPill" class="sync-pill">☁️ Ready</div>
         </div>
       </div>
 
       <div class="header-actions">
-        <button type="button" class="btn btn-primary" onclick="openGearModal()">+ Add Gear</button>
+        <button type="button" class="btn btn-primary" onclick="openGearModal()">+ Log Gear / Job</button>
         <button type="button" class="btn btn-forest" onclick="exportGearCSV()">⬇ CSV Backup</button>
         <button type="button" class="btn" onclick="pullFromCloud(true)">↻ Sync Now</button>
         <button type="button" class="btn" id="campfireBtn" onclick="toggleCampfireMode()">🔥 Campfire</button>
@@ -678,12 +900,17 @@
     </header>
 
     <nav class="coker-tab-bar" aria-label="Primary Sections">
-      <button type="button" class="coker-tab-btn active" data-tab="gear" onclick="switchTab('gear')">🏮 Gear & Repairs</button>
-      <button type="button" class="coker-tab-btn" data-tab="parts" onclick="switchTab('parts')">🔧 Parts Inventory</button>
-      <button type="button" class="coker-tab-btn" data-tab="cases" onclick="switchTab('cases')">🪵 Cases & Blueprints</button>
+      <button type="button" class="coker-tab-btn active" data-tab="gear" onclick="switchTab('gear')">🏮 Gear &amp; Repairs</button>
+      <button type="button" class="coker-tab-btn" data-tab="parts" onclick="switchTab('parts')">
+        🔧 Parts &amp; OCP Lookup <span id="lowStockTabBadge" class="tab-alert-pill" style="display:none;">0</span>
+      </button>
+      <button type="button" class="coker-tab-btn" data-tab="partsmart" onclick="switchTab('partsmart')">🧊 3D PartSmart</button>
+      <button type="button" class="coker-tab-btn" data-tab="cases" onclick="switchTab('cases')">🪵 Cases &amp; Blueprints</button>
     </nav>
 
-    <!-- TAB 1: GEAR & REPAIRS -->
+    <!-- =================================================================== -->
+    <!-- TAB 1: GEAR & REPAIRS                                               -->
+    <!-- =================================================================== -->
     <section id="tab-gear" class="coker-tab-panel active">
       <div class="wood-card">
         <div class="toolbar-row">
@@ -692,7 +919,7 @@
             <span id="rushCountLabel" style="margin-left:0.6rem; color:#ff9b8f; font-size:0.88rem;"></span>
           </div>
           <div class="search-box">
-            <input type="search" id="searchInput" class="wood-input" placeholder="Search model, owner, job #, tag, or note..." oninput="renderGear()" />
+            <input type="search" id="searchInput" class="wood-input" placeholder="Search model, owner, job #, OCP/OEM gen, tag, or bench note..." oninput="renderGear()" />
             <button type="button" class="btn btn-sm" onclick="clearSearch()">Clear</button>
           </div>
         </div>
@@ -700,51 +927,174 @@
       </div>
     </section>
 
-    <!-- TAB 2: PARTS INVENTORY -->
+    <!-- =================================================================== -->
+    <!-- TAB 2: OCP-UPGRADED PARTS INVENTORY & CROSS-REFERENCE LOOKUP        -->
+    <!-- =================================================================== -->
     <section id="tab-parts" class="coker-tab-panel">
       <div class="wood-card">
-        <h2>🔧 Shop Parts Inventory</h2>
-        <p class="brand-sub">Track on-hand consumables, generators, globes, and rebuild parts across devices.</p>
-        <div class="form-grid-3" style="margin-top:0.75rem;">
+        <div class="toolbar-row" style="margin-bottom:0.55rem;">
           <div>
-            <label class="field-label" for="partNameInput">Part Name & Number</label>
-            <input type="text" id="partNameInput" class="wood-input" placeholder="e.g. 220E5891 Generator or #330 Globe" />
+            <h2 style="margin:0;">🔧 Shop Parts Inventory &amp; OldColemanParts Lookup</h2>
+            <p class="brand-sub">Search by Lantern/Stove Model, Coleman OEM #, or OCP Catalog SKU (<code>C002</code>, <code>P01</code>, <code>R510</code>, <code>S41</code>)</p>
           </div>
-          <div>
-            <label class="field-label" for="partFitInput">Fits Models / Notes</label>
-            <input type="text" id="partFitInput" class="wood-input" placeholder="e.g. 220/228/275 or 200A" />
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <button type="button" class="btn btn-sm" onclick="toggleAddPartDrawer()">+ Custom Part</button>
+            <button type="button" class="btn btn-sm btn-forest" onclick="syncDefaultOcpCatalog()">↻ Restore Missing OCP Baselines</button>
           </div>
-          <div>
-            <label class="field-label" for="partQtyInput">Starting Qty</label>
-            <div style="display:flex; gap:0.45rem;">
-              <input type="number" id="partQtyInput" class="wood-input" min="0" value="1" />
-              <button type="button" class="btn btn-primary" onclick="addCustomPart()">+ Add</button>
+        </div>
+
+        <!-- Direct OldColemanParts Diagram & Model Collection Launcher -->
+        <div class="ocp-launcher-bar">
+          <div style="font-size:0.86rem;">
+            <strong>📐 OldColemanParts Direct Diagram &amp; Parts Launcher:</strong>
+            <span class="brand-sub" style="display:inline; margin-left:0.3rem;">Jump straight to factory diagrams or model parts bins</span>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;">
+            <input type="text" id="ocpModelSlugInput" class="wood-input" style="width:155px; padding:0.38rem 0.55rem; font-size:0.86rem;" value="220f" placeholder="Model (e.g. 220f, 200a)" />
+            <button type="button" class="btn btn-sm btn-amber" onclick="openOcpModelUrl('diagram')">📐 OCP Diagram</button>
+            <button type="button" class="btn btn-sm btn-forest" onclick="openOcpModelUrl('collection')">🛒 OCP Model Parts</button>
+            <a href="https://oldcolemanparts.com/apps/diagram" target="_blank" rel="noopener noreferrer" class="btn btn-sm">All Diagrams ↗</a>
+          </div>
+        </div>
+
+        <!-- Collapsible Add Custom Part Drawer -->
+        <div id="addPartDrawer" class="callout-box" style="display:none;">
+          <strong style="display:block; margin-bottom:0.55rem;">Add Custom / Bench Part to Inventory</strong>
+          <div class="form-grid-4">
+            <div>
+              <label class="field-label" for="partNameInput">Part Name</label>
+              <input type="text" id="partNameInput" class="wood-input" placeholder="e.g. 220 Brass Mixing Chamber" />
+            </div>
+            <div>
+              <label class="field-label" for="partOemInput">Coleman OEM #</label>
+              <input type="text" id="partOemInput" class="wood-input" placeholder="e.g. 220B3261" />
+            </div>
+            <div>
+              <label class="field-label" for="partOcpInput">OCP SKU Code</label>
+              <input type="text" id="partOcpInput" class="wood-input" placeholder="e.g. E1705 or C002" />
+            </div>
+            <div>
+              <label class="field-label" for="partCatSelect">Category</label>
+              <select id="partCatSelect" class="wood-select">
+                <option value="Generators">Generators</option>
+                <option value="Gaskets & Packings">Gaskets &amp; Packings</option>
+                <option value="Pump & Check Valve">Pump &amp; Check Valve</option>
+                <option value="Globes & Mantles">Globes &amp; Mantles</option>
+                <option value="Burner & Valve Hardware">Burner &amp; Valve Hardware</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid-3" style="margin-bottom:0;">
+            <div>
+              <label class="field-label" for="partFitInput">Fits Models / Shop Notes</label>
+              <input type="text" id="partFitInput" class="wood-input" placeholder="e.g. 220C/D/E/F & 228C–F cast brass" />
+            </div>
+            <div>
+              <label class="field-label" for="partQtyInput">On-Hand Qty</label>
+              <input type="number" id="partQtyInput" class="wood-input" min="0" value="2" />
+            </div>
+            <div>
+              <label class="field-label" for="partMinInput">Low-Stock Alert At</label>
+              <div style="display:flex; gap:0.45rem;">
+                <input type="number" id="partMinInput" class="wood-input" min="0" value="1" />
+                <button type="button" class="btn btn-primary" onclick="addCustomPart()">Save</button>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Search + Category & Low-Stock Filter Bar -->
+        <div class="toolbar-row" style="margin-bottom:0.4rem;">
+          <div class="search-box">
+            <input type="search" id="partSearchInput" class="wood-input" placeholder="Filter parts by model (220F, 200A, 275), OEM # (118D6201), OCP SKU (P01, R510), or name..." oninput="renderParts()" />
+            <button type="button" class="btn btn-sm" onclick="clearPartFilters()">Reset</button>
+          </div>
+          <div id="partsSummaryStats" class="brand-sub" style="font-weight:700;"></div>
+        </div>
+
+        <div id="partCategoryBar" class="cat-pills-bar"></div>
         <div id="partsGrid" class="parts-grid"></div>
       </div>
     </section>
 
-    <!-- TAB 3: CASES & BLUEPRINTS -->
+    <!-- =================================================================== -->
+    <!-- TAB 3: AUDITED MULTI-MODEL 3D PARTSMART VISUALIZER                  -->
+    <!-- =================================================================== -->
+    <section id="tab-partsmart" class="coker-tab-panel">
+      <div class="wood-card">
+        <div class="toolbar-row" style="margin-bottom:0.65rem;">
+          <div>
+            <h2 id="visualizerTitle" style="margin:0;">Coleman 288A700 — 3D PartSmart Visualizer</h2>
+            <p class="brand-sub">Universal WebGL &middot; OCP SKU Cross-Referenced &middot; Drag to orbit, wheel/pinch to zoom, tap any part</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
+            <button type="button" data-explode="0" class="btn btn-sm preset-exp active">Assembled (0%)</button>
+            <button type="button" data-explode="0.45" class="btn btn-sm preset-exp">Bench Teardown (45%)</button>
+            <button type="button" data-explode="1" class="btn btn-sm preset-exp">Full Explode (100%)</button>
+            <button type="button" id="flowToggleBtn" class="btn btn-sm active">Fuel/Air Flow: ON</button>
+            <button type="button" id="resetViewBtn" class="btn btn-sm">Reset View</button>
+          </div>
+        </div>
+
+        <div class="ps-model-bar">
+          <label for="psModelSelect" style="font-size:0.86rem; font-weight:700; color:var(--text-tan);">Lantern Model:</label>
+          <select id="psModelSelect" class="wood-select" style="width:auto; flex:1 1 260px; padding:0.38rem 0.55rem; font-weight:700;">
+            <option value="288A" selected>288A700 (Pine Green Adjustable Dual Mantle)</option>
+            <option value="220HJK">220H / 220J / 220K (1970s–80s Stamped Mixing Chamber)</option>
+            <option value="220F">220F (Late 60s Kelly Green + Cast Brass Mixing Chamber)</option>
+            <option value="220DE">220D / 220E (Classic Hunter Green + Cast Brass Burner)</option>
+            <option value="220ABC">220 / 220B / 220C (Polished Nickel Fount + Green Vent)</option>
+            <option value="228">228D/E/F/H/J &quot;Big Hat&quot; (Wide 8.5 in. Reflector Brim)</option>
+            <option value="275">275 / 275A (&quot;The Turd&quot; Brown + Tapered #880 Globe)</option>
+            <option value="200A">200A (Cherry Red Single Mantle + U-Frame &amp; #550 Globe)</option>
+            <option value="242">242B / 242C (Collarless Cast-Brass Neck Single Mantle)</option>
+            <option value="236_237">236 Major / 237 Empire (Nickel Fount + 500 CP #660 Globe)</option>
+          </select>
+          <div id="quickModelChips" style="display:flex; flex-wrap:wrap; gap:0.35rem;"></div>
+        </div>
+
+        <div class="ps-slider-row">
+          <label for="explodeSlider" style="font-weight:700; font-size:0.9rem;">Explosion:</label>
+          <input id="explodeSlider" type="range" min="0" max="1" step="0.01" value="0" />
+          <span id="explodePercent" style="min-width:3rem; text-align:right; font-weight:700;">0%</span>
+        </div>
+
+        <div id="viewerStage">
+          <div id="psStatusOverlay"></div>
+        </div>
+
+        <div class="ps-inspector-box">
+          <div id="partReadout">
+            <strong>Selected Part:</strong> Tap any component in the 3D scene or click a part button below.
+          </div>
+          <div id="psStockAndActions" style="margin-top:0.5rem; display:flex; flex-wrap:wrap; gap:0.45rem; align-items:center;"></div>
+          <div id="modelSpecSummary" class="ps-spec-line"></div>
+          <div id="partButtons" class="ps-pills-wrap"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 4: PLYWOOD CASES & BLUEPRINTS                                   -->
+    <!-- =================================================================== -->
     <section id="tab-cases" class="coker-tab-panel">
       <div class="wood-card">
-        <h2>🪵 Plywood Case Blueprints & Cut List</h2>
-        <p class="brand-sub">Built for 1970s 220H/J/K & 275 dual-mantle lanterns, plus 228 Big Hat & 200A presets.</p>
+        <h2 style="margin-top:0;">🪵 Plywood Case Blueprints &amp; Cut List</h2>
+        <p class="brand-sub">Built for 1970s 220H/J/K &amp; 275 dual-mantle lanterns, plus 228 Big Hat &amp; 200A/242 single-mantle presets.</p>
 
         <div class="preset-group" style="margin-top:0.75rem;">
-          <button type="button" class="btn preset-btn active" data-preset="220_275" onclick="selectCasePreset('220_275')">1970s 220H/J/K & 275 (7.5")</button>
-          <button type="button" class="btn preset-btn" data-preset="228" onclick="selectCasePreset('228')">228 Big Hat Wide (9.5")</button>
-          <button type="button" class="btn preset-btn" data-preset="200A" onclick="selectCasePreset('200A')">200A Single Mantle (6.5")</button>
+          <button type="button" class="btn preset-btn active" data-preset="220_275" onclick="selectCasePreset('220_275')">1970s 220H/J/K &amp; 275 (7.5 in.)</button>
+          <button type="button" class="btn preset-btn" data-preset="228" onclick="selectCasePreset('228')">228 Big Hat Wide (9.5 in.)</button>
+          <button type="button" class="btn preset-btn" data-preset="200A" onclick="selectCasePreset('200A')">200A / 242 Single Mantle (6.5 in.)</button>
         </div>
 
         <div class="form-grid-3">
           <div>
             <label class="field-label" for="casePlySelect">Plywood Thickness</label>
             <select id="casePlySelect" class="wood-select" onchange="updateCaseBlueprint()">
-              <option value="0.375">3/8" (0.375")</option>
-              <option value="0.5" selected>1/2" Baltic Birch (0.50")</option>
-              <option value="0.75">3/4" Heavy (0.75")</option>
+              <option value="0.375">3/8 in. (0.375 in.)</option>
+              <option value="0.5" selected>1/2 in. Baltic Birch (0.50 in.)</option>
+              <option value="0.75">3/4 in. Heavy (0.75 in.)</option>
             </select>
           </div>
           <div>
@@ -774,11 +1124,11 @@
         </div>
 
         <div class="callout-box">
-          <strong>Build Sequence:</strong> (1) Cut felt-lined fount cradle ring and 3/4" ball-nut stabilizer block. (2) Glue/tack walls and top/bottom caps while keeping fasteners out of the top 3"–4" lid-cut band. (3) Slice lid off around the perimeter and sand flush. (4) Fit nut block to snug the ventilator without crushing mantles, then mount hinge, latch, handle, and feet.
+          <strong>Build Sequence:</strong> (1) Cut felt-lined fount cradle ring and 3/4 in. ball-nut stabilizer block. (2) Glue/tack walls and top/bottom caps while keeping fasteners out of the top 3 in.–4 in. lid-cut band. (3) Slice lid off around the perimeter and sand flush. (4) Fit nut block to snug the ventilator without crushing mantles, then mount piano hinge, toggle latch, handle, and rubber feet.
         </div>
 
         <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-          <input type="text" id="caseNotesInput" class="wood-input" style="flex:1 1 240px;" placeholder="Build notes (e.g. 1/4" felt shim on ball-nut block)..." />
+          <input type="text" id="caseNotesInput" class="wood-input" style="flex:1 1 240px;" placeholder="Build notes (e.g. 1/4 in. felt shim on ball-nut block, brass draw latch)..." />
           <select id="caseStatusSelect" class="wood-select" style="width:auto;">
             <option value="Planned">Planned</option>
             <option value="Cut">Cut</option>
@@ -790,13 +1140,15 @@
       </div>
 
       <div class="wood-card">
-        <h3>📦 Saved Case Builds</h3>
+        <h3 style="margin-top:0;">📦 Saved Case Builds (Cloud Synced)</h3>
         <div id="caseLogGrid" class="case-log-grid" style="margin-top:0.65rem;"></div>
       </div>
     </section>
   </div>
 
-  <!-- ADD / EDIT GEAR MODAL -->
+  <!-- =================================================================== -->
+  <!-- ADD / EDIT GEAR MODAL                                               -->
+  <!-- =================================================================== -->
   <div id="gearModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="gearModalTitle">
     <div class="modal-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.65rem;">
@@ -808,7 +1160,7 @@
         <div class="form-grid-3">
           <div>
             <label class="field-label" for="modelInput">Model # (Coleman Brain)</label>
-            <input type="text" id="modelInput" class="wood-input" required placeholder="e.g. 220H, 200A, 237, 413G" oninput="handleModelBrainLookup()" />
+            <input type="text" id="modelInput" class="wood-input" required placeholder="e.g. 220F, 288A, 200A, 275A, 413G" oninput="handleModelBrainLookup()" />
           </div>
           <div>
             <label class="field-label" for="monthInput">Date Month (MM)</label>
@@ -834,7 +1186,7 @@
               <option value="On the Bench">On the Bench</option>
               <option value="Waiting on Parts">Waiting on Parts</option>
               <option value="Completed / Ready">Completed / Ready</option>
-              <option value="Operational & Tested">Operational & Tested</option>
+              <option value="Operational & Tested">Operational &amp; Tested</option>
               <option value="Not Working - Tested">Not Working - Tested</option>
               <option value="Untested">Untested</option>
             </select>
@@ -863,13 +1215,13 @@
         </div>
 
         <div style="margin-bottom:0.75rem;">
-          <label class="field-label" for="notesInput">Diagnostic & Bench Notes</label>
-          <textarea id="notesInput" class="wood-textarea" rows="2" placeholder="Pressure test notes, generator swap, globe condition..."></textarea>
+          <label class="field-label" for="notesInput">Diagnostic &amp; Bench Notes</label>
+          <textarea id="notesInput" class="wood-textarea" rows="2" placeholder="Pressure test notes, OCP SKU needed, generator swap, globe condition..."></textarea>
         </div>
 
         <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
           <button type="button" class="btn" onclick="closeGearModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Gear</button>
+          <button type="submit" class="btn btn-primary" id="saveGearSubmitBtn">Save Gear</button>
         </div>
       </form>
     </div>
@@ -887,7 +1239,7 @@
     </div>
   </div>
 
-  <!-- LIGHTBOX MODAL -->
+  <!-- PHOTO LIGHTBOX MODAL -->
   <div id="photoLightbox" class="modal-backdrop" onclick="this.classList.remove('open')">
     <div class="modal-card" style="max-width:720px; text-align:center;" onclick="event.stopPropagation()">
       <img id="lightboxImg" src="" alt="Full view" style="max-width:100%; max-height:75vh; border-radius:8px;" />
@@ -900,38 +1252,72 @@
   <button type="button" class="fab-add" aria-label="Add Gear" onclick="openGearModal()">+</button>
   <div id="toastBanner" class="toast-banner"></div>
 
+  <!-- Universal UMD Three.js with automatic CDN fallback (zero importmap issues) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    (function ensureThreeLoaded() {
+      if (typeof window.THREE !== "undefined") return;
+      var s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js";
+      s.onload = function () {
+        if (typeof window.initPartSmart3D === "function") window.initPartSmart3D();
+      };
+      s.onerror = function () {
+        var box = document.getElementById("psStatusOverlay");
+        if (box) {
+          box.style.display = "block";
+          box.textContent = "Could not load Three.js from CDN. Check internet connection.";
+        }
+      };
+      document.head.appendChild(s);
+    })();
+  </script>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN SHOP APP, OCP INVENTORY & COLEMAN BRAIN ENGINE                   -->
+  <!-- ===================================================================== -->
   <script>
     const JSONBIN_BIN_ID = "6aff6b14ffd5d16053cf98e5";
     const JSONBIN_MASTER_KEY = "$2a$10$kO.d9vMG7Nkt6CvP.XNZsen04IZ4XKmvOXu51ax6awGzHMZTt4t2q";
     const LOCAL_STORAGE_KEY = "coker_coleman_shop_v1";
 
+    // Coleman Brain cross-referenced with OldColemanParts SKUs, OEM numbers, 3D model keys, and bench warnings
     const COLEMAN_BRAIN = {
-      "200A": { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (200A Gen)", globe: "#550 / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt" },
-      "200": { fuel: "Coleman Fuel / White Gas", gen: "200A5891 / 200 Gen", globe: "#550 / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt" },
-      "201": { fuel: "Kerosene", gen: "201 Kerosene Gen", globe: "#550 / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt" },
-      "202": { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (Stainless fount)", globe: "#550 / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt" },
-      "220": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (220/228 Gen)", globe: "#330 / 690-048 / R690B048C", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "220F": { fuel: "Coleman Fuel / White Gas", gen: "220E5891", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "220H": { fuel: "Coleman Fuel / White Gas", gen: "220E5891", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "220J": { fuel: "Coleman Fuel / White Gas", gen: "220E5891", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "220K": { fuel: "Coleman Fuel / White Gas", gen: "220E5891", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "228": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (Big Hat)", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "228H": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (Big Hat)", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "228J": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (Big Hat)", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "236": { fuel: "Coleman Fuel / White Gas", gen: "236 High-Output Gen", globe: "#660", mantle: "1x Large (#99 / 24A style)", cap: "~2 pt" },
-      "237": { fuel: "Kerosene (Preheat Cup)", gen: "237 Kerosene Gen", globe: "#660", mantle: "1x Large (#99 / 24A style)", cap: "~2 pt" },
-      "242": { fuel: "Coleman Fuel / White Gas", gen: "242 / 200A5891 family", globe: "#550 / #440 Mica", mantle: "1x #21 (21A104)", cap: "~1.33 pt" },
-      "242B": { fuel: "Coleman Fuel / White Gas", gen: "242 / 200A5891 family", globe: "#550 / #440 Mica", mantle: "1x #21 (21A104)", cap: "~1.33 pt" },
-      "242C": { fuel: "Coleman Fuel / White Gas", gen: "242 / 200A5891 family", globe: "#550 / #440 Mica", mantle: "1x #21 (21A104)", cap: "~1.33 pt" },
-      "252A": { fuel: "Unleaded / Mil-Spec / CF", gen: "252A Mil-Spec Gen", globe: "#330 / 252 Mil-Spec", mantle: "1x Mil-Spec / #21", cap: "~1.3 pt" },
-      "275": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 + Schrader Valve", globe: "#880 / 275A0481A Amber", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "275A": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 + Schrader Valve", globe: "#880 / 275A0481A Amber", mantle: "2x #21 (21A104)", cap: "~2 pt" },
-      "413": { fuel: "Coleman Fuel / White Gas", gen: "413A5621 / 3000005106 (2-Burner)", globe: "N/A (Stove)", mantle: "2 Burners", cap: "~3.5 pt" },
-      "413G": { fuel: "Coleman Fuel / White Gas", gen: "413A5621 / 413B6601 Valve", globe: "N/A (Stove)", mantle: "2 Burners", cap: "~3.5 pt" },
-      "425": { fuel: "Coleman Fuel / White Gas", gen: "412-5621 / 3000005108 (2-Burner)", globe: "N/A (Stove)", mantle: "2 Burners", cap: "~2.5 pt" },
-      "426": { fuel: "Coleman Fuel / White Gas", gen: "426-5621 / 413B6601 (3-Burner)", globe: "N/A (Stove)", mantle: "3 Burners", cap: "~4.25 pt" },
-      "500": { fuel: "Coleman Fuel / White Gas", gen: "500 Speedmaster Gen", globe: "N/A (Stove)", mantle: "1 Burner", cap: "~1.25 pt" },
-      "502": { fuel: "Coleman Fuel / White Gas", gen: "502-5891 Sportster Gen", globe: "N/A (Stove)", mantle: "1 Burner", cap: "~1.25 pt" }
+      "200A": { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (OCP C003)", globe: "#550 Bulge / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt", psKey: "200A", ocpSlug: "200a", warn: "Uses U-frame (R353), C009 burner cap + S29 screen." },
+      "200":  { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (OCP C003)", globe: "#550 Bulge / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt", psKey: "200A", ocpSlug: "200", warn: "Uses C009 brass burner cap & S41 3-piece cap gasket." },
+      "201":  { fuel: "Kerosene (Preheat Cup)", gen: "201-5891 Kerosene Gen", globe: "#550 Bulge / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt", psKey: "200A", ocpSlug: "201", warn: "Requires denatured alcohol preheat before opening valve." },
+      "202":  { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (OCP C003)", globe: "#550 Bulge / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt", psKey: "200A", ocpSlug: "202", warn: "Professional model: nickel-plated brass fount & stainless frame." },
+      "220B": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220ABC", ocpSlug: "220b", warn: "Nickel brass fount, cast brass mixing chamber & winged/3-pc cap (S41)." },
+      "220BX":{ fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220DE", ocpSlug: "220c", warn: "WWII wartime steel burner assembly (220B3991BX)." },
+      "220C": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220ABC", ocpSlug: "220c", warn: "Uses Old Style Cast Brass mixing chamber (220B3261 / OCP E1705)." },
+      "220D": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220DE", ocpSlug: "220d", warn: "Uses Old Style Cast Brass mixing chamber (OCP E1705) & S41 3-pc gasket." },
+      "220E": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220DE", ocpSlug: "220e", warn: "Uses Old Style Cast Brass mixing chamber (OCP E1705) & S41 3-pc gasket." },
+      "220F": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220F", ocpSlug: "220f", warn: "Last 220 with Cast Brass mixing chamber (220B3261 / OCP E1705)." },
+      "220H": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220HJK", ocpSlug: "220h", warn: "Uses Stamped Sheet-Metal mixing chamber (220-5261 / OCP E1381) & S42 gasket." },
+      "220J": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220HJK", ocpSlug: "220j", warn: "Uses Stamped mixing chamber (OCP E1381) & 1-piece fuel cap (S42)." },
+      "220K": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220HJK", ocpSlug: "220k", warn: "Uses Stamped mixing chamber (OCP E1381) & 1-piece fuel cap (S42)." },
+      "220":  { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "220HJK", ocpSlug: "220f", warn: "220C–F = Cast Brass burner; 220H–K = Stamped burner." },
+      "228F": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "228", ocpSlug: "228f", warn: "Big Hat 8.5 in. vent (needs 9.5 in. wide case); Cast Brass mixing chamber." },
+      "228H": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "228", ocpSlug: "228h", warn: "Big Hat 8.5 in. vent (needs 9.5 in. wide case); Stamped mixing chamber." },
+      "228J": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "228", ocpSlug: "228j", warn: "Big Hat 8.5 in. vent (needs 9.5 in. wide case); Stamped mixing chamber." },
+      "228":  { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#330 Straight (OCP G04)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "228", ocpSlug: "228h", warn: "Wide Big Hat ventilator requires +2 in. case width (9.5 in. interior)." },
+      "236":  { fuel: "Coleman Fuel / White Gas", gen: "236-2991 500 CP Gen", globe: "#660 Bulge Globe", mantle: "1x #1111 / #99 Large", cap: "~2 pt", psKey: "236_237", ocpSlug: "236", warn: "500 CP high-output lantern." },
+      "237":  { fuel: "Kerosene (Alcohol Preheat)", gen: "237-2991 Kerosene Gen", globe: "#660 Bulge Globe", mantle: "1x #1111 / #99 Large", cap: "~2 pt", psKey: "236_237", ocpSlug: "237", warn: "Kerosene 500 CP: fill preheat cup before opening valve." },
+      "242B": { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (OCP C003)", globe: "#550 Bulge / #440 Straight", mantle: "1x #21 (21A104)", cap: "~1.33 pt", psKey: "242", ocpSlug: "242b", warn: "Uses SMALL 242 fuel cap gasket (OCP S45 / 603-1361)." },
+      "242C": { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (OCP C003)", globe: "#550 Bulge / #440 Straight", mantle: "1x #21 (21A104)", cap: "~1.33 pt", psKey: "242", ocpSlug: "242c", warn: "Uses SMALL 242 fuel cap gasket (OCP S45) & C009 burner cap." },
+      "242":  { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (OCP C003)", globe: "#550 Bulge / #440 Straight", mantle: "1x #21 (21A104)", cap: "~1.33 pt", psKey: "242", ocpSlug: "242c", warn: "Small filler cap requires S45 gasket; collarless cast brass neck." },
+      "252A": { fuel: "Unleaded / Mil-Spec / CF", gen: "252A Hooked Mil-Spec Gen", globe: "#330 / 4-Quad Glass", mantle: "1x #21", cap: "~1.3 pt", psKey: "220DE", ocpSlug: "252a", warn: "Mil-Spec: pump 5–7 strokes only to light; loud roar is normal." },
+      "275A": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#880 Tapered (OCP G66)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "275", ocpSlug: "275a", warn: "275A valve (275A6571) DOES NOT interchange with plain 275! Uses R510 Schrader core." },
+      "275":  { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (OCP C002)", globe: "#880 Tapered (OCP G66)", mantle: "2x #21 (21A104)", cap: "~2 pt", psKey: "275", ocpSlug: "275", warn: "Plain 275 valve fits 275 ONLY (not 275A)! Replace Schrader core with fuel-rated R510." },
+      "288A": { fuel: "Coleman Fuel / White Gas", gen: "288-5891 / 3000005403", globe: "214A0461 Straight", mantle: "2x #21 (21A1001)", cap: "1.26 pt", psKey: "288A", ocpSlug: "288", warn: "Uses R510 Schrader valve core (288-3651) & S42 1-piece cap gasket." },
+      "288":  { fuel: "Coleman Fuel / White Gas", gen: "288-5891 / 3000005403", globe: "214A0461 Straight", mantle: "2x #21 (21A1001)", cap: "1.26 pt", psKey: "288A", ocpSlug: "288", warn: "Check plastic F/A tube crack & R510 Schrader core." },
+      "413G": { fuel: "Coleman Fuel / White Gas", gen: "413A5621 (OCP C030)", globe: "N/A (2-Burner Stove)", mantle: "2 Burners", cap: "~3.5 pt", psKey: null, ocpSlug: "413g", warn: "Shares C030 generator with 426 3-burner stove." },
+      "413":  { fuel: "Coleman Fuel / White Gas", gen: "413A5621 (OCP C030)", globe: "N/A (2-Burner Stove)", mantle: "2 Burners", cap: "~3.5 pt", psKey: null, ocpSlug: "413g", warn: "Uses P01 large valve stem packing & C001 check valve." },
+      "425":  { fuel: "Coleman Fuel / White Gas", gen: "412-5621 / 3000005108", globe: "N/A (Compact 2-Burner)", mantle: "2 Burners", cap: "~2.5 pt", psKey: null, ocpSlug: "425e", warn: "Compact stove generator (shorter than 413/426)." },
+      "426":  { fuel: "Coleman Fuel / White Gas", gen: "413A5621 (OCP C030)", globe: "N/A (3-Burner Stove)", mantle: "3 Burners", cap: "~4.25 pt", psKey: null, ocpSlug: "426d", warn: "Uses 413A5621 (OCP C030) generator." },
+      "500":  { fuel: "Coleman Fuel / White Gas", gen: "500-2891 Speedmaster Gen", globe: "N/A (Single Stove)", mantle: "1 Burner", cap: "~2 pt", psKey: null, ocpSlug: "500", warn: "Uses small S45 filler cap gasket on early caps." },
+      "502":  { fuel: "Coleman Fuel / White Gas", gen: "502-5891 Sportster Gen", globe: "N/A (Single Stove)", mantle: "1 Burner", cap: "~1 pt", psKey: null, ocpSlug: "502", warn: "Clean brass Bunsen manifold for spider webs." },
+      "530":  { fuel: "Coleman Fuel / White Gas", gen: "530-5891 GI Pocket Gen", globe: "N/A (Pocket Stove)", mantle: "1 Roarer Burner", cap: "~1 pt", psKey: null, ocpSlug: "530", warn: "Pre-1950 pocket stove: tall flame on startup until generator heats." }
     };
 
     const DIAGNOSTIC_TAGS = [
@@ -939,20 +1325,45 @@
       "Fount Rust", "Cap Gasket", "Missing Globe", "Schrader Valve"
     ];
 
+    const PART_CATEGORIES = [
+      "All",
+      "Generators",
+      "Gaskets & Packings",
+      "Pump & Check Valve",
+      "Globes & Mantles",
+      "Burner & Valve Hardware"
+    ];
+
+    // Comprehensive OldColemanParts (OCP) + Factory OEM Seeded Shop Catalog
     const DEFAULT_PARTS = [
-      { id: "p_21_mantles", name: "#21 Mantles (21A104)", fit: "200A, 220, 228, 242, 275", qty: 8 },
-      { id: "p_220_gen", name: "220E5891 Generator", fit: "220/228/275 Lanterns", qty: 3 },
-      { id: "p_200_gen", name: "200A5891 Generator", fit: "200A / 242 Family", qty: 3 },
-      { id: "p_pump_cup", name: "Leather Pump Cup (216A5091-60)", fit: "Lanterns & Stoves", qty: 6 },
-      { id: "p_cap_gasket", name: "Fuel Cap Gaskets (TS42 / TS45)", fit: "Standard & 242/500 Caps", qty: 10 },
-      { id: "p_valve_pack", name: "Valve Stem Packing (118D6201)", fit: "Lanterns & Stoves", qty: 5 },
-      { id: "p_globe_330", name: "#330 / 690-048 Globe", fit: "220, 228, 252, 290, 295", qty: 2 }
+      { id: "ocp_c002", name: "220 / 228 / 275 Dual-Mantle Generator", oemNum: "220E5891-65", ocpCode: "C002", category: "Generators", fit: "220B–220K, 228B–228J, 275, 275A", qty: 4, minQty: 2, psPartId: "generator" },
+      { id: "ocp_c003", name: "200A / 242 Single-Mantle Generator", oemNum: "200A5891-68", ocpCode: "C003", category: "Generators", fit: "200, 200A, 202, 242, 242B, 242C, 243", qty: 4, minQty: 2, psPartId: "generator" },
+      { id: "ocp_288gen", name: "288 / 288A Adjustable Generator", oemNum: "288-5891 / 3000005403", ocpCode: "288-5891", category: "Generators", fit: "286, 288, 288A, Dual Fuel 285", qty: 2, minQty: 1, psPartId: "generator" },
+      { id: "ocp_c030", name: "413 / 426 Camp Stove Generator", oemNum: "413A5621-6", ocpCode: "C030", category: "Generators", fit: "413E/F/G/H & 426B/C/D 2 & 3-Burner Stoves", qty: 2, minQty: 1, psPartId: null },
+      { id: "ocp_s42", name: "One-Piece Fuel Cap Gasket", oemNum: "220C1401-G1", ocpCode: "S42", category: "Gaskets & Packings", fit: "1970+ 1-Piece Caps (220H/J/K, 275, 288A, 200A late)", qty: 12, minQty: 4, psPartId: "fuelCap" },
+      { id: "ocp_s41", name: "Three-Piece Standard Fuel Cap Gasket", oemNum: "220B1401-G3", ocpCode: "S41", category: "Gaskets & Packings", fit: "Pre-1970 3-Piece Caps (220B–F, 228B–F, 200A, 413/425)", qty: 12, minQty: 4, psPartId: "fuelCap" },
+      { id: "ocp_s45", name: "Small 242 / 500 Fuel Cap Gasket", oemNum: "603-1361-185", ocpCode: "S45", category: "Gaskets & Packings", fit: "242, 242B, 242C, 500 Speedmaster, 530 GI Stove", qty: 6, minQty: 2, psPartId: "fuelCap" },
+      { id: "ocp_p01", name: "Large Valve Stem Graphite Packing", oemNum: "118D6201-600 / 242-6201", ocpCode: "P01", category: "Gaskets & Packings", fit: "200A, 220, 228, 236, 237, 275, 288A, 413/425/426", qty: 6, minQty: 2, psPartId: "packing" },
+      { id: "ocp_p09", name: "Graphite Ribbon Packing (Tip Cleaners)", oemNum: "Graphite-Ribbon", ocpCode: "P09", category: "Gaskets & Packings", fit: "Rotary Tip-Cleaner Stems & Small 242 Valve Packings", qty: 3, minQty: 1, psPartId: "packing" },
+      { id: "ocp_r510", name: "Fuel-Rated Schrader Valve Core", oemNum: "275-1171-50 / 288-3651", ocpCode: "R510", category: "Burner & Valve Hardware", fit: "214, 275, 275A, 285, 286, 288, 288A, 290, 295", qty: 6, minQty: 3, psPartId: "valveCore" },
+      { id: "ocp_c001", name: "Check Valve & Air Stem Assembly", oemNum: "200-6381ZCL", ocpCode: "C001", category: "Pump & Check Valve", fit: "200A, 220D–K, 228D–J, 275, 288A, Stoves", qty: 4, minQty: 2, psPartId: "pump" },
+      { id: "ocp_r577", name: "Old-Style Check Valve Reproduction", oemNum: "242B5381 R-15", ocpCode: "R577", category: "Pump & Check Valve", fit: "Early 220B/C, 242/242B/242C (pairs w/ R420 stem)", qty: 2, minQty: 1, psPartId: "pump" },
+      { id: "ocp_c005", name: "Leather Pump Cup Repair Kit", oemNum: "216A5091-60 / 3000005094", ocpCode: "C005", category: "Pump & Check Valve", fit: "All Standard Coleman Lanterns & Camp Stoves", qty: 8, minQty: 3, psPartId: "pump" },
+      { id: "ocp_c019", name: "Neoprene / Rubber Pump Cup", oemNum: "216-1091-40", ocpCode: "C019", category: "Pump & Check Valve", fit: "288A, 285, 290, 220K & Modern Fount Pumps", qty: 5, minQty: 2, psPartId: "pump" },
+      { id: "ocp_r580", name: "External Pump Retainer Clip", oemNum: "530A5071", ocpCode: "R580", category: "Pump & Check Valve", fit: "D-Clip Pump Caps (200A, 220F–K, 288A, 275)", qty: 5, minQty: 2, psPartId: "pump" },
+      { id: "ocp_c004", name: "Solid Brass One-Piece Filler Cap", oemNum: "220C1401-45", ocpCode: "C004", category: "Burner & Valve Hardware", fit: "Standard Coleman Filler Necks (200A, 220, 228, 275, 288)", qty: 3, minQty: 1, psPartId: "fuelCap" },
+      { id: "ocp_c009", name: "Brass Single-Mantle Burner Cap & Screen", oemNum: "242-3231-24 + Screen-28", ocpCode: "C009 / S29", category: "Burner & Valve Hardware", fit: "200, 200A, 201, 242, 242B, 242C, 243", qty: 3, minQty: 1, psPartId: "burnerAssy" },
+      { id: "ocp_21m", name: "#21 String-Tie Mantles (Pack / Pairs)", oemNum: "21A104 / 21A1001", ocpCode: "21A104", category: "Globes & Mantles", fit: "200A, 220, 228, 242, 252A, 275, 288A", qty: 14, minQty: 4, psPartId: "mantles" },
+      { id: "ocp_g04", name: "#330 Clear Straight Pyrex Globe", oemNum: "690-048 / R690B048C", ocpCode: "G04", category: "Globes & Mantles", fit: "220, 228, 235, 252, 290, 295", qty: 2, minQty: 1, psPartId: "globe" },
+      { id: "ocp_550g", name: "#550 Single-Mantle Bulged Pyrex Globe", oemNum: "R690B051 / 690A051", ocpCode: "R690B051", category: "Globes & Mantles", fit: "200, 200A, 201, 202, 242, 243, 249", qty: 2, minQty: 1, psPartId: "globe" },
+      { id: "ocp_g66", name: "#880 Tapered 275 Picket / Amber Globe", oemNum: "275A0481", ocpCode: "G66", category: "Globes & Mantles", fit: "275, 275A, 621", qty: 1, minQty: 1, psPartId: "globe" },
+      { id: "ocp_288g", name: "#288 / 214 Compact Straight Pyrex Globe", oemNum: "214A0461 / 2000026611", ocpCode: "214A0461", category: "Globes & Mantles", fit: "214, 285, 286, 288, 288A", qty: 2, minQty: 1, psPartId: "globe" }
     ];
 
     const CASE_PRESETS = {
-      "220_275": { label: "1970s 220H/J/K & 275", intW: 7.5, intD: 7.5, intH: 15.0, fountCutout: 6.375, note: "6.25\" fount & dual-mantle cage" },
-      "228": { label: "1970s 228H/J Big Hat", intW: 9.5, intD: 9.5, intH: 15.0, fountCutout: 6.375, note: "+2.00\" width for 8.5\" Big Hat brim" },
-      "200A": { label: "200A Single Mantle", intW: 6.5, intD: 6.5, intH: 13.0, fountCutout: 5.375, note: "Compact single-mantle clearance" }
+      "220_275": { label: "1970s 220H/J/K & 275", intW: 7.5, intD: 7.5, intH: 15.0, fountCutout: 6.375, note: "6.25 in. fount & dual-mantle cage" },
+      "228":     { label: "1970s 228H/J Big Hat", intW: 9.5, intD: 9.5, intH: 15.0, fountCutout: 6.375, note: "+2.00 in. width for 8.5 in. Big Hat brim" },
+      "200A":    { label: "200A / 242 Single Mantle", intW: 6.5, intD: 6.5, intH: 13.0, fountCutout: 5.375, note: "Compact single-mantle fount & height clearance" }
     };
 
     let appState = {
@@ -961,14 +1372,26 @@
       cases: []
     };
 
+    let editingGearId = null;
     let currentMainPhoto = "";
     let currentStampPhoto = "";
     let selectedDiagTags = new Set();
+    let activePartCategory = "All";
+    let filterLowStockOnly = false;
     let activeCasePreset = "220_275";
     let pendingDeleteCallback = null;
 
+    function escapeHtml(str) {
+      return String(str == null ? "" : str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
     function showToast(msg) {
       const el = document.getElementById("toastBanner");
+      if (!el) return;
       el.textContent = msg;
       el.classList.add("show");
       clearTimeout(showToast._t);
@@ -978,6 +1401,53 @@
     function setSyncStatus(text) {
       const el = document.getElementById("syncStatusPill");
       if (el) el.textContent = text;
+    }
+
+    // Non-destructively enriches legacy inventory items with OCP metadata if matched, or seeds if empty
+    function normalizeInventory(list) {
+      if (!Array.isArray(list) || !list.length) {
+        return DEFAULT_PARTS.map((p) => ({ ...p }));
+      }
+      return list.map((item) => {
+        const match = DEFAULT_PARTS.find((d) =>
+          d.id === item.id ||
+          (item.ocpCode && d.ocpCode === item.ocpCode) ||
+          (item.name && item.name.toLowerCase().includes((d.oemNum || "___").split("/")[0].trim().toLowerCase()))
+        );
+        return {
+          id: item.id || ("p_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6)),
+          name: item.name || (match ? match.name : "Unnamed Part"),
+          oemNum: item.oemNum != null ? item.oemNum : (match ? match.oemNum : ""),
+          ocpCode: item.ocpCode != null ? item.ocpCode : (match ? match.ocpCode : ""),
+          category: item.category || (match ? match.category : "Burner & Valve Hardware"),
+          fit: item.fit != null ? item.fit : (match ? match.fit : ""),
+          qty: Number.isFinite(Number(item.qty)) ? Math.max(0, Number(item.qty)) : 0,
+          minQty: Number.isFinite(Number(item.minQty)) ? Math.max(0, Number(item.minQty)) : (match ? match.minQty : 1),
+          psPartId: item.psPartId !== undefined ? item.psPartId : (match ? match.psPartId : null)
+        };
+      });
+    }
+
+    function syncDefaultOcpCatalog() {
+      let added = 0;
+      DEFAULT_PARTS.forEach((defPart) => {
+        const exists = appState.inventory.some((p) =>
+          p.id === defPart.id || (p.ocpCode && p.ocpCode.toUpperCase() === defPart.ocpCode.toUpperCase())
+        );
+        if (!exists) {
+          appState.inventory.push({ ...defPart });
+          added++;
+        }
+      });
+      appState.inventory = normalizeInventory(appState.inventory);
+      renderParts();
+      if (typeof window.refreshPartSmartReadout === "function") window.refreshPartSmartReadout();
+      if (added > 0) {
+        pushToCloud();
+        showToast("Added " + added + " OCP baseline parts!");
+      } else {
+        showToast("All OCP baseline parts are already in stock list");
+      }
     }
 
     function saveLocal() {
@@ -994,13 +1464,12 @@
         if (raw) {
           const parsed = JSON.parse(raw);
           appState.gear = Array.isArray(parsed.gear) ? parsed.gear : [];
-          appState.inventory = Array.isArray(parsed.inventory) ? parsed.inventory : [];
+          appState.inventory = normalizeInventory(parsed.inventory);
           appState.cases = Array.isArray(parsed.cases) ? parsed.cases : [];
+          return;
         }
       } catch (e) {}
-      if (!appState.inventory.length) {
-        appState.inventory = DEFAULT_PARTS.map((p) => ({ ...p }));
-      }
+      appState.inventory = DEFAULT_PARTS.map((p) => ({ ...p }));
     }
 
     async function pullFromCloud(notify = false) {
@@ -1010,14 +1479,16 @@
       }
       setSyncStatus("☁️ Syncing...");
       try {
-        const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+        const res = await fetch("https://api.jsonbin.io/v3/b/" + JSONBIN_BIN_ID + "/latest", {
           headers: { "X-Master-Key": JSONBIN_MASTER_KEY }
         });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
         const rec = data.record || {};
         if (Array.isArray(rec.gear)) appState.gear = rec.gear;
-        if (Array.isArray(rec.inventory) && rec.inventory.length) appState.inventory = rec.inventory;
+        if (Array.isArray(rec.inventory) && rec.inventory.length) {
+          appState.inventory = normalizeInventory(rec.inventory);
+        }
         if (Array.isArray(rec.cases)) appState.cases = rec.cases;
         saveLocal();
         setSyncStatus("☁️ Synced");
@@ -1034,7 +1505,7 @@
       if (!JSONBIN_BIN_ID || !JSONBIN_MASTER_KEY) return;
       setSyncStatus("☁️ Saving...");
       try {
-        const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+        const res = await fetch("https://api.jsonbin.io/v3/b/" + JSONBIN_BIN_ID, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -1046,7 +1517,7 @@
             cases: appState.cases
           })
         });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) throw new Error("HTTP " + res.status);
         setSyncStatus("☁️ Synced");
       } catch (err) {
         setSyncStatus("💾 Saved Locally");
@@ -1061,16 +1532,56 @@
 
     function switchTab(tabName) {
       document.querySelectorAll(".coker-tab-panel").forEach((p) => {
-        p.classList.toggle("active", p.id === `tab-${tabName}`);
+        p.classList.toggle("active", p.id === "tab-" + tabName);
       });
       document.querySelectorAll(".coker-tab-btn").forEach((b) => {
         b.classList.toggle("active", b.dataset.tab === tabName);
       });
-      if (tabName === "parts") renderParts();
-      if (tabName === "cases") {
+      if (tabName === "parts") {
+        renderParts();
+      } else if (tabName === "partsmart") {
+        if (typeof window.initPartSmart3D === "function") window.initPartSmart3D();
+        requestAnimationFrame(() => {
+          if (typeof window.resizePartSmart3D === "function") window.resizePartSmart3D();
+          if (typeof window.refreshPartSmartReadout === "function") window.refreshPartSmartReadout();
+        });
+      } else if (tabName === "cases") {
         updateCaseBlueprint();
         renderCaseLog();
       }
+    }
+
+    function openInPartSmart(psKey, partId) {
+      switchTab("partsmart");
+      requestAnimationFrame(() => {
+        if (psKey && typeof window.selectPartSmartModel === "function") {
+          window.selectPartSmartModel(psKey);
+        }
+        if (partId && typeof window.selectPartSmartPart === "function") {
+          window.selectPartSmartPart(partId);
+        }
+      });
+    }
+
+    function jumpToInventorySearch(queryStr) {
+      activePartCategory = "All";
+      filterLowStockOnly = false;
+      const inp = document.getElementById("partSearchInput");
+      if (inp) inp.value = queryStr || "";
+      switchTab("parts");
+    }
+
+    function openOcpModelUrl(mode, customSlug) {
+      const raw = customSlug || (document.getElementById("ocpModelSlugInput")?.value || "");
+      const slug = raw.trim().toLowerCase().replace(/[^a-z0-9-]/g, "");
+      if (!slug) {
+        showToast("Enter a model number (e.g. 220f, 200a, 275a)");
+        return;
+      }
+      const url = mode === "diagram"
+        ? "https://oldcolemanparts.com/apps/diagram/" + encodeURIComponent(slug)
+        : "https://oldcolemanparts.com/collections/" + encodeURIComponent(slug);
+      window.open(url, "_blank", "noopener,noreferrer");
     }
 
     function lookupModelBrain(rawModel) {
@@ -1094,16 +1605,20 @@
         return;
       }
       box.style.display = "block";
-      box.innerHTML = `<strong>Coleman Brain Match:</strong> Fuel: ${spec.fuel} · Gen: ${spec.gen} · Globe: ${spec.globe} · Mantles/Burners: ${spec.mantle} · Cap: ${spec.cap}`;
+      box.innerHTML =
+        "<strong>Coleman Brain + OCP Match:</strong> Fuel: " + escapeHtml(spec.fuel) +
+        " &middot; Gen: <code>" + escapeHtml(spec.gen) + "</code>" +
+        " &middot; Globe: " + escapeHtml(spec.globe) +
+        " &middot; Mantles: " + escapeHtml(spec.mantle) +
+        " &middot; Cap: " + escapeHtml(spec.cap) +
+        (spec.warn ? "<span class=\"brain-warn\">⚠ Shop Note: " + escapeHtml(spec.warn) + "</span>" : "");
     }
 
     function handleMonthAutoAdvance() {
       const mEl = document.getElementById("monthInput");
       const yEl = document.getElementById("yearInput");
       mEl.value = mEl.value.replace(/\D/g, "").slice(0, 2);
-      if (mEl.value.length === 2) {
-        yEl.focus();
-      }
+      if (mEl.value.length === 2) yEl.focus();
     }
 
     function formatDateAndAge(monthStr, yearStr) {
@@ -1112,19 +1627,20 @@
       if (!yRaw) return "Date Unstamped";
       let fullYear = parseInt(yRaw, 10);
       if (yRaw.length <= 2) {
-        fullYear = fullYear >= 25 ? 1900 + fullYear : 2000 + fullYear;
+        fullYear = fullYear >= 27 ? 1900 + fullYear : 2000 + fullYear;
       }
       const nowYear = new Date().getFullYear();
       const age = Math.max(0, nowYear - fullYear);
-      const labelDate = yRaw.length <= 2 || m !== "00" ? `${m !== "00" ? m + "/" : ""}${fullYear}` : `${fullYear}`;
-      return `${labelDate} (${age} yrs)`;
+      const labelDate = m !== "00" && m !== "" ? (m + "/" + fullYear) : String(fullYear);
+      return labelDate + " (" + age + " yrs)";
     }
 
     function buildDiagPicker() {
       const wrap = document.getElementById("diagPicker");
+      if (!wrap) return;
       wrap.innerHTML = DIAGNOSTIC_TAGS.map((tag) => {
         const active = selectedDiagTags.has(tag) ? "selected" : "";
-        return `<button type="button" class="diag-choice ${active}" onclick="toggleDiagTag('${tag}')">${tag}</button>`;
+        return "<button type=\"button\" class=\"diag-choice " + active + "\" onclick=\"toggleDiagTag('" + tag + "')\">" + escapeHtml(tag) + "</button>";
       }).join("");
     }
 
@@ -1172,7 +1688,10 @@
     }
 
     function resetGearForm() {
+      editingGearId = null;
       document.getElementById("gearForm").reset();
+      document.getElementById("gearModalTitle").textContent = "Log Gear / Repair Job";
+      document.getElementById("saveGearSubmitBtn").textContent = "Save Gear";
       document.getElementById("ownerInput").value = "COKER GEAR";
       document.getElementById("statusSelect").value = "Intake / In Queue";
       document.getElementById("brainPreviewBox").style.display = "none";
@@ -1188,8 +1707,38 @@
       buildDiagPicker();
     }
 
-    function openGearModal() {
+    function openGearModal(editId) {
       resetGearForm();
+      if (editId) {
+        const existing = appState.gear.find((g) => g.id === editId);
+        if (existing) {
+          editingGearId = existing.id;
+          document.getElementById("gearModalTitle").textContent = "Edit " + (existing.jobNum || "") + " (" + existing.model + ")";
+          document.getElementById("saveGearSubmitBtn").textContent = "Update Job";
+          document.getElementById("modelInput").value = existing.model || "";
+          document.getElementById("monthInput").value = existing.month || "";
+          document.getElementById("yearInput").value = existing.year || "";
+          document.getElementById("ownerInput").value = existing.owner || "COKER GEAR";
+          document.getElementById("statusSelect").value = existing.status || "Intake / In Queue";
+          document.getElementById("rushCheckbox").checked = Boolean(existing.rush);
+          document.getElementById("notesInput").value = existing.notes || "";
+          selectedDiagTags = new Set(existing.diagTags || []);
+          buildDiagPicker();
+          handleModelBrainLookup();
+          if (existing.mainPhoto) {
+            currentMainPhoto = existing.mainPhoto;
+            const p1 = document.getElementById("mainPhotoPreview");
+            p1.src = currentMainPhoto;
+            p1.style.display = "block";
+          }
+          if (existing.stampPhoto) {
+            currentStampPhoto = existing.stampPhoto;
+            const p2 = document.getElementById("stampPhotoPreview");
+            p2.src = currentStampPhoto;
+            p2.style.display = "block";
+          }
+        }
+      }
       document.getElementById("gearModal").classList.add("open");
       setTimeout(() => document.getElementById("modelInput").focus(), 60);
     }
@@ -1200,8 +1749,6 @@
 
     async function saveGearItem(event) {
       event.preventDefault();
-      const id = String(Date.now());
-      const jobNum = `#${id.slice(-4)}`;
       const model = document.getElementById("modelInput").value.trim().toUpperCase();
       const month = document.getElementById("monthInput").value.trim();
       const year = document.getElementById("yearInput").value.trim();
@@ -1211,15 +1758,30 @@
       const notes = document.getElementById("notesInput").value.trim();
       const brainSpec = lookupModelBrain(model);
 
+      if (editingGearId) {
+        const idx = appState.gear.findIndex((g) => g.id === editingGearId);
+        if (idx !== -1) {
+          appState.gear[idx] = {
+            ...appState.gear[idx],
+            model, month, year, owner: ownerClean, status, rush,
+            diagTags: Array.from(selectedDiagTags),
+            notes,
+            mainPhoto: currentMainPhoto,
+            stampPhoto: currentStampPhoto,
+            brainSpec: brainSpec || null
+          };
+          closeGearModal();
+          renderGear();
+          await pushToCloud();
+          showToast("Updated " + (appState.gear[idx].jobNum || model));
+          return;
+        }
+      }
+
+      const id = String(Date.now());
+      const jobNum = "#" + id.slice(-4);
       const item = {
-        id,
-        jobNum,
-        model,
-        month,
-        year,
-        owner: ownerClean,
-        status,
-        rush,
+        id, jobNum, model, month, year, owner: ownerClean, status, rush,
         diagTags: Array.from(selectedDiagTags),
         notes,
         mainPhoto: currentMainPhoto,
@@ -1231,7 +1793,7 @@
       closeGearModal();
       renderGear();
       await pushToCloud();
-      showToast(`Saved ${jobNum} (${model})`);
+      showToast("Saved " + jobNum + " (" + model + ")");
     }
 
     function duplicateGearItem(id) {
@@ -1241,13 +1803,13 @@
       const copy = {
         ...src,
         id: newId,
-        jobNum: `#${newId.slice(-4)}`,
+        jobNum: "#" + newId.slice(-4),
         diagTags: [...(src.diagTags || [])]
       };
       appState.gear.unshift(copy);
       renderGear();
       pushToCloud();
-      showToast(`Duplicated as ${copy.jobNum}`);
+      showToast("Duplicated as " + copy.jobNum);
     }
 
     function openDeleteConfirm(message, onConfirm) {
@@ -1271,7 +1833,7 @@
     function deleteGearItem(id) {
       const target = appState.gear.find((g) => g.id === id);
       if (!target) return;
-      openDeleteConfirm(`Delete ${target.jobNum} (${target.model}) owned by ${target.owner}?`, async () => {
+      openDeleteConfirm("Delete " + (target.jobNum || "") + " (" + target.model + ") owned by " + target.owner + "?", async () => {
         appState.gear = appState.gear.filter((g) => g.id !== id);
         renderGear();
         await pushToCloud();
@@ -1279,7 +1841,10 @@
       });
     }
 
-    function openLightbox(src) {
+    function openLightboxById(gearId, which) {
+      const item = appState.gear.find((g) => g.id === gearId);
+      if (!item) return;
+      const src = which === "stamp" ? item.stampPhoto : item.mainPhoto;
       if (!src) return;
       document.getElementById("lightboxImg").src = src;
       document.getElementById("photoLightbox").classList.add("open");
@@ -1293,96 +1858,209 @@
     function renderGear() {
       const q = (document.getElementById("searchInput").value || "").trim().toLowerCase();
       const filtered = appState.gear.filter((g) => {
+        const spec = g.brainSpec || lookupModelBrain(g.model);
         if (!q) return true;
         const hay = [
           g.jobNum, g.model, g.owner, g.status, g.notes,
           ...(g.diagTags || []),
-          g.brainSpec ? `${g.brainSpec.gen} ${g.brainSpec.fuel} ${g.brainSpec.globe}` : ""
+          spec ? (spec.gen + " " + spec.fuel + " " + spec.globe + " " + (spec.warn || "")) : ""
         ].join(" ").toLowerCase();
         return hay.includes(q);
       });
 
-      document.getElementById("gearCountLabel").textContent = `${filtered.length} of ${appState.gear.length} Items Shown`;
+      document.getElementById("gearCountLabel").textContent = filtered.length + " of " + appState.gear.length + " Items Shown";
       const rushCount = filtered.filter((g) => g.rush).length;
-      document.getElementById("rushCountLabel").textContent = rushCount ? `🚨 ${rushCount} Rush` : "";
+      document.getElementById("rushCountLabel").textContent = rushCount ? ("🚨 " + rushCount + " Rush") : "";
 
       const grid = document.getElementById("gearGrid");
       if (!filtered.length) {
-        grid.innerHTML = `<p class="brand-sub">No matching lanterns or stoves found. Click <strong>+ Add Gear</strong> to log one.</p>`;
+        grid.innerHTML = "<p class=\"brand-sub\">No matching lanterns or stoves found. Click <strong>+ Log Gear / Job</strong> to add one.</p>";
         return;
       }
 
       grid.innerHTML = filtered.map((g) => {
+        const spec = lookupModelBrain(g.model) || g.brainSpec;
         const isCoker = (g.owner || "").toUpperCase() === "COKER GEAR";
         const ownerBadge = isCoker
-          ? `<span class="badge-owner-coker">${g.owner}</span>`
-          : `<span class="badge-owner-customer">Owner: ${g.owner}</span>`;
+          ? "<span class=\"badge-owner-coker\">" + escapeHtml(g.owner) + "</span>"
+          : "<span class=\"badge-owner-customer\">Owner: " + escapeHtml(g.owner) + "</span>";
         const ageText = formatDateAndAge(g.month, g.year);
-        const brainHtml = g.brainSpec
-          ? `<div class="brain-stamp"><strong>Gen:</strong> ${g.brainSpec.gen} · <strong>Globe:</strong> ${g.brainSpec.globe}<br/><strong>Mantles:</strong> ${g.brainSpec.mantle} · <strong>Fuel:</strong> ${g.brainSpec.fuel}</div>`
+        const brainHtml = spec
+          ? "<div class=\"brain-stamp\"><strong>Gen:</strong> " + escapeHtml(spec.gen) + " &middot; <strong>Globe:</strong> " + escapeHtml(spec.globe) + "<br/><strong>Mantles:</strong> " + escapeHtml(spec.mantle) + " &middot; <strong>Fuel:</strong> " + escapeHtml(spec.fuel) + (spec.warn ? "<span class=\"brain-warn\">⚠ " + escapeHtml(spec.warn) + "</span>" : "") + "</div>"
           : "";
         const diagHtml = (g.diagTags && g.diagTags.length)
-          ? `<div class="diag-list">${g.diagTags.map((t) => `<span class="diag-pill">⚠ ${t}</span>`).join("")}</div>`
+          ? "<div class=\"diag-list\">" + g.diagTags.map((t) => "<span class=\"diag-pill\">⚠ " + escapeHtml(t) + "</span>").join("") + "</div>"
           : "";
 
         const stampOverlay = g.stampPhoto
-          ? `<div class="stamp-thumb" onclick="event.stopPropagation(); openLightbox('${g.stampPhoto}')" title="Bottom Stamp Photo"><img src="${g.stampPhoto}" alt="Stamp" /><span class="stamp-lens">🔍</span></div>`
+          ? "<div class=\"stamp-thumb\" onclick=\"event.stopPropagation(); openLightboxById('" + g.id + "', 'stamp')\" title=\"Bottom Stamp Photo\"><img src=\"" + g.stampPhoto + "\" alt=\"Stamp\" /><span class=\"stamp-lens\">🔍</span></div>"
           : "";
 
         const mainVisual = g.mainPhoto
-          ? `<img class="main-photo" src="${g.mainPhoto}" alt="${g.model}" />`
-          : `<span>No Profile Photo</span>`;
+          ? "<img class=\"main-photo\" src=\"" + g.mainPhoto + "\" alt=\"" + escapeHtml(g.model) + "\" />"
+          : "<span>No Profile Photo</span>";
 
-        return `
-          <article class="gear-card">
-            ${g.rush ? `<div class="rush-ribbon">RUSH</div>` : ""}
-            <div class="photo-stage" onclick="${g.mainPhoto ? `openLightbox('${g.mainPhoto}')` : ""}">
-              ${mainVisual}
-              ${stampOverlay}
-            </div>
-            <div class="gear-body">
-              <div class="gear-top-line">
-                <h3 class="gear-model">${g.model}</h3>
-                <span class="job-tag">${g.jobNum || ""}</span>
-              </div>
-              <div class="brand-sub">📅 ${ageText}</div>
-              <div class="badge-row">
-                ${ownerBadge}
-                <span class="badge-status">${g.status || "Intake / In Queue"}</span>
-              </div>
-              ${brainHtml}
-              ${diagHtml}
-              ${g.notes ? `<p style="margin:0.2rem 0 0; font-size:0.86rem; color:var(--text-tan);">${g.notes}</p>` : ""}
-              <div class="gear-actions">
-                <button type="button" class="btn btn-sm" onclick="duplicateGearItem('${g.id}')">Copy</button>
-                <button type="button" class="btn btn-sm btn-danger" onclick="deleteGearItem('${g.id}')">Delete</button>
-              </div>
-            </div>
-          </article>
-        `;
+        const psBtn = (spec && spec.psKey)
+          ? "<button type=\"button\" class=\"btn btn-sm btn-amber\" onclick=\"openInPartSmart('" + spec.psKey + "')\" title=\"Inspect in 3D PartSmart\">🧊 3D</button>"
+          : "";
+
+        const ocpBtn = (spec && spec.ocpSlug)
+          ? "<button type=\"button\" class=\"btn btn-sm\" onclick=\"openOcpModelUrl('diagram', '" + spec.ocpSlug + "')\" title=\"OldColemanParts Diagram\">📐 OCP</button>"
+          : "";
+
+        return (
+          "<article class=\"gear-card\">" +
+            (g.rush ? "<div class=\"rush-ribbon\">RUSH</div>" : "") +
+            "<div class=\"photo-stage\" onclick=\"" + (g.mainPhoto ? "openLightboxById('" + g.id + "', 'main')" : "") + "\">" +
+              mainVisual +
+              stampOverlay +
+            "</div>" +
+            "<div class=\"gear-body\">" +
+              "<div class=\"gear-top-line\">" +
+                "<h3 class=\"gear-model\">" + escapeHtml(g.model) + "</h3>" +
+                "<span class=\"job-tag\">" + escapeHtml(g.jobNum || "") + "</span>" +
+              "</div>" +
+              "<div class=\"brand-sub\">📅 " + escapeHtml(ageText) + "</div>" +
+              "<div class=\"badge-row\">" +
+                ownerBadge +
+                "<span class=\"badge-status\">" + escapeHtml(g.status || "Intake / In Queue") + "</span>" +
+              "</div>" +
+              brainHtml +
+              diagHtml +
+              (g.notes ? "<p style=\"margin:0.2rem 0 0; font-size:0.86rem; color:var(--text-tan);\">" + escapeHtml(g.notes) + "</p>" : "") +
+              "<div class=\"gear-actions\">" +
+                "<div style=\"display:flex; gap:0.3rem;\">" + psBtn + ocpBtn + "</div>" +
+                "<div style=\"display:flex; gap:0.3rem;\">" +
+                  "<button type=\"button\" class=\"btn btn-sm\" onclick=\"openGearModal('" + g.id + "')\">Edit</button>" +
+                  "<button type=\"button\" class=\"btn btn-sm\" onclick=\"duplicateGearItem('" + g.id + "')\">Copy</button>" +
+                  "<button type=\"button\" class=\"btn btn-sm btn-danger\" onclick=\"deleteGearItem('" + g.id + "')\">Del</button>" +
+                "</div>" +
+              "</div>" +
+            "</div>" +
+          "</article>"
+        );
       }).join("");
     }
 
+    // =====================================================================
+    // PARTS INVENTORY & OCP CROSS-REFERENCE LOGIC
+    // =====================================================================
+    function toggleAddPartDrawer() {
+      const el = document.getElementById("addPartDrawer");
+      el.style.display = el.style.display === "none" ? "block" : "none";
+    }
+
+    function setPartCategory(cat) {
+      activePartCategory = cat;
+      filterLowStockOnly = false;
+      renderParts();
+    }
+
+    function toggleLowStockFilter() {
+      filterLowStockOnly = !filterLowStockOnly;
+      renderParts();
+    }
+
+    function clearPartFilters() {
+      activePartCategory = "All";
+      filterLowStockOnly = false;
+      const inp = document.getElementById("partSearchInput");
+      if (inp) inp.value = "";
+      renderParts();
+    }
+
+    function updateLowStockBadges() {
+      const lowOrOut = appState.inventory.filter((p) => Number(p.qty) <= Number(p.minQty ?? 1)).length;
+      const tabBadge = document.getElementById("lowStockTabBadge");
+      if (tabBadge) {
+        tabBadge.textContent = String(lowOrOut);
+        tabBadge.style.display = lowOrOut > 0 ? "inline-block" : "none";
+      }
+      return lowOrOut;
+    }
+
     function renderParts() {
+      const lowOrOutCount = updateLowStockBadges();
+      const outCount = appState.inventory.filter((p) => Number(p.qty) <= 0).length;
+
+      // Render category + low-stock filter pills
+      const catBar = document.getElementById("partCategoryBar");
+      if (catBar) {
+        const catBtns = PART_CATEGORIES.map((cat) => {
+          const active = (!filterLowStockOnly && activePartCategory === cat) ? "active" : "";
+          return "<button type=\"button\" class=\"btn btn-sm " + active + "\" onclick=\"setPartCategory('" + cat + "')\">" + escapeHtml(cat) + "</button>";
+        }).join("");
+        const lowBtnClass = filterLowStockOnly ? "btn btn-sm active" : "btn btn-sm btn-danger";
+        catBar.innerHTML = catBtns +
+          "<button type=\"button\" class=\"" + lowBtnClass + "\" onclick=\"toggleLowStockFilter()\">⚠ Restock Alerts (" + lowOrOutCount + ")</button>";
+      }
+
+      const q = (document.getElementById("partSearchInput")?.value || "").trim().toLowerCase();
+      const filtered = appState.inventory.filter((p) => {
+        if (filterLowStockOnly && Number(p.qty) > Number(p.minQty ?? 1)) return false;
+        if (!filterLowStockOnly && activePartCategory !== "All" && p.category !== activePartCategory) return false;
+        if (!q) return true;
+        const hay = [p.name, p.oemNum, p.ocpCode, p.category, p.fit].join(" ").toLowerCase();
+        return hay.includes(q);
+      });
+
+      const statsEl = document.getElementById("partsSummaryStats");
+      if (statsEl) {
+        statsEl.textContent = filtered.length + " shown · " + outCount + " out of stock · " + lowOrOutCount + " at/below alert";
+      }
+
       const grid = document.getElementById("partsGrid");
-      grid.innerHTML = appState.inventory.map((p) => {
-        const out = Number(p.qty) <= 0;
-        return `
-          <div class="part-card ${out ? "out-of-stock" : ""}">
-            <div>
-              <div style="display:flex; justify-content:space-between; gap:0.4rem;">
-                <strong>${p.name}</strong>
-                ${out ? `<span class="diag-pill">OUT OF STOCK</span>` : ""}
-              </div>
-              <div class="brand-sub" style="margin-top:0.25rem;">${p.fit || ""}</div>
-            </div>
-            <div class="qty-stepper">
-              <button type="button" class="btn btn-sm" onclick="adjustPartQty('${p.id}', -1)">-</button>
-              <span class="qty-num">${p.qty}</span>
-              <button type="button" class="btn btn-sm" onclick="adjustPartQty('${p.id}', 1)">+</button>
-            </div>
-          </div>
-        `;
+      if (!filtered.length) {
+        grid.innerHTML = "<p class=\"brand-sub\">No parts match your current filter. Click <strong>Reset</strong> or add a custom part above.</p>";
+        return;
+      }
+
+      grid.innerHTML = filtered.map((p) => {
+        const qty = Number(p.qty || 0);
+        const minQty = Number(p.minQty ?? 1);
+        const isOut = qty <= 0;
+        const isLow = !isOut && qty <= minQty;
+        const cardStateClass = isOut ? "out-of-stock" : (isLow ? "low-stock" : "");
+
+        const statusBadge = isOut
+          ? "<span class=\"diag-pill\">OUT OF STOCK</span>"
+          : (isLow ? "<span class=\"low-pill\">LOW (Min " + minQty + ")</span>" : "");
+
+        const searchKey = encodeURIComponent((p.ocpCode || p.oemNum || p.name).split("/")[0].trim());
+        const ocpSearchUrl = "https://oldcolemanparts.com/search?q=" + searchKey;
+
+        const psJumpBtn = p.psPartId
+          ? "<button type=\"button\" class=\"btn btn-sm\" onclick=\"openInPartSmart(null, '" + p.psPartId + "')\" title=\"Highlight on 3D Lantern\">🧊 3D</button>"
+          : "";
+
+        return (
+          "<div class=\"part-card " + cardStateClass + "\">" +
+            "<div>" +
+              "<div style=\"display:flex; justify-content:space-between; align-items:flex-start; gap:0.4rem;\">" +
+                "<strong>" + escapeHtml(p.name) + "</strong>" +
+                statusBadge +
+              "</div>" +
+              "<div class=\"code-badges\">" +
+                (p.ocpCode ? "<span class=\"sku-badge-ocp\" title=\"OldColemanParts SKU\">OCP: " + escapeHtml(p.ocpCode) + "</span>" : "") +
+                (p.oemNum ? "<span class=\"sku-badge-oem\" title=\"Coleman OEM Part #\">OEM: " + escapeHtml(p.oemNum) + "</span>" : "") +
+                "<span class=\"sku-badge-cat\">" + escapeHtml(p.category || "Parts") + "</span>" +
+              "</div>" +
+              "<div class=\"brand-sub\" style=\"margin-top:0.35rem; font-size:0.81rem;\"><strong>Fits:</strong> " + escapeHtml(p.fit || "General Coleman") + "</div>" +
+            "</div>" +
+            "<div class=\"part-footer\">" +
+              "<div class=\"qty-stepper\">" +
+                "<button type=\"button\" class=\"btn btn-sm\" onclick=\"adjustPartQty('" + p.id + "', -1)\">−</button>" +
+                "<span class=\"qty-num\">" + qty + "</span>" +
+                "<button type=\"button\" class=\"btn btn-sm\" onclick=\"adjustPartQty('" + p.id + "', 1)\">+</button>" +
+              "</div>" +
+              "<div style=\"display:flex; gap:0.3rem; align-items:center;\">" +
+                psJumpBtn +
+                "<a href=\"" + ocpSearchUrl + "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-forest\" title=\"Lookup on OldColemanParts.com\">OCP ↗</a>" +
+                "<button type=\"button\" class=\"btn btn-sm btn-danger\" onclick=\"deletePartItem('" + p.id + "')\" title=\"Remove Part\">✕</button>" +
+              "</div>" +
+            "</div>" +
+          "</div>"
+        );
       }).join("");
     }
 
@@ -1391,26 +2069,64 @@
       if (!part) return;
       part.qty = Math.max(0, Number(part.qty || 0) + delta);
       renderParts();
+      if (typeof window.refreshPartSmartReadout === "function") window.refreshPartSmartReadout();
       pushToCloud();
     }
 
     function addCustomPart() {
       const name = document.getElementById("partNameInput").value.trim();
+      const oemNum = document.getElementById("partOemInput").value.trim();
+      const ocpCode = document.getElementById("partOcpInput").value.trim();
+      const category = document.getElementById("partCatSelect").value;
       const fit = document.getElementById("partFitInput").value.trim();
       const qty = Math.max(0, parseInt(document.getElementById("partQtyInput").value || "0", 10));
+      const minQty = Math.max(0, parseInt(document.getElementById("partMinInput").value || "1", 10));
+
       if (!name) {
         showToast("Enter a part name first");
         return;
       }
-      appState.inventory.unshift({ id: `p_${Date.now()}`, name, fit, qty });
+      appState.inventory.unshift({
+        id: "p_" + Date.now(),
+        name, oemNum, ocpCode, category, fit, qty, minQty, psPartId: null
+      });
       document.getElementById("partNameInput").value = "";
+      document.getElementById("partOemInput").value = "";
+      document.getElementById("partOcpInput").value = "";
       document.getElementById("partFitInput").value = "";
-      document.getElementById("partQtyInput").value = "1";
+      document.getElementById("partQtyInput").value = "2";
+      document.getElementById("addPartDrawer").style.display = "none";
       renderParts();
       pushToCloud();
-      showToast("Part added to stock");
+      showToast("Added " + name + " to inventory");
     }
 
+    function deletePartItem(id) {
+      const target = appState.inventory.find((p) => p.id === id);
+      if (!target) return;
+      openDeleteConfirm("Remove part \"" + target.name + "\" from shop inventory?", async () => {
+        appState.inventory = appState.inventory.filter((p) => p.id !== id);
+        renderParts();
+        if (typeof window.refreshPartSmartReadout === "function") window.refreshPartSmartReadout();
+        await pushToCloud();
+        showToast("Part removed");
+      });
+    }
+
+    // Helper for 3D PartSmart to check live shop inventory stock for any selected 3D part
+    window.findShopStockForPart = function (psPartId, refStr) {
+      const refUpper = (refStr || "").toUpperCase();
+      const exactMatch = appState.inventory.find((p) =>
+        (p.oemNum && refUpper.includes(p.oemNum.split("/")[0].trim().toUpperCase())) ||
+        (p.ocpCode && refUpper.includes(p.ocpCode.split("/")[0].trim().toUpperCase()))
+      );
+      if (exactMatch) return exactMatch;
+      return appState.inventory.find((p) => p.psPartId === psPartId) || null;
+    };
+
+    // =====================================================================
+    // CASES & BLUEPRINTS CALCULATOR
+    // =====================================================================
     function selectCasePreset(key) {
       activeCasePreset = key;
       document.querySelectorAll(".preset-btn").forEach((b) => {
@@ -1429,16 +2145,14 @@
       return {
         preset: p,
         ply: t,
-        extW,
-        extD,
-        extH,
+        extW, extD, extH,
         parts: [
-          { part: "Part A — Front & Back", qty: 2, size: `${extW.toFixed(2)}" × ${p.intH.toFixed(2)}"`, note: "Overlaps left/right edges" },
-          { part: "Part B — Left & Right", qty: 2, size: `${p.intD.toFixed(2)}" × ${p.intH.toFixed(2)}"`, note: "Fits between front & back" },
-          { part: "Part C — Top & Bottom Caps", qty: 2, size: `${extW.toFixed(2)}" × ${extD.toFixed(2)}"`, note: "Keep top fasteners clear of lid cut" },
-          { part: "Part D — Fount Base Cradle", qty: 1, size: `${cradle.toFixed(2)}" × ${cradle.toFixed(2)}"`, note: `${p.fountCutout}" center ring + felt` },
-          { part: "Part E — Lid Ball-Nut Block", qty: 1, size: `4.00" × 4.00"`, note: `0.75" center bore + felt` },
-          { part: "Part F — Spare Parts Divider", qty: 1, size: `${cradle.toFixed(2)}" × 2.00"`, note: "Optional rear slot for mantles/tools" }
+          { part: "Part A — Front & Back", qty: 2, size: extW.toFixed(2) + " in. × " + p.intH.toFixed(2) + " in.", note: "Overlaps left/right edges" },
+          { part: "Part B — Left & Right", qty: 2, size: p.intD.toFixed(2) + " in. × " + p.intH.toFixed(2) + " in.", note: "Fits between front & back" },
+          { part: "Part C — Top & Bottom Caps", qty: 2, size: extW.toFixed(2) + " in. × " + extD.toFixed(2) + " in.", note: "Keep top fasteners clear of lid cut" },
+          { part: "Part D — Fount Base Cradle", qty: 1, size: cradle.toFixed(2) + " in. × " + cradle.toFixed(2) + " in.", note: p.fountCutout + " in. center ring + felt" },
+          { part: "Part E — Lid Ball-Nut Block", qty: 1, size: "4.00 in. × 4.00 in.", note: "0.75 in. center bore + felt" },
+          { part: "Part F — Spare Parts Divider", qty: 1, size: cradle.toFixed(2) + " in. × 2.00 in.", note: "Optional rear slot for mantles/tools" }
         ]
       };
     }
@@ -1447,19 +2161,19 @@
       const d = getCaseCutData();
       const lidSplit = parseFloat(document.getElementById("caseLidSplitInput").value || "3.5");
       document.getElementById("caseSummaryCallout").innerHTML =
-        `<strong>${d.preset.label}</strong> (${d.ply.toFixed(3).replace(/0+$/, "").replace(/\.$/, "")}" ply): ` +
-        `Interior <strong>${d.preset.intW.toFixed(2)}" × ${d.preset.intD.toFixed(2)}" × ${d.preset.intH.toFixed(2)}"</strong> · ` +
-        `Exterior <strong>${d.extW.toFixed(2)}" × ${d.extD.toFixed(2)}" × ${d.extH.toFixed(2)}"</strong> · ` +
-        `Lid split <strong>${lidSplit.toFixed(2)}"</strong> from top (${d.preset.note}).`;
+        "<strong>" + escapeHtml(d.preset.label) + "</strong> (" + d.ply + " in. ply): " +
+        "Interior <strong>" + d.preset.intW.toFixed(2) + " in. × " + d.preset.intD.toFixed(2) + " in. × " + d.preset.intH.toFixed(2) + " in.</strong> &middot; " +
+        "Exterior <strong>" + d.extW.toFixed(2) + " in. × " + d.extD.toFixed(2) + " in. × " + d.extH.toFixed(2) + " in.</strong> &middot; " +
+        "Lid split <strong>" + lidSplit.toFixed(2) + " in.</strong> from top (" + escapeHtml(d.preset.note) + ").";
 
-      document.getElementById("caseCutTableBody").innerHTML = d.parts.map((row) => `
-        <tr>
-          <td><strong>${row.part}</strong></td>
-          <td>${row.qty}</td>
-          <td><code>${row.size}</code></td>
-          <td>${row.note}</td>
-        </tr>
-      `).join("");
+      document.getElementById("caseCutTableBody").innerHTML = d.parts.map((row) => (
+        "<tr>" +
+          "<td><strong>" + escapeHtml(row.part) + "</strong></td>" +
+          "<td>" + row.qty + "</td>" +
+          "<td><code>" + escapeHtml(row.size) + "</code></td>" +
+          "<td>" + escapeHtml(row.note) + "</td>" +
+        "</tr>"
+      )).join("");
     }
 
     function saveCaseBuild() {
@@ -1470,15 +2184,12 @@
       const notes = document.getElementById("caseNotesInput").value.trim();
 
       appState.cases.unshift({
-        id: `case_${Date.now()}`,
+        id: "case_" + Date.now(),
         targetModel: d.preset.label,
         plyThickness: d.ply,
         intDims: { w: d.preset.intW, d: d.preset.intD, h: d.preset.intH },
         fountCutout: d.preset.fountCutout,
-        lidSplit,
-        owner,
-        status,
-        notes
+        lidSplit, owner, status, notes
       });
 
       document.getElementById("caseNotesInput").value = "";
@@ -1499,23 +2210,23 @@
     function renderCaseLog() {
       const el = document.getElementById("caseLogGrid");
       if (!appState.cases.length) {
-        el.innerHTML = `<p class="brand-sub">No saved case plans yet.</p>`;
+        el.innerHTML = "<p class=\"brand-sub\">No saved case plans yet.</p>";
         return;
       }
-      el.innerHTML = appState.cases.map((c) => `
-        <div class="case-log-card">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong>${c.targetModel}</strong>
-            <span class="badge-status">${c.status}</span>
-          </div>
-          <div class="brand-sub" style="margin-top:0.3rem;">Owner: <strong>${c.owner}</strong> · Ply: ${c.plyThickness}"</div>
-          <div class="brand-sub">Int: ${c.intDims.w}" × ${c.intDims.d}" × ${c.intDims.h}" · Cutout: ${c.fountCutout}"</div>
-          ${c.notes ? `<p style="margin:0.35rem 0 0; font-size:0.85rem;">${c.notes}</p>` : ""}
-          <div style="margin-top:0.5rem; text-align:right;">
-            <button type="button" class="btn btn-sm btn-danger" onclick="deleteCaseBuild('${c.id}')">Delete</button>
-          </div>
-        </div>
-      `).join("");
+      el.innerHTML = appState.cases.map((c) => (
+        "<div class=\"case-log-card\">" +
+          "<div style=\"display:flex; justify-content:space-between; align-items:center;\">" +
+            "<strong>" + escapeHtml(c.targetModel) + "</strong>" +
+            "<span class=\"badge-status\">" + escapeHtml(c.status) + "</span>" +
+          "</div>" +
+          "<div class=\"brand-sub\" style=\"margin-top:0.3rem;\">Owner: <strong>" + escapeHtml(c.owner) + "</strong> &middot; Ply: " + c.plyThickness + " in.</div>" +
+          "<div class=\"brand-sub\">Int: " + c.intDims.w + " in. × " + c.intDims.d + " in. × " + c.intDims.h + " in. &middot; Cutout: " + c.fountCutout + " in.</div>" +
+          (c.notes ? "<p style=\"margin:0.35rem 0 0; font-size:0.85rem;\">" + escapeHtml(c.notes) + "</p>" : "") +
+          "<div style=\"margin-top:0.5rem; text-align:right;\">" +
+            "<button type=\"button\" class=\"btn btn-sm btn-danger\" onclick=\"deleteCaseBuild('" + c.id + "')\">Delete</button>" +
+          "</div>" +
+        "</div>"
+      )).join("");
     }
 
     function exportGearCSV() {
@@ -1529,15 +2240,15 @@
         g.status || "",
         g.rush ? "YES" : "NO",
         (g.diagTags || []).join("; "),
-        (g.notes || "").replace(/"/g, '""')
-      ].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(","));
+        g.notes || ""
+      ].map((v) => "\"" + String(v).replace(/"/g, "\"\"") + "\"").join(","));
 
       const csv = [headers.join(","), ...rows].join("\n");
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `coker-coleman-shop-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.download = "coker-coleman-shop-" + new Date().toISOString().slice(0, 10) + ".csv";
       a.click();
       URL.revokeObjectURL(url);
       showToast("CSV exported");
@@ -1548,6 +2259,7 @@
       renderParts();
       updateCaseBlueprint();
       renderCaseLog();
+      if (typeof window.refreshPartSmartReadout === "function") window.refreshPartSmartReadout();
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -1559,6 +2271,1310 @@
       renderAll();
       pullFromCloud(false);
     });
+  </script>
+
+  <!-- ===================================================================== -->
+  <!-- AUDITED 3D PARTSMART VISUALIZER ENGINE (TAB-AWARE + OCP INTEGRATED)   -->
+  <!-- ===================================================================== -->
+  <script>
+    window.initPartSmart3D = function () {
+      var statusOverlay = document.getElementById("psStatusOverlay");
+      function showError(err) {
+        if (!statusOverlay) return;
+        statusOverlay.style.display = "block";
+        statusOverlay.textContent = "3D Engine Error: " + (err && err.message ? err.message : String(err));
+        console.error(err);
+      }
+
+      try {
+        if (typeof THREE === "undefined") return;
+        if (window.__partSmartReady) return;
+        window.__partSmartReady = true;
+
+        var MODEL_PROFILES = {
+          "288A": {
+            label: "Coleman 288A700",
+            ocpSlug: "288",
+            paletteLabel: "Deep pine green fount & 2-tier slotted vent, silver instruction collar",
+            fountHex: 0x194d2b, fountMetal: 0.34, fountRough: 0.24,
+            ventHex: 0x194d2b,
+            collarHex: 0xc2c8ce, collarMetal: 0.78,
+            capHex: 0x1e1916,
+            pumpCapHex: 0xd8d5cc,
+            globeHex: 0xeef8ff, globeOpacity: 0.22,
+            globeStyle: "straight",
+            valveStyle: "pointer",
+            chamberStyle: "stamped",
+            hasTipCleaner: false,
+            hasCageRods: false,
+            fuel: "Coleman Fuel / White Gas",
+            cap: "1.26 pt",
+            caseTip: "Compact dual-mantle (5.13 in. fount x 12.38 in. tall)",
+            fountScaleXZ: 0.96, ventScaleXZ: 0.98, ventHeightScale: 1.0, mantleCount: 2,
+            parts: {
+              fount: { ref: "288-6151", ocp: "288-6151", desc: "Pine-green 288A700 steel fount (1.26 pt) with rolled base seam & front label." },
+              fuelCap: { ref: "220C1401 / S42 Gasket", ocp: "C004 / S42", desc: "Knurled 1-piece filler cap & S42 fuel-resistant gasket." },
+              pump: { ref: "242D5201 / 216-1091 / 200-6381", ocp: "C019 / R580 / C001", desc: "Silver CLOSE knob plunger, neoprene cup (C019), clip (R580) & check valve (C001)." },
+              feedTube: { ref: "288B5231", ocp: "288B5231", desc: "Fuel/air pickup tube extending to bottom of fount." },
+              valveCore: { ref: "288-3651 / 275-1171-50", ocp: "R510", desc: "Fuel-rated Schrader metering valve core (OCP R510) & bottom O-ring (288-1261)." },
+              valveBlock: { ref: "288A6571 / 288B3031", ocp: "288A6571", desc: "Brass valve block & internal eccentric block (288C3041) driving the pricker." },
+              packing: { ref: "118D6201 / 288-6161", ocp: "P01", desc: "Graphite valve stem packing (OCP P01), washer, pack nut & spring clip." },
+              knob: { ref: "288-5491 / 220C175", ocp: "288-5491", desc: "Contoured black pointer knob (OFF / LOW / HIGH) with center machine screw." },
+              generator: { ref: "288-5891 / 3000005403", ocp: "288-5891", desc: "Straight vertical brass generator & hex jamb nut (288-1621)." },
+              collar: { ref: "288B5291", ocp: "288B5291", desc: "Stamped aluminum collar printed with lighting instructions." },
+              frameBottom: { ref: "288-5401", ocp: "288-5401", desc: "Rolled-edge steel globe rest tray." },
+              heatShield: { ref: "288-1151", ocp: "288-1151", desc: "3-legged stamped steel heat shield sitting on the frame floor over the air/gen tubes." },
+              burnerAssy: { ref: "288B5341 / 288-1251 / 288-1641", ocp: "288B5341", desc: "Center support post, intake air tube, upper pancake manifold, twin burner caps, U-clip & nut." },
+              mantles: { ref: "21A1001 / 21A104 (#21)", ocp: "21A104", desc: "Two #21 string-tie mantles suspended from the upper brass burner caps." },
+              globe: { ref: "214A0461 / 2000026611", ocp: "214A0461", desc: "Straight clear Pyrex globe seated between frame floor and ventilator skirt." },
+              ventilatorBail: { ref: "288-5001", ocp: "288-5001", desc: "2-tier green porcelain ventilator with scalloped air slots & trapezoidal wire bail." },
+              ballNut: { ref: "288-4411 / 220-4411", ocp: "220-4411", desc: "Knurled brass ball nut threading onto top burner stud." }
+            }
+          },
+          "220HJK": {
+            label: "Coleman 220H / 220J / 220K",
+            ocpSlug: "220h",
+            paletteLabel: "Forest green fount & vent, stamped mixing chamber (OCP E1381)",
+            fountHex: 0x1a542e, fountMetal: 0.34, fountRough: 0.24,
+            ventHex: 0x1a542e,
+            collarHex: 0xcbd2d9, collarMetal: 0.84,
+            capHex: 0x1a542e,
+            pumpCapHex: 0xdcd8cf,
+            globeHex: 0xeef8ff, globeOpacity: 0.22,
+            globeStyle: "straight",
+            valveStyle: "wheel",
+            chamberStyle: "stamped",
+            hasTipCleaner: true,
+            hasCageRods: true,
+            fuel: "Coleman Fuel / White Gas",
+            cap: "~2 pt (28–32 oz)",
+            caseTip: "7.50 in. x 7.50 in. x 15.00 in. standard plywood case",
+            fountScaleXZ: 1.08, ventScaleXZ: 1.04, ventHeightScale: 1.04, mantleCount: 2,
+            parts: {
+              fount: { ref: "220H6151 / 220-6151", ocp: "220h", desc: "6.25 in. diameter 2-pint forest-green steel fount." },
+              fuelCap: { ref: "220C1401 (1-Piece)", ocp: "C004 / S42", desc: "Painted 1-piece filler cap using S42 gasket." },
+              pump: { ref: "216A5091-60 / 200-6381", ocp: "C005 / C001", desc: "Pump plunger, leather/neoprene cup (C005/C019), clip (R580) & check valve (C001)." },
+              feedTube: { ref: "220E5231", ocp: "220E5231", desc: "Brass instant-lighting fuel/air pickup tube." },
+              valveCore: { ref: "F/A Metering Rod & Spring", ocp: "220E5231", desc: "Internal brass metering rod controlling startup air/fuel mix." },
+              valveBlock: { ref: "220H6571", ocp: "220h", desc: "Brass fuel valve & rotary tip-cleaner stem (pack w/ P09 ribbon if weeping)." },
+              packing: { ref: "118D6201 / 220-6161", ocp: "P01", desc: "Large graphite valve stem packing (OCP P01) & hex packing nut." },
+              knob: { ref: "220E1501", ocp: "220E1501", desc: "Round splined black fuel wheel & direction disc." },
+              generator: { ref: "220E5891-65", ocp: "C002", desc: "Standard 220/228 brass generator (OCP C002) & jamb nut." },
+              collar: { ref: "220H5291", ocp: "220h", desc: "Stamped aluminum collar." },
+              frameBottom: { ref: "220E5401", ocp: "220h", desc: "Steel globe base rest & twin vertical cage uprights." },
+              heatShield: { ref: "220E1151", ocp: "220h", desc: "Lower burner frame baffle/shield plate." },
+              burnerAssy: { ref: "220-5261 Stamped Chamber", ocp: "E1381", desc: "1970s–80s Stamped Sheet-Metal mixing chamber (OCP E1381) & twin burner tubes." },
+              mantles: { ref: "21A104 (#21)", ocp: "21A104", desc: "Dual #21 string-tie mantles." },
+              globe: { ref: "#330 / 690-048", ocp: "G04", desc: "Standard #330 clear straight Pyrex globe (OCP G04)." },
+              ventilatorBail: { ref: "220H5001", ocp: "220h", desc: "Forest-green porcelain ventilator & steel bail." },
+              ballNut: { ref: "220-4411", ocp: "220-4411", desc: "Knurled brass ball nut." }
+            }
+          },
+          "220F": {
+            label: "Coleman 220F",
+            ocpSlug: "220f",
+            paletteLabel: "Kelly green fount & vent, Cast Brass mixing chamber (OCP E1705)",
+            fountHex: 0x246e3e, fountMetal: 0.35, fountRough: 0.25,
+            ventHex: 0x246e3e,
+            collarHex: 0xc4cbd2, collarMetal: 0.82,
+            capHex: 0x246e3e,
+            pumpCapHex: 0xdcd8cf,
+            globeHex: 0xeef8ff, globeOpacity: 0.22,
+            globeStyle: "straight",
+            valveStyle: "wheel",
+            chamberStyle: "castBrass",
+            hasTipCleaner: true,
+            hasCageRods: true,
+            fuel: "Coleman Fuel / White Gas",
+            cap: "~2 pt",
+            caseTip: "7.50 in. x 7.50 in. x 15.00 in. standard plywood case",
+            fountScaleXZ: 1.08, ventScaleXZ: 1.04, ventHeightScale: 1.08, mantleCount: 2,
+            parts: {
+              fount: { ref: "220F6151", ocp: "220f", desc: "1960s–early 70s 220F green steel fount." },
+              fuelCap: { ref: "220C1401 (3-Pc or 1-Pc)", ocp: "S41 / S42", desc: "3-piece cap (S41 gasket + S68 screw) or late 1-piece cap (S42)." },
+              pump: { ref: "216A5091-60 / 200-6381", ocp: "C005 / C001", desc: "Leather pump cup kit (C005) & check valve assembly (C001)." },
+              feedTube: { ref: "220E5231", ocp: "220E5231", desc: "Brass fuel/air pickup tube." },
+              valveCore: { ref: "F/A Rod & Spring", ocp: "220f", desc: "Instant-light brass metering rod." },
+              valveBlock: { ref: "220E6571", ocp: "220f", desc: "Brass valve body with rotary tip-cleaner lever." },
+              packing: { ref: "118D6201", ocp: "P01", desc: "Large valve stem graphite packing (OCP P01)." },
+              knob: { ref: "220E1501", ocp: "220E1501", desc: "Round splined fuel wheel & direction disc." },
+              generator: { ref: "220E5891-65", ocp: "C002", desc: "220E5891 brass generator (OCP C002) & jamb nut." },
+              collar: { ref: "220F5291", ocp: "220f", desc: "Stamped aluminum 220F collar." },
+              frameBottom: { ref: "220B4981", ocp: "220f", desc: "Angled-frame burner cage base & uprights." },
+              heatShield: { ref: "Center Burner Plate", ocp: "220f", desc: "Lower cage center plate." },
+              burnerAssy: { ref: "220B3261 Old Style Cast Brass", ocp: "E1705", desc: "Heavy Cast-Brass mixing chamber (OCP E1705), air tube & brass burner caps." },
+              mantles: { ref: "21A104 (#21)", ocp: "21A104", desc: "Dual #21 mantles." },
+              globe: { ref: "#330 / 690-048", ocp: "G04", desc: "Clear #330 Pyrex globe (OCP G04)." },
+              ventilatorBail: { ref: "220F5001", ocp: "220f", desc: "220F green porcelain ventilator & bail." },
+              ballNut: { ref: "220-4411", ocp: "220-4411", desc: "Top brass ball nut." }
+            }
+          },
+          "220DE": {
+            label: "Coleman 220D / 220E",
+            ocpSlug: "220e",
+            paletteLabel: "Deep hunter green fount & tall vent, Cast Brass burner (OCP E1705)",
+            fountHex: 0x154524, fountMetal: 0.36, fountRough: 0.24,
+            ventHex: 0x154524,
+            collarHex: 0xb5bcc2, collarMetal: 0.76,
+            capHex: 0x154524,
+            pumpCapHex: 0xc9963b,
+            globeHex: 0xeef8ff, globeOpacity: 0.22,
+            globeStyle: "straight",
+            valveStyle: "wheel",
+            chamberStyle: "castBrass",
+            hasTipCleaner: true,
+            hasCageRods: true,
+            fuel: "Coleman Fuel / White Gas",
+            cap: "~2 pt",
+            caseTip: "Check tall ventilator height before cutting top stabilizer block",
+            fountScaleXZ: 1.08, ventScaleXZ: 1.04, ventHeightScale: 1.15, mantleCount: 2,
+            parts: {
+              fount: { ref: "220D6151 / 220E6151", ocp: "220e", desc: "Classic hunter-green fount (220D also produced in nickel)." },
+              fuelCap: { ref: "220C1401 (3-Piece)", ocp: "S41", desc: "Three-piece knurled filler cap with S41 gasket." },
+              pump: { ref: "216A5091-60 / 200-6381", ocp: "C005 / C001", desc: "Leather cup pump with screw-secured cap & check valve." },
+              feedTube: { ref: "220E5231", ocp: "220e", desc: "Brass fuel/air pickup tube." },
+              valveCore: { ref: "F/A Metering Rod", ocp: "220e", desc: "Internal brass metering rod & spring." },
+              valveBlock: { ref: "220E6571", ocp: "220e", desc: "Heavy brass valve & rotary tip cleaner (P09 ribbon)." },
+              packing: { ref: "118D6201", ocp: "P01", desc: "Graphite valve stem packing (OCP P01)." },
+              knob: { ref: "220E1501", ocp: "220E1501", desc: "Phenolic round fuel wheel." },
+              generator: { ref: "220E5891-65", ocp: "C002", desc: "220E5891 generator (OCP C002) & jamb nut." },
+              collar: { ref: "220E5291", ocp: "220e", desc: "Stamped tinplate/steel collar." },
+              frameBottom: { ref: "220B4981", ocp: "220e", desc: "Lower cage base & twin vertical rods." },
+              heatShield: { ref: "Center Baffle", ocp: "220e", desc: "Cage floor shield." },
+              burnerAssy: { ref: "220B3261 Cast Brass", ocp: "E1705", desc: "Old Style Cast Brass mixing chamber (OCP E1705) & dual burner tubes." },
+              mantles: { ref: "21A104 (#21)", ocp: "21A104", desc: "Dual #21 mantles." },
+              globe: { ref: "#330 / 690-048", ocp: "G04", desc: "Sunrise or red-letter #330 Pyrex globe (OCP G04)." },
+              ventilatorBail: { ref: "220E5001", ocp: "220e", desc: "Tall hunter-green porcelain ventilator & keyhole bail." },
+              ballNut: { ref: "220-4411", ocp: "220-4411", desc: "Brass ball nut." }
+            }
+          },
+          "220ABC": {
+            label: "Coleman 220 / 220B / 220C",
+            ocpSlug: "220b",
+            paletteLabel: "Polished nickel-plated brass fount, green vent & Cast Brass burner",
+            fountHex: 0xd4cec0, fountMetal: 0.88, fountRough: 0.16,
+            ventHex: 0x1d5730,
+            collarHex: 0xcbc5b7, collarMetal: 0.86,
+            capHex: 0xc9963b,
+            pumpCapHex: 0xc9963b,
+            globeHex: 0xeef8ff, globeOpacity: 0.22,
+            globeStyle: "straight",
+            valveStyle: "wheel",
+            chamberStyle: "castBrass",
+            hasTipCleaner: true,
+            hasCageRods: true,
+            fuel: "Coleman Fuel / White Gas",
+            cap: "~2 pt",
+            caseTip: "Early 220B nickel-brass fount (WWII 220C also came in painted green)",
+            fountScaleXZ: 1.08, ventScaleXZ: 1.02, ventHeightScale: 1.15, mantleCount: 2,
+            parts: {
+              fount: { ref: "220B / 220C Fount", ocp: "220b", desc: "Nickel-plated brass fount (220B) or painted/brass fount (220C)." },
+              fuelCap: { ref: "220B1401 (Winged 3-Pc)", ocp: "S41", desc: "Three-piece brass/nickel filler cap (uses S41 gasket)." },
+              pump: { ref: "242B5381 / 216A5091", ocp: "R577 / R420 / C005", desc: "Threaded brass pump cap, leather cup (C005) & old-style check valve (R577)." },
+              feedTube: { ref: "220B5231", ocp: "220b", desc: "Early instant-light brass pickup tube." },
+              valveCore: { ref: "F/A Metering Rod", ocp: "220b", desc: "Brass metering rod." },
+              valveBlock: { ref: "220B6571", ocp: "220b", desc: "Machined brass valve & rotary tip cleaner." },
+              packing: { ref: "118D6201", ocp: "P01", desc: "Graphite stem packing (OCP P01)." },
+              knob: { ref: "220B Phenolic Wheel", ocp: "220b", desc: "Smooth/ribbed dark phenolic wheel & brass disc." },
+              generator: { ref: "220E5891 / T44", ocp: "C002", desc: "Brass dual-mantle generator (OCP C002)." },
+              collar: { ref: "220B/C Stamped Collar", ocp: "220b", desc: "Nickel/tinplate stamped collar." },
+              frameBottom: { ref: "220B Cage Base", ocp: "220b", desc: "Lower cage base & uprights." },
+              heatShield: { ref: "Cage Floor Plate", ocp: "220b", desc: "Center air-tube collar plate." },
+              burnerAssy: { ref: "220B3261 Cast Brass", ocp: "E1705", desc: "Heavy Cast-Brass mixing chamber (OCP E1705) & twin burner tubes." },
+              mantles: { ref: "21A104 (#21)", ocp: "21A104", desc: "Dual #21 mantles." },
+              globe: { ref: "#330 Straight Pyrex", ocp: "G04", desc: "Straight-line Pyrex globe (OCP G04) or mica chimney." },
+              ventilatorBail: { ref: "220B/C Green Vent", ocp: "220b", desc: "Tall green porcelain ventilator & cotter-pinned bail." },
+              ballNut: { ref: "220-4411", ocp: "220-4411", desc: "Knurled brass ball nut." }
+            }
+          },
+          "228": {
+            label: "Coleman 228D/E/F/H/J Big Hat",
+            ocpSlug: "228h",
+            paletteLabel: "Forest green fount & wide 8.5 in. 'Big Hat' porcelain reflector vent",
+            fountHex: 0x1c5931, fountMetal: 0.35, fountRough: 0.24,
+            ventHex: 0x1c5931,
+            collarHex: 0xc2c9d0, collarMetal: 0.82,
+            capHex: 0x1c5931,
+            pumpCapHex: 0xdcd8cf,
+            globeHex: 0xeef8ff, globeOpacity: 0.22,
+            globeStyle: "straight",
+            valveStyle: "wheel",
+            chamberStyle: "castBrass",
+            hasTipCleaner: true,
+            hasCageRods: true,
+            fuel: "Coleman Fuel / White Gas",
+            cap: "~2 pt",
+            caseTip: "Requires wider 9.50 in. x 9.50 in. x 15.00 in. case for 8.5 in. Big Hat brim",
+            fountScaleXZ: 1.08, ventScaleXZ: 1.38, ventHeightScale: 1.02, mantleCount: 2,
+            parts: {
+              fount: { ref: "228-6151 / 220-6151", ocp: "228h", desc: "Green 2-pint fount shared with 220 series." },
+              fuelCap: { ref: "220C1401", ocp: "S41 / S42", desc: "3-piece (S41) on 228C–F or 1-piece (S42) on 228H/J." },
+              pump: { ref: "216A5091-60 / 200-6381", ocp: "C005 / C001", desc: "Pump plunger, cup (C005) & check valve (C001)." },
+              feedTube: { ref: "220E5231", ocp: "228h", desc: "Brass fuel/air pickup tube." },
+              valveCore: { ref: "F/A Metering Rod", ocp: "228h", desc: "Internal metering rod & spring." },
+              valveBlock: { ref: "220H6571", ocp: "228h", desc: "Brass valve & tip-cleaner assembly." },
+              packing: { ref: "118D6201", ocp: "P01", desc: "Graphite valve stem packing (OCP P01)." },
+              knob: { ref: "220E1501", ocp: "220E1501", desc: "Black splined fuel wheel." },
+              generator: { ref: "220E5891-65", ocp: "C002", desc: "220E5891 generator (OCP C002) & jamb nut." },
+              collar: { ref: "228-5291", ocp: "228h", desc: "Stamped Model 228 collar." },
+              frameBottom: { ref: "220E5401", ocp: "228h", desc: "Lower frame tray & cage uprights." },
+              heatShield: { ref: "Center Shield", ocp: "228h", desc: "Lower cage center shield." },
+              burnerAssy: { ref: "220B3261 / 220-5261", ocp: "E1705 / E1381", desc: "Cast brass (228C–F) or stamped (228H/J) dual-mantle mixing chamber." },
+              mantles: { ref: "21A104 (#21)", ocp: "21A104", desc: "Dual #21 mantles." },
+              globe: { ref: "#330 / 690-048", ocp: "G04", desc: "Standard #330 straight glass globe (OCP G04)." },
+              ventilatorBail: { ref: "228-5001 (Big Hat)", ocp: "228h", desc: "Wide 8.5-inch 'Big Hat' porcelain ventilator reflecting light downward." },
+              ballNut: { ref: "220-4411", ocp: "220-4411", desc: "Top brass ball nut." }
+            }
+          },
+          "275": {
+            label: "Coleman 275 / 275A",
+            ocpSlug: "275a",
+            paletteLabel: "Metallic brown ('The Turd') fount & vent, tapered #880 globe (OCP G66)",
+            fountHex: 0x5c361b, fountMetal: 0.44, fountRough: 0.27,
+            ventHex: 0x543018,
+            collarHex: 0xc2b299, collarMetal: 0.72,
+            capHex: 0x5c361b,
+            pumpCapHex: 0x261c16,
+            globeHex: 0xffb347, globeOpacity: 0.34,
+            globeStyle: "tapered",
+            valveStyle: "pointer",
+            chamberStyle: "stamped",
+            hasTipCleaner: false,
+            hasCageRods: true,
+            fuel: "Coleman Fuel / White Gas",
+            cap: "~2 pt (32 oz)",
+            caseTip: "7.50 in. x 7.50 in. x 15.00 in. case — NOTE: 275 & 275A valves do NOT interchange!",
+            fountScaleXZ: 1.08, ventScaleXZ: 1.12, ventHeightScale: 0.92, mantleCount: 2,
+            parts: {
+              fount: { ref: "275-6151", ocp: "275a", desc: "Metallic brown 275/275A fount (~32 oz)." },
+              fuelCap: { ref: "220C1401 (Brown)", ocp: "S42", desc: "Brown painted 1-piece filler cap & S42 gasket." },
+              pump: { ref: "216A5091-60 / 200-6381", ocp: "C005 / C001", desc: "Pump plunger, cup (C005) & check valve (C001)." },
+              feedTube: { ref: "275 F/A Pickup Tube", ocp: "275a", desc: "Pickup tube housing the Schrader valve core." },
+              valveCore: { ref: "275-1171-50 Schrader Core", ocp: "R510", desc: "Fuel-rated Schrader core (OCP R510)—replace immediately if lantern flares or weeps!" },
+              valveBlock: { ref: "275 vs 275A6571 Valve", ocp: "275a", desc: "WARNING: Plain 275 (OFF/LIGHT/ON) & 275A (OFF/ON) valves DO NOT interchange!" },
+              packing: { ref: "118D6201 / O-Ring", ocp: "P01", desc: "Valve stem seal/packing." },
+              knob: { ref: "275 Dial Knob", ocp: "275a", desc: "Front Easy-Lite rotary control dial." },
+              generator: { ref: "220E5891-65", ocp: "C002", desc: "Uses standard 220E5891 generator (OCP C002) & jamb nut." },
+              collar: { ref: "275 Ribbed Gold Collar", ocp: "275a", desc: "Ribbed gold/tan anodized aluminum collar." },
+              frameBottom: { ref: "275 Tapered Frame Base", ocp: "275a", desc: "Wide lower base supporting the tapered #880 globe." },
+              heatShield: { ref: "275 Heat Shield", ocp: "275a", desc: "Heat shield protecting Schrader valve from heat soak." },
+              burnerAssy: { ref: "275 Burner Assy", ocp: "275a", desc: "Dual-mantle stamped burner & air tube." },
+              mantles: { ref: "21A104 (#21)", ocp: "21A104", desc: "Dual #21 mantles." },
+              globe: { ref: "#880 / 275A0481", ocp: "G66", desc: "Tapered cone-shaped picket-fence (OCP G66) or amber #880 globe." },
+              ventilatorBail: { ref: "275 Brown Ventilator", ocp: "275a", desc: "Wide brown porcelain ventilator & bail." },
+              ballNut: { ref: "220-4411", ocp: "220-4411", desc: "Top brass ball nut." }
+            }
+          },
+          "200A": {
+            label: "Coleman 200A",
+            ocpSlug: "200a",
+            paletteLabel: "Cherry red fount & tall red vent, U-frame (R353) & #550 bulge globe",
+            fountHex: 0xa81c14, fountMetal: 0.35, fountRough: 0.22,
+            ventHex: 0x9e1912,
+            collarHex: 0xc8cfd6, collarMetal: 0.84,
+            capHex: 0xa81c14,
+            pumpCapHex: 0xc8cfd6,
+            globeHex: 0xeef8ff, globeOpacity: 0.23,
+            globeStyle: "bulged",
+            valveStyle: "wheel",
+            chamberStyle: "castBrass",
+            hasTipCleaner: true,
+            hasCageRods: false,
+            fuel: "Coleman Fuel / White Gas",
+            cap: "~1.6 pt (20–25 oz)",
+            caseTip: "6.50 in. x 6.50 in. x 13.00 in. compact single-mantle case",
+            fountScaleXZ: 0.9, ventScaleXZ: 0.86, ventHeightScale: 1.14, mantleCount: 1,
+            parts: {
+              fount: { ref: "200A6151", ocp: "200a", desc: "Cherry-red single-mantle steel fount (1980–83 late 200A came in forest green)." },
+              fuelCap: { ref: "220C1401 (Red)", ocp: "S41 / S42", desc: "Red painted 3-piece (S41) or post-1970 1-piece (S42) filler cap." },
+              pump: { ref: "216A5091-60 / 200-6381", ocp: "C005 / R580 / C001", desc: "Pump plunger with D-ring clip (R580), leather cup (C005) & check valve (C001)." },
+              feedTube: { ref: "200A5231", ocp: "200a", desc: "Single-mantle brass fuel/air pickup tube." },
+              valveCore: { ref: "F/A Metering Rod", ocp: "200a", desc: "Instant-light metering rod & spring." },
+              valveBlock: { ref: "200A6571 / 202-3531", ocp: "R651", desc: "Brass valve body & rotary tip-cleaner stem (OCP R651)." },
+              packing: { ref: "118D6201", ocp: "P01", desc: "Large graphite valve stem packing (OCP P01)." },
+              knob: { ref: "200A1501", ocp: "200a", desc: "Black splined fuel wheel & direction disc." },
+              generator: { ref: "200A5891-68 (T66)", ocp: "C003", desc: "Slim 200A single-mantle brass generator (OCP C003, S80 internal spring)." },
+              collar: { ref: "200A5291", ocp: "200a", desc: "Stamped aluminum collar with tip-cleaner slot." },
+              frameBottom: { ref: "200A6621 U-Frame", ocp: "R353", desc: "Stamped steel U-burner frame & globe rest (OCP R353)." },
+              heatShield: { ref: "200A Base Plate", ocp: "200a", desc: "Burner base throat baffle." },
+              burnerAssy: { ref: "200A5341 + 242-3231 Cap", ocp: "C009 / S29", desc: "Cast U-bend mixing manifold, brass burner cap (OCP C009) & screen (S29)." },
+              mantles: { ref: "21A104 (#21)", ocp: "21A104", desc: "Single #21 string-tie mantle." },
+              globe: { ref: "#550 / R690B051", ocp: "R690B051", desc: "Curved bulged #550 Pyrex single-mantle globe." },
+              ventilatorBail: { ref: "200A5001", ocp: "200a", desc: "Tall red porcelain slotted single-mantle ventilator & bail." },
+              ballNut: { ref: "200A4411 / 220-4411", ocp: "220-4411", desc: "Top brass ball nut." }
+            }
+          },
+          "242": {
+            label: "Coleman 242B / 242C",
+            ocpSlug: "242c",
+            paletteLabel: "Painted green (or nickel) fount, collarless cast-brass neck & #550 globe",
+            fountHex: 0x205e35, fountMetal: 0.38, fountRough: 0.24,
+            ventHex: 0x164a28,
+            collarHex: 0xc9963b, collarMetal: 0.82,
+            capHex: 0xc9963b,
+            pumpCapHex: 0xc9963b,
+            globeHex: 0xeef8ff, globeOpacity: 0.23,
+            globeStyle: "bulged",
+            valveStyle: "wheel",
+            chamberStyle: "castBrass",
+            hasTipCleaner: true,
+            hasCageRods: false,
+            isCollarlessCast: true,
+            fuel: "Coleman Fuel / White Gas",
+            cap: "~1.33 pt (18–21 oz)",
+            caseTip: "6.50 in. x 6.50 in. x 13.00 in. compact single-mantle case",
+            fountScaleXZ: 0.85, ventScaleXZ: 0.82, ventHeightScale: 1.12, mantleCount: 1,
+            parts: {
+              fount: { ref: "242B / 242C Fount", ocp: "242c", desc: "Compact brass fount (nickel-plated on 242B; painted or nickel on 242C)." },
+              fuelCap: { ref: "603-1361 Small Cap", ocp: "S45", desc: "Small-thread 242/500 brass filler cap — requires SMALL S45 gasket!" },
+              pump: { ref: "242T5201 / 242B5381", ocp: "R577 / R420 / C005", desc: "Brass T-handle/knob plunger, leather cup (C005) & check valve (R577)." },
+              feedTube: { ref: "242 Feed Tube", ocp: "242c", desc: "Brass fuel/air pickup tube." },
+              valveCore: { ref: "F/A Metering Rod", ocp: "242c", desc: "Instant-light metering rod." },
+              valveBlock: { ref: "242 Valve Assy", ocp: "242c", desc: "Compact brass valve & rotary pricker lever." },
+              packing: { ref: "118D6201 / P09", ocp: "P01 / P09", desc: "Valve stem packing & P09 graphite ribbon for pricker." },
+              knob: { ref: "242 Phenolic Wheel", ocp: "242c", desc: "Small dark phenolic fuel wheel." },
+              generator: { ref: "200A5891-68", ocp: "C003", desc: "200A/242 single-mantle generator (OCP C003)." },
+              collar: { ref: "Collarless Cast Neck", ocp: "242c", desc: "242 has NO sheet-metal collar—heavy cast-brass base threads right onto valve." },
+              frameBottom: { ref: "242 Cast Brass Base", ocp: "242c", desc: "Cast brass burner base tray." },
+              heatShield: { ref: "Cast Base Throat", ocp: "242c", desc: "Cast center throat around generator." },
+              burnerAssy: { ref: "242 Cast Chamber + 242-3231", ocp: "C009 / S29", desc: "Twin-air-tube cast brass mixing chamber, C009 burner cap & S29 screen." },
+              mantles: { ref: "21A104 (#21) or #99", ocp: "21A104", desc: "Single #21 or slightly larger #99 mantle." },
+              globe: { ref: "#550 Bulge / #440 Straight", ocp: "R690B051", desc: "Bulged #550 or straight #440 Pyrex globe." },
+              ventilatorBail: { ref: "242 Green Ventilator", ocp: "242c", desc: "Narrow-brim dark green porcelain ventilator & bail." },
+              ballNut: { ref: "242 Brass Nut", ocp: "242c", desc: "Top brass ventilator nut." }
+            }
+          },
+          "236_237": {
+            label: "Coleman 236 Major / 237 Empire",
+            ocpSlug: "237",
+            paletteLabel: "Polished nickel fount, seafoam/emerald vent & large #660 bulge globe (500 CP)",
+            fountHex: 0xd4cec0, fountMetal: 0.88, fountRough: 0.16,
+            ventHex: 0x1e6b3b,
+            collarHex: 0xc7ced4, collarMetal: 0.84,
+            capHex: 0xc9963b,
+            pumpCapHex: 0xc9963b,
+            globeHex: 0xeef8ff, globeOpacity: 0.23,
+            globeStyle: "bulged",
+            valveStyle: "wheel",
+            chamberStyle: "castBrass",
+            hasTipCleaner: true,
+            hasCageRods: true,
+            fuel: "White Gas (236) / Kerosene (237)",
+            cap: "~2 pt (28–32 oz)",
+            caseTip: "Heavy 500 CP lantern (#660 bulge globe) — measure height & globe bulge",
+            fountScaleXZ: 1.1, ventScaleXZ: 1.08, ventHeightScale: 1.12, mantleCount: 1,
+            parts: {
+              fount: { ref: "236 / 237 Nickel Fount", ocp: "237", desc: "Heavy 2-pint nickel-plated brass fount." },
+              fuelCap: { ref: "220C1401 (Nickel/Brass)", ocp: "S41", desc: "Three-piece winged/knurled filler cap (S41 gasket)." },
+              pump: { ref: "216A5091-60 / 200-6381", ocp: "C005 / C001", desc: "Heavy brass pump plunger, leather cup (C005) & check valve (C001)." },
+              feedTube: { ref: "236 F/A or 237 Straight Pickup", ocp: "237", desc: "F/A pickup (236) or straight kerosene pickup tube (237)." },
+              valveCore: { ref: "Alcohol Preheat Cup (237)", ocp: "237", desc: "237 uses denatured alcohol preheat cup around generator base." },
+              valveBlock: { ref: "236/237 Heavy Valve", ocp: "237", desc: "Large-bore brass valve & rotary tip cleaner." },
+              packing: { ref: "118D6201", ocp: "P01", desc: "Large graphite valve stem packing (OCP P01)." },
+              knob: { ref: "236/237 Valve Wheel", ocp: "237", desc: "Large phenolic fuel wheel." },
+              generator: { ref: "236-2991 / 237-2991", ocp: "237", desc: "Heavy-duty 500 CP brass generator." },
+              collar: { ref: "236/237 Stamped Collar", ocp: "237", desc: "Slotted nickel/steel collar." },
+              frameBottom: { ref: "236/237 Cage Base", ocp: "237", desc: "Heavy burner floor & uprights." },
+              heatShield: { ref: "Preheat Cup / Shield", ocp: "237", desc: "Base shield / alcohol preheat cup seat." },
+              burnerAssy: { ref: "500 CP Cast Burner", ocp: "237", desc: "Massive cast single-mantle 500 CP burner head." },
+              mantles: { ref: "#1111 / #99 / 24A", ocp: "237", desc: "Large 500 CP coarse-weave single mantle." },
+              globe: { ref: "#660 Bulge Globe", ocp: "237", desc: "Large bulged #660 Pyrex globe." },
+              ventilatorBail: { ref: "236/237 Seafoam/Green Vent", ocp: "237", desc: "Emerald/seafoam green porcelain ventilator & bail." },
+              ballNut: { ref: "220-4411", ocp: "220-4411", desc: "Top brass ball nut." }
+            }
+          }
+        };
+
+        var QUICK_CHIPS = [
+          { key: "288A", text: "288A700" },
+          { key: "220HJK", text: "220H/J/K" },
+          { key: "220F", text: "220F" },
+          { key: "220DE", text: "220D/E" },
+          { key: "220ABC", text: "220/B/C" },
+          { key: "228", text: "228 Big Hat" },
+          { key: "275", text: "275/275A" },
+          { key: "200A", text: "200A" },
+          { key: "242", text: "242" },
+          { key: "236_237", text: "236/237" }
+        ];
+
+        var stage = document.getElementById("viewerStage");
+        var slider = document.getElementById("explodeSlider");
+        var pctLabel = document.getElementById("explodePercent");
+        var readout = document.getElementById("partReadout");
+        var stockActions = document.getElementById("psStockAndActions");
+        var specSummary = document.getElementById("modelSpecSummary");
+        var pillsContainer = document.getElementById("partButtons");
+        var flowBtn = document.getElementById("flowToggleBtn");
+        var resetViewBtn = document.getElementById("resetViewBtn");
+        var titleEl = document.getElementById("visualizerTitle");
+        var modelSelect = document.getElementById("psModelSelect");
+        var chipsContainer = document.getElementById("quickModelChips");
+
+        var initW = stage.clientWidth || 880;
+        var initH = stage.clientHeight || 500;
+
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(36, initW / initH, 0.1, 100);
+
+        var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(initW, initH);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.12;
+        stage.appendChild(renderer.domElement);
+
+        var orbit = {
+          theta: 0.14,
+          phi: 1.34,
+          radius: 5.55,
+          targetTheta: 0.14,
+          targetPhi: 1.34,
+          targetRadius: 5.55,
+          pan: new THREE.Vector3(0, 0.04, 0),
+          targetPan: new THREE.Vector3(0, 0.04, 0),
+          reset: function () {
+            this.targetTheta = 0.14;
+            this.targetPhi = 1.34;
+            this.targetRadius = 5.55;
+            this.targetPan.set(0, 0.04, 0);
+          },
+          update: function () {
+            this.theta += (this.targetTheta - this.theta) * 0.16;
+            this.phi += (this.targetPhi - this.phi) * 0.16;
+            this.radius += (this.targetRadius - this.radius) * 0.16;
+            this.pan.lerp(this.targetPan, 0.16);
+            var sinP = Math.sin(this.phi);
+            camera.position.set(
+              this.pan.x + this.radius * sinP * Math.sin(this.theta),
+              this.pan.y + this.radius * Math.cos(this.phi),
+              this.pan.z + this.radius * sinP * Math.cos(this.theta)
+            );
+            camera.lookAt(this.pan);
+          }
+        };
+
+        (function attachOrbitEvents(dom) {
+          var isDragging = false;
+          var isRightDrag = false;
+          var lastX = 0, lastY = 0;
+          var pinchDist = 0;
+
+          dom.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+          dom.addEventListener("mousedown", function (e) {
+            isDragging = true;
+            isRightDrag = (e.button === 2 || e.shiftKey);
+            lastX = e.clientX;
+            lastY = e.clientY;
+          });
+          window.addEventListener("mousemove", function (e) {
+            if (!isDragging) return;
+            var dx = e.clientX - lastX;
+            var dy = e.clientY - lastY;
+            lastX = e.clientX;
+            lastY = e.clientY;
+            if (isRightDrag) {
+              orbit.targetPan.y += dy * 0.005;
+              orbit.targetPan.x -= dx * 0.005;
+            } else {
+              orbit.targetTheta -= dx * 0.0075;
+              orbit.targetPhi = Math.max(0.2, Math.min(Math.PI - 0.2, orbit.targetPhi - dy * 0.0075));
+            }
+          });
+          window.addEventListener("mouseup", function () { isDragging = false; });
+          dom.addEventListener("wheel", function (e) {
+            e.preventDefault();
+            orbit.targetRadius = Math.max(2.4, Math.min(12.5, orbit.targetRadius + e.deltaY * 0.004));
+          }, { passive: false });
+
+          dom.addEventListener("touchstart", function (e) {
+            if (e.touches.length === 1) {
+              isDragging = true;
+              lastX = e.touches[0].clientX;
+              lastY = e.touches[0].clientY;
+            } else if (e.touches.length === 2) {
+              isDragging = false;
+              pinchDist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+              );
+            }
+          }, { passive: true });
+
+          dom.addEventListener("touchmove", function (e) {
+            e.preventDefault();
+            if (e.touches.length === 1 && isDragging) {
+              var dx = e.touches[0].clientX - lastX;
+              var dy = e.touches[0].clientY - lastY;
+              lastX = e.touches[0].clientX;
+              lastY = e.touches[0].clientY;
+              orbit.targetTheta -= dx * 0.008;
+              orbit.targetPhi = Math.max(0.2, Math.min(Math.PI - 0.2, orbit.targetPhi - dy * 0.008));
+            } else if (e.touches.length === 2) {
+              var d = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+              );
+              if (pinchDist > 0) {
+                orbit.targetRadius = Math.max(2.4, Math.min(12.5, orbit.targetRadius - (d - pinchDist) * 0.015));
+              }
+              pinchDist = d;
+            }
+          }, { passive: false });
+
+          dom.addEventListener("touchend", function () { isDragging = false; pinchDist = 0; });
+        })(renderer.domElement);
+
+        scene.add(new THREE.AmbientLight(0xffe9c9, 0.95));
+        var keyLight = new THREE.DirectionalLight(0xfff6e5, 1.55);
+        keyLight.position.set(4.5, 7.5, 6.5);
+        scene.add(keyLight);
+        var fillLight = new THREE.DirectionalLight(0xb2d4f2, 0.65);
+        fillLight.position.set(-5.5, 2.5, -4.0);
+        scene.add(fillLight);
+        var rimLight = new THREE.DirectionalLight(0xffd29d, 0.55);
+        rimLight.position.set(0, -4, 4);
+        scene.add(rimLight);
+
+        var groundDisc = new THREE.Mesh(
+          new THREE.CircleGeometry(1.55, 48),
+          new THREE.MeshBasicMaterial({ color: 0x080402, transparent: true, opacity: 0.55 })
+        );
+        groundDisc.rotation.x = -Math.PI / 2;
+        groundDisc.position.y = -1.68;
+        scene.add(groundDisc);
+
+        var currentExplode = 0;
+        var targetExplode = 0;
+        var showFlow = true;
+        var activePartId = "burnerAssy";
+        var activeModelKey = "288A";
+
+        var parts = [];
+        var hitMeshes = [];
+
+        function makeRoleMat(role, opts) {
+          var m = new THREE.MeshStandardMaterial(opts);
+          m.userData = { matRole: role };
+          return m;
+        }
+
+        var matFount = makeRoleMat("fount", { color: 0x194d2b, roughness: 0.24, metalness: 0.34 });
+        var matVent = makeRoleMat("vent", { color: 0x194d2b, roughness: 0.22, metalness: 0.32, side: THREE.DoubleSide });
+        var matCollar = makeRoleMat("collar", { color: 0xc2c8ce, roughness: 0.32, metalness: 0.78, side: THREE.DoubleSide });
+        var matCap = makeRoleMat("cap", { color: 0x1e1916, roughness: 0.38, metalness: 0.28 });
+        var matPumpCap = makeRoleMat("pumpCap", { color: 0xd8d5cc, roughness: 0.38, metalness: 0.35 });
+        var matChamber = makeRoleMat("chamber", { color: 0xb8bfc6, roughness: 0.34, metalness: 0.75 });
+        var matGlobe = makeRoleMat("globe", {
+          color: 0xeef8ff, roughness: 0.08, metalness: 0.05,
+          transparent: true, opacity: 0.22, depthWrite: false, side: THREE.DoubleSide
+        });
+        var matBrass = makeRoleMat("brass", { color: 0xd69f36, roughness: 0.26, metalness: 0.84 });
+        var matSteel = makeRoleMat("steel", { color: 0xb8bfc6, roughness: 0.34, metalness: 0.75, side: THREE.DoubleSide });
+        var matKnob = makeRoleMat("knob", { color: 0x1a1512, roughness: 0.44, metalness: 0.22 });
+        var matMantle = makeRoleMat("mantle", {
+          color: 0xf4ecda, roughness: 0.92, metalness: 0.02, side: THREE.DoubleSide
+        });
+        var matDecalRed = makeRoleMat("decalRed", { color: 0xa3221a, roughness: 0.4, metalness: 0.15 });
+        var matDecalDark = makeRoleMat("label", { color: 0x171412, roughness: 0.45, metalness: 0.2 });
+
+        function registerPart(id, name, obj, basePos, explodeVec) {
+          obj.position.set(basePos[0], basePos[1], basePos[2]);
+          obj.traverse(function (child) {
+            if (child.isMesh) {
+              var role = (child.material && child.material.userData && child.material.userData.matRole) || "other";
+              child.material = child.material.clone();
+              child.material.userData = { matRole: role };
+              child.material.emissiveIntensity = 0;
+              if (role === "globe") child.renderOrder = 10;
+              child.userData.partId = id;
+              hitMeshes.push(child);
+            }
+          });
+          scene.add(obj);
+          var entry = {
+            id: id,
+            name: name,
+            group: obj,
+            base: new THREE.Vector3(basePos[0], basePos[1], basePos[2]),
+            delta: new THREE.Vector3(explodeVec[0], explodeVec[1], explodeVec[2])
+          };
+          parts.push(entry);
+          return entry;
+        }
+
+        // 1. Fount Tank
+        var fountGroup = new THREE.Group();
+        var fountPts = [
+          new THREE.Vector2(0.00, -0.54),
+          new THREE.Vector2(0.96, -0.54),
+          new THREE.Vector2(1.03, -0.56),
+          new THREE.Vector2(1.05, -0.52),
+          new THREE.Vector2(1.02, -0.47),
+          new THREE.Vector2(1.00,  0.14),
+          new THREE.Vector2(0.95,  0.28),
+          new THREE.Vector2(0.82,  0.41),
+          new THREE.Vector2(0.62,  0.50),
+          new THREE.Vector2(0.44,  0.55),
+          new THREE.Vector2(0.32,  0.56),
+          new THREE.Vector2(0.00,  0.56)
+        ];
+        var fountLatheGeo = new THREE.LatheGeometry(fountPts, 52);
+        fountLatheGeo.computeVertexNormals();
+        fountGroup.add(new THREE.Mesh(fountLatheGeo, matFount));
+
+        var decalBack = new THREE.Mesh(new THREE.CylinderGeometry(1.008, 1.012, 0.21, 32, 1, true, -0.46, 0.92), matSteel);
+        decalBack.position.y = -0.18;
+        var decalLeftRed = new THREE.Mesh(new THREE.CylinderGeometry(1.011, 1.015, 0.17, 18, 1, true, -0.43, 0.41), matDecalRed);
+        decalLeftRed.position.y = -0.18;
+        var decalRightBlack = new THREE.Mesh(new THREE.CylinderGeometry(1.011, 1.015, 0.17, 18, 1, true, -0.01, 0.44), matDecalDark);
+        decalRightBlack.position.y = -0.18;
+        fountGroup.add(decalBack, decalLeftRed, decalRightBlack);
+        registerPart("fount", "Fount Assembly", fountGroup, [0, -1.12, 0], [0, -0.38, 0]);
+
+        // 2. Fuel Cap
+        var capGroup = new THREE.Group();
+        var fillerNeck = new THREE.Mesh(new THREE.CylinderGeometry(0.135, 0.15, 0.12, 24), matFount);
+        fillerNeck.position.y = -0.03;
+        var capMain = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.18, 0.11, 28), matCap);
+        capMain.position.y = 0.05;
+        var capKnurl = new THREE.Mesh(new THREE.CylinderGeometry(0.183, 0.183, 0.065, 20), matCap);
+        capKnurl.position.y = 0.05;
+        capGroup.add(fillerNeck, capMain, capKnurl);
+        capGroup.rotation.z = 0.52;
+        capGroup.rotation.x = 0.12;
+        registerPart("fuelCap", "Fuel Cap", capGroup, [-0.68, -0.73, 0.24], [-1.15, 0.15, 0.55]);
+
+        // 3. Pump & Check Valve
+        var pumpGroup = new THREE.Group();
+        var pumpTubeBarrel = new THREE.Mesh(new THREE.CylinderGeometry(0.135, 0.145, 0.14, 24), matFount);
+        pumpTubeBarrel.position.y = -0.04;
+        var pumpBlackCollar = new THREE.Mesh(new THREE.CylinderGeometry(0.165, 0.165, 0.08, 28), matKnob);
+        pumpBlackCollar.position.y = 0.03;
+        var oilBoss = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 12), matKnob);
+        oilBoss.position.set(-0.11, 0.06, 0.05);
+        var plungerShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.72, 16), matSteel);
+        plungerShaft.position.y = -0.22;
+        var pumpSilverKnob = new THREE.Mesh(new THREE.CylinderGeometry(0.145, 0.135, 0.065, 28), matPumpCap);
+        pumpSilverKnob.position.y = 0.14;
+        var pumpKnobStem = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.07, 16), matKnob);
+        pumpKnobStem.position.y = 0.09;
+        var pumpCup = new THREE.Mesh(new THREE.CylinderGeometry(0.105, 0.12, 0.075, 22), matKnob);
+        pumpCup.position.y = -0.56;
+        var checkValve = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.05, 0.11, 16), matBrass);
+        checkValve.position.y = -0.68;
+        pumpGroup.add(pumpTubeBarrel, pumpBlackCollar, oilBoss, plungerShaft, pumpKnobStem, pumpSilverKnob, pumpCup, checkValve);
+        pumpGroup.rotation.z = -0.52;
+        pumpGroup.rotation.x = 0.12;
+        registerPart("pump", "Pump & Check Valve", pumpGroup, [0.68, -0.73, 0.24], [1.25, 0.25, 0.55]);
+
+        // 4. Feed Tube & Metering Core
+        var feedTubeMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.048, 0.048, 0.78, 18), matBrass);
+        registerPart("feedTube", "Feed Tube Assy", feedTubeMesh, [0, -0.96, 0], [0, -1.35, 0]);
+
+        var valveCoreGroup = new THREE.Group();
+        var coreBody = new THREE.Mesh(new THREE.CylinderGeometry(0.058, 0.058, 0.2, 18), matBrass);
+        var coreORing = new THREE.Mesh(new THREE.TorusGeometry(0.072, 0.018, 12, 24), matKnob);
+        coreORing.rotation.x = Math.PI / 2;
+        coreORing.position.y = -0.07;
+        valveCoreGroup.add(coreBody, coreORing);
+        registerPart("valveCore", "Schrader / F-A Core", valveCoreGroup, [0, -0.62, 0], [-0.85, -0.75, 0]);
+
+        // 5. Valve Block, Tip Cleaner, Packing & Knob
+        var valveBlockGroup = new THREE.Group();
+        var vBody = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.14, 0.36, 20), matBrass);
+        var genBridge = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.1, 0.14), matBrass);
+        genBridge.position.set(0.06, 0.12, 0);
+        var genBoss = new THREE.Mesh(new THREE.CylinderGeometry(0.062, 0.068, 0.12, 16), matBrass);
+        genBoss.position.set(0.11, 0.19, 0);
+        var eccHousing = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.14, 0.11), matBrass);
+        eccHousing.position.set(0.11, 0.08, 0);
+        var tipCleanerGroup = new THREE.Group();
+        var tcStem = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.34, 12), matBrass);
+        tcStem.rotation.x = Math.PI / 2;
+        tcStem.position.set(-0.08, 0.08, -0.17);
+        var tcLoop = new THREE.Mesh(new THREE.TorusGeometry(0.045, 0.012, 10, 18), matBrass);
+        tcLoop.position.set(-0.08, 0.02, -0.34);
+        tipCleanerGroup.add(tcStem, tcLoop);
+        valveBlockGroup.add(vBody, genBridge, genBoss, eccHousing, tipCleanerGroup);
+        registerPart("valveBlock", "Valve Assembly", valveBlockGroup, [0, -0.38, 0], [0, -0.05, 0]);
+
+        var stemGroup = new THREE.Group();
+        var stemRod = new THREE.Mesh(new THREE.CylinderGeometry(0.036, 0.036, 0.32, 16), matBrass);
+        stemRod.rotation.x = Math.PI / 2;
+        var packNut = new THREE.Mesh(new THREE.CylinderGeometry(0.082, 0.082, 0.1, 6), matBrass);
+        packNut.rotation.x = Math.PI / 2;
+        packNut.position.z = 0.08;
+        stemGroup.add(stemRod, packNut);
+        registerPart("packing", "Valve Stem & Packing", stemGroup, [0, -0.38, 0.22], [0, 0, 0.78]);
+
+        var knobGroup = new THREE.Group();
+        var pointerKnobSub = new THREE.Group();
+        var pkSkirt = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.16, 0.1, 32), matKnob);
+        pkSkirt.rotation.x = Math.PI / 2;
+        var pkRidge = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.11, 0.08), matKnob);
+        pkRidge.position.set(0, 0.01, 0.055);
+        pkRidge.rotation.z = -0.18;
+        var pkScrew = new THREE.Mesh(new THREE.CylinderGeometry(0.036, 0.036, 0.02, 16), matSteel);
+        pkScrew.rotation.x = Math.PI / 2;
+        pkScrew.position.set(0, -0.01, 0.098);
+        pointerKnobSub.add(pkSkirt, pkRidge, pkScrew);
+
+        var wheelKnobSub = new THREE.Group();
+        var wkOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.21, 0.21, 0.075, 24), matKnob);
+        wkOuter.rotation.x = Math.PI / 2;
+        wkOuter.position.z = 0.03;
+        var wkDisc = new THREE.Mesh(new THREE.CylinderGeometry(0.125, 0.125, 0.015, 24), matSteel);
+        wkDisc.rotation.x = Math.PI / 2;
+        wkDisc.position.z = 0.07;
+        var wkScrew = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.02, 14), matBrass);
+        wkScrew.rotation.x = Math.PI / 2;
+        wkScrew.position.z = 0.08;
+        wheelKnobSub.add(wkOuter, wkDisc, wkScrew);
+        knobGroup.add(pointerKnobSub, wheelKnobSub);
+        registerPart("knob", "Valve Knob / Wheel", knobGroup, [0, -0.38, 0.44], [0, 0, 1.45]);
+
+        // 6. Generator & Jamb Nut
+        var genGroup = new THREE.Group();
+        var jambNut = new THREE.Mesh(new THREE.CylinderGeometry(0.078, 0.078, 0.09, 6), matBrass);
+        jambNut.position.y = 0.03;
+        var genTube = new THREE.Mesh(new THREE.CylinderGeometry(0.036, 0.036, 0.92, 18), matBrass);
+        genTube.position.y = 0.49;
+        var genGasTip = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.036, 0.06, 6), matBrass);
+        genGasTip.position.y = 0.97;
+        genGroup.add(jambNut, genTube, genGasTip);
+        registerPart("generator", "Generator & Jamb Nut", genGroup, [0.11, -0.18, 0], [0.95, 0.18, 0.2]);
+
+        // 7. Collar (scales narrower for collarless 242 cast neck!)
+        var collarGroup = new THREE.Group();
+        var collarCyl = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.47, 0.36, 40, 1, true), matCollar);
+        var collarBeadBot = new THREE.Mesh(new THREE.TorusGeometry(0.47, 0.014, 10, 40), matCollar);
+        collarBeadBot.rotation.x = Math.PI / 2;
+        collarBeadBot.position.y = -0.18;
+        var collarBeadTop = new THREE.Mesh(new THREE.TorusGeometry(0.45, 0.014, 10, 40), matCollar);
+        collarBeadTop.rotation.x = Math.PI / 2;
+        collarBeadTop.position.y = 0.18;
+        collarGroup.add(collarCyl, collarBeadBot, collarBeadTop);
+        registerPart("collar", "Collar", collarGroup, [0, -0.38, 0], [0, -0.45, 0]);
+
+        // 8. Frame Bottom & Cage Uprights
+        var frameBottomGroup = new THREE.Group();
+        var trayFloor = new THREE.Mesh(new THREE.CylinderGeometry(0.88, 0.84, 0.04, 44), matSteel);
+        var trayLipWall = new THREE.Mesh(new THREE.CylinderGeometry(0.90, 0.89, 0.075, 44, 1, true), matSteel);
+        trayLipWall.position.y = 0.025;
+        var trayBead = new THREE.Mesh(new THREE.TorusGeometry(0.90, 0.016, 10, 44), matSteel);
+        trayBead.rotation.x = Math.PI / 2;
+        trayBead.position.y = 0.062;
+        var cageRodsSub = new THREE.Group();
+        var rodL = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 1.06, 12), matSteel);
+        rodL.position.set(-0.79, 0.54, 0);
+        var rodR = rodL.clone();
+        rodR.position.x = 0.79;
+        var topCageRing = new THREE.Mesh(new THREE.TorusGeometry(0.79, 0.018, 10, 40), matSteel);
+        topCageRing.rotation.x = Math.PI / 2;
+        topCageRing.position.y = 1.06;
+        cageRodsSub.add(rodL, rodR, topCageRing);
+        frameBottomGroup.add(trayFloor, trayLipWall, trayBead, cageRodsSub);
+        registerPart("frameBottom", "Frame Bottom", frameBottomGroup, [0, -0.19, 0], [0, 0.22, 0]);
+
+        // 9. Stamped 3-Legged Floor Heat Shield
+        var heatShieldGroup = new THREE.Group();
+        var hsCap = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.42, 0.045, 32), matSteel);
+        hsCap.position.y = 0.09;
+        for (var li = 0; li < 3; li++) {
+          var ang = (li * Math.PI * 2) / 3 + 0.52;
+          var leg = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.13, 0.025), matSteel);
+          leg.position.set(Math.cos(ang) * 0.39, 0.025, Math.sin(ang) * 0.39);
+          leg.rotation.y = -ang + Math.PI / 2;
+          leg.rotation.x = 0.18;
+          heatShieldGroup.add(leg);
+        }
+        heatShieldGroup.add(hsCap);
+        registerPart("heatShield", "Heat Shield", heatShieldGroup, [0, -0.16, 0], [0, 0.46, 0]);
+
+        // 10. Burner Assembly (distinguishes Stamped Pancake/E1381 vs Cast Brass E1705!)
+        var burnerGroup = new THREE.Group();
+        var centerSupportPost = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.044, 1.06, 18), matBrass);
+        centerSupportPost.position.y = 0.37;
+        var intakeAirTube = new THREE.Mesh(new THREE.CylinderGeometry(0.062, 0.062, 0.68, 18), matChamber);
+        intakeAirTube.position.set(0.11, 0.53, 0);
+        var burnerMountNut = new THREE.Mesh(new THREE.CylinderGeometry(0.088, 0.088, 0.07, 6), matBrass);
+        burnerMountNut.position.set(0, -0.13, 0);
+        var uClipMesh = new THREE.Mesh(new THREE.TorusGeometry(0.068, 0.015, 8, 18, Math.PI * 1.25), matSteel);
+        uClipMesh.rotation.x = Math.PI / 2;
+        uClipMesh.position.set(0.11, 0.21, 0);
+        var pancakeChamber = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.36, 0.09, 32), matChamber);
+        pancakeChamber.position.y = 0.88;
+        var ventStud = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.44, 14), matSteel);
+        ventStud.position.y = 1.12;
+
+        var downTubeL = new THREE.Mesh(new THREE.CylinderGeometry(0.052, 0.052, 0.22, 16), matChamber);
+        downTubeL.position.set(-0.24, 0.75, 0);
+        var burnerCapL = new THREE.Mesh(new THREE.CylinderGeometry(0.068, 0.074, 0.085, 20), matBrass);
+        burnerCapL.position.set(-0.24, 0.62, 0);
+        var downTubeR = downTubeL.clone();
+        downTubeR.position.x = 0.24;
+        var burnerCapR = burnerCapL.clone();
+        burnerCapR.position.x = 0.24;
+
+        var downTubeSingle = new THREE.Mesh(new THREE.CylinderGeometry(0.062, 0.062, 0.22, 16), matChamber);
+        downTubeSingle.position.set(0, 0.75, 0);
+        var burnerCapSingle = new THREE.Mesh(new THREE.CylinderGeometry(0.082, 0.09, 0.09, 20), matBrass);
+        burnerCapSingle.position.set(0, 0.62, 0);
+
+        burnerGroup.add(
+          centerSupportPost, intakeAirTube, burnerMountNut, uClipMesh,
+          pancakeChamber, ventStud,
+          downTubeL, burnerCapL, downTubeR, burnerCapR,
+          downTubeSingle, burnerCapSingle
+        );
+        registerPart("burnerAssy", "Burner & Mixing Chamber", burnerGroup, [0, 0.0, 0], [0, 0.75, 0]);
+
+        // 11. Mantles
+        var mantlesGroup = new THREE.Group();
+        var mantlePts = [
+          new THREE.Vector2(0.00, -0.36),
+          new THREE.Vector2(0.07, -0.35),
+          new THREE.Vector2(0.14, -0.29),
+          new THREE.Vector2(0.165, -0.19),
+          new THREE.Vector2(0.145, -0.09),
+          new THREE.Vector2(0.085, -0.02),
+          new THREE.Vector2(0.068,  0.02)
+        ];
+        var mantleGeo = new THREE.LatheGeometry(mantlePts, 28);
+        mantleGeo.computeVertexNormals();
+        var mantleLeft = new THREE.Mesh(mantleGeo, matMantle);
+        mantleLeft.position.set(-0.24, 0.0, 0);
+        var mantleRight = new THREE.Mesh(mantleGeo, matMantle);
+        mantleRight.position.set(0.24, 0.0, 0);
+        var mantleCenter = new THREE.Mesh(mantleGeo, matMantle);
+        mantleCenter.scale.set(1.18, 1.12, 1.18);
+        mantleCenter.position.set(0, 0.0, 0);
+        mantlesGroup.add(mantleLeft, mantleRight, mantleCenter);
+        registerPart("mantles", "Mantle(s)", mantlesGroup, [0, 0.59, 0], [0, 1.08, 0]);
+
+        // 12. Pyrex Globe
+        var globeGroup = new THREE.Group();
+        var straightGlobeSub = new THREE.Group();
+        var sgBody = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 1.04, 44, 1, true), matGlobe);
+        var sgRimTop = new THREE.Mesh(new THREE.TorusGeometry(0.85, 0.012, 8, 44), matSteel);
+        sgRimTop.rotation.x = Math.PI / 2;
+        sgRimTop.position.y = 0.52;
+        var sgRimBot = sgRimTop.clone();
+        sgRimBot.position.y = -0.52;
+        straightGlobeSub.add(sgBody, sgRimTop, sgRimBot);
+
+        var bulgeGlobeSub = new THREE.Group();
+        var bgPts = [
+          new THREE.Vector2(0.76, -0.52),
+          new THREE.Vector2(0.86, -0.34),
+          new THREE.Vector2(0.95, -0.10),
+          new THREE.Vector2(0.97,  0.06),
+          new THREE.Vector2(0.92,  0.26),
+          new THREE.Vector2(0.82,  0.42),
+          new THREE.Vector2(0.76,  0.52)
+        ];
+        var bgGeo = new THREE.LatheGeometry(bgPts, 44);
+        bgGeo.computeVertexNormals();
+        bulgeGlobeSub.add(new THREE.Mesh(bgGeo, matGlobe));
+
+        var taperedGlobeSub = new THREE.Group();
+        taperedGlobeSub.add(new THREE.Mesh(new THREE.CylinderGeometry(0.76, 0.89, 1.04, 44, 1, true), matGlobe));
+
+        globeGroup.add(straightGlobeSub, bulgeGlobeSub, taperedGlobeSub);
+        registerPart("globe", "Glass Globe", globeGroup, [0, 0.35, 0], [0, 1.48, 0]);
+
+        // 13. Ventilator & Trapezoidal Bail
+        var ventGroup = new THREE.Group();
+        var ventShellSub = new THREE.Group();
+        var vLowPts = [
+          new THREE.Vector2(1.10, -0.20),
+          new THREE.Vector2(1.12, -0.17),
+          new THREE.Vector2(1.06, -0.11),
+          new THREE.Vector2(0.90, -0.04),
+          new THREE.Vector2(0.68,  0.00),
+          new THREE.Vector2(0.62,  0.02)
+        ];
+        var vLowGeo = new THREE.LatheGeometry(vLowPts, 48);
+        vLowGeo.computeVertexNormals();
+        ventShellSub.add(new THREE.Mesh(vLowGeo, matVent));
+
+        for (var si = 0; si < 4; si++) {
+          var sAng = (si * Math.PI) / 2 + Math.PI / 4;
+          var strut = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.13, 0.03), matVent);
+          strut.position.set(Math.cos(sAng) * 0.62, 0.075, Math.sin(sAng) * 0.62);
+          strut.rotation.y = -sAng + Math.PI / 2;
+          strut.rotation.x = -0.18;
+          ventShellSub.add(strut);
+        }
+
+        var vTopPts = [
+          new THREE.Vector2(0.84, 0.11),
+          new THREE.Vector2(0.86, 0.14),
+          new THREE.Vector2(0.78, 0.21),
+          new THREE.Vector2(0.58, 0.28),
+          new THREE.Vector2(0.36, 0.34),
+          new THREE.Vector2(0.14, 0.37),
+          new THREE.Vector2(0.04, 0.375)
+        ];
+        var vTopGeo = new THREE.LatheGeometry(vTopPts, 48);
+        vTopGeo.computeVertexNormals();
+        ventShellSub.add(new THREE.Mesh(vTopGeo, matVent));
+
+        var bailPts = [
+          new THREE.Vector3(-1.02, -0.14,  0.00),
+          new THREE.Vector3(-1.15, -0.14, -0.02),
+          new THREE.Vector3(-1.10, -0.88, -0.34),
+          new THREE.Vector3(-0.96, -1.48, -0.68),
+          new THREE.Vector3(-0.55, -1.56, -0.88),
+          new THREE.Vector3( 0.00, -1.58, -0.95),
+          new THREE.Vector3( 0.55, -1.56, -0.88),
+          new THREE.Vector3( 0.96, -1.48, -0.68),
+          new THREE.Vector3( 1.10, -0.88, -0.34),
+          new THREE.Vector3( 1.15, -0.14, -0.02),
+          new THREE.Vector3( 1.02, -0.14,  0.00)
+        ];
+        var bailCurve = new THREE.CatmullRomCurve3(bailPts, false, "catmullrom", 0.18);
+        var bailMesh = new THREE.Mesh(new THREE.TubeGeometry(bailCurve, 56, 0.022, 10, false), matSteel);
+        ventGroup.add(ventShellSub, bailMesh);
+        registerPart("ventilatorBail", "Ventilator & Bail", ventGroup, [0, 1.01, 0], [0, 2.25, 0]);
+
+        // 14. Ball Nut
+        var nutGroup = new THREE.Group();
+        var nutBase = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.085, 0.05, 20), matBrass);
+        nutBase.position.y = -0.05;
+        var nutKnurlBand = new THREE.Mesh(new THREE.CylinderGeometry(0.105, 0.105, 0.085, 20), matBrass);
+        nutKnurlBand.position.y = 0.015;
+        var nutDomedTop = new THREE.Mesh(new THREE.SphereGeometry(0.095, 20, 12, 0, Math.PI * 2, 0, Math.PI * 0.5), matBrass);
+        nutDomedTop.scale.set(1, 0.55, 1);
+        nutDomedTop.position.y = 0.055;
+        nutGroup.add(nutBase, nutKnurlBand, nutDomedTop);
+        registerPart("ballNut", "Ball Nut", nutGroup, [0, 1.44, 0], [0, 2.95, 0]);
+
+        // 15. Dynamic Fuel & Air Flow Path
+        var flowGroup = new THREE.Group();
+        var matFuelFlow = new THREE.MeshBasicMaterial({ color: 0xff9f1c, transparent: true, opacity: 0.9 });
+        var matAirFlow = new THREE.MeshBasicMaterial({ color: 0x4cc9f0, transparent: true, opacity: 0.9 });
+        var fuelFlowMesh = null;
+        var airFlowMesh = null;
+        scene.add(flowGroup);
+
+        function rebuildFlowTubes(exp) {
+          if (fuelFlowMesh) { flowGroup.remove(fuelFlowMesh); fuelFlowMesh.geometry.dispose(); }
+          if (airFlowMesh) { flowGroup.remove(airFlowMesh); airFlowMesh.geometry.dispose(); }
+          var fCurve = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(0, -1.28 - 0.38 * exp, 0),
+            new THREE.Vector3(0, -0.42 - 0.05 * exp, 0),
+            new THREE.Vector3(0.11 + 0.95 * exp, -0.15 + 0.18 * exp, 0.2 * exp),
+            new THREE.Vector3(0.11 + 0.95 * exp, 0.76 + 0.18 * exp, 0.2 * exp),
+            new THREE.Vector3(0, 0.88 + 0.75 * exp, 0)
+          ]);
+          fuelFlowMesh = new THREE.Mesh(new THREE.TubeGeometry(fCurve, 36, 0.018, 8, false), matFuelFlow);
+
+          var aCurve = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(0.32, 0.15 + 0.75 * exp, 0.22),
+            new THREE.Vector3(0.11, 0.35 + 0.75 * exp, 0.05),
+            new THREE.Vector3(0.11, 0.85 + 0.75 * exp, 0),
+            new THREE.Vector3(-0.22, 0.72 + 0.75 * exp, 0)
+          ]);
+          airFlowMesh = new THREE.Mesh(new THREE.TubeGeometry(aCurve, 28, 0.016, 8, false), matAirFlow);
+          flowGroup.add(fuelFlowMesh, airFlowMesh);
+        }
+        rebuildFlowTubes(0);
+
+        function toHexColor(num) {
+          return "#" + Number(num).toString(16).padStart(6, "0");
+        }
+
+        function applyModelProfile(profile) {
+          var isCastChamber = (profile.chamberStyle === "castBrass");
+          hitMeshes.forEach(function (mesh) {
+            var role = mesh.material.userData.matRole;
+            if (role === "fount") {
+              mesh.material.color.setHex(profile.fountHex);
+              mesh.material.metalness = profile.fountMetal;
+              mesh.material.roughness = profile.fountRough;
+            } else if (role === "vent") {
+              mesh.material.color.setHex(profile.ventHex);
+            } else if (role === "collar") {
+              mesh.material.color.setHex(profile.collarHex);
+              mesh.material.metalness = profile.collarMetal;
+            } else if (role === "cap") {
+              mesh.material.color.setHex(profile.capHex);
+            } else if (role === "pumpCap") {
+              mesh.material.color.setHex(profile.pumpCapHex);
+            } else if (role === "chamber") {
+              mesh.material.color.setHex(isCastChamber ? 0xc9963b : 0xb8bfc6);
+              mesh.material.metalness = isCastChamber ? 0.82 : 0.75;
+              mesh.material.roughness = isCastChamber ? 0.3 : 0.34;
+            } else if (role === "globe") {
+              mesh.material.color.setHex(profile.globeHex);
+              mesh.material.opacity = profile.globeOpacity;
+            }
+            mesh.material.needsUpdate = true;
+          });
+
+          fountGroup.scale.set(profile.fountScaleXZ, 1, profile.fountScaleXZ);
+          var shoulderRatio = profile.fountScaleXZ / 0.96;
+          for (var pi = 0; pi < parts.length; pi++) {
+            if (parts[pi].id === "fuelCap") {
+              parts[pi].base.x = -0.68 * shoulderRatio;
+              parts[pi].base.z =  0.24 * shoulderRatio;
+            } else if (parts[pi].id === "pump") {
+              parts[pi].base.x =  0.68 * shoulderRatio;
+              parts[pi].base.z =  0.24 * shoulderRatio;
+            }
+          }
+          // Collarless 242 uses narrow cast-brass throat instead of wide sheet-metal collar
+          var colXZ = profile.isCollarlessCast ? 0.44 : 1.0;
+          collarGroup.scale.set(colXZ, 1, colXZ);
+
+          ventShellSub.scale.set(profile.ventScaleXZ, profile.ventHeightScale, profile.ventScaleXZ);
+          bailMesh.scale.set(Math.max(0.92, Math.min(1.18, profile.ventScaleXZ)), 1, shoulderRatio);
+
+          var isWheel = (profile.valveStyle === "wheel");
+          pointerKnobSub.visible = !isWheel;
+          wheelKnobSub.visible = isWheel;
+          tipCleanerGroup.visible = Boolean(profile.hasTipCleaner);
+          cageRodsSub.visible = Boolean(profile.hasCageRods);
+
+          straightGlobeSub.visible = (profile.globeStyle === "straight");
+          bulgeGlobeSub.visible = (profile.globeStyle === "bulged");
+          taperedGlobeSub.visible = (profile.globeStyle === "tapered");
+
+          var isSingle = (profile.mantleCount === 1);
+          mantleLeft.visible = !isSingle;
+          mantleRight.visible = !isSingle;
+          mantleCenter.visible = isSingle;
+          downTubeL.visible = !isSingle;
+          burnerCapL.visible = !isSingle;
+          downTubeR.visible = !isSingle;
+          burnerCapR.visible = !isSingle;
+          downTubeSingle.visible = isSingle;
+          burnerCapSingle.visible = isSingle;
+        }
+
+        function updateReadout() {
+          var profile = MODEL_PROFILES[activeModelKey] || MODEL_PROFILES["288A"];
+          var partMeta = profile.parts[activePartId] || { ref: "—", ocp: "", desc: "Select a part to inspect." };
+          var partObj = parts.find(function (p) { return p.id === activePartId; });
+          var partName = partObj ? partObj.name : activePartId;
+
+          readout.innerHTML =
+            "<strong>" + profile.label + " &mdash; " + partName + ":</strong> " +
+            "<code>OEM: " + partMeta.ref + "</code> " +
+            (partMeta.ocp ? "<span class=\"sku-badge-ocp\" style=\"margin-left:0.25rem;\">OCP: " + partMeta.ocp + "</span> " : "") +
+            "&mdash; " + partMeta.desc;
+
+          // Live Shop Inventory Bridge + Direct OCP Links
+          var matchedInv = typeof window.findShopStockForPart === "function"
+            ? window.findShopStockForPart(activePartId, partMeta.ref + " " + (partMeta.ocp || ""))
+            : null;
+          var ocpSearchTerm = encodeURIComponent((partMeta.ocp || partMeta.ref).split("/")[0].trim());
+          var ocpDiagUrl = "https://oldcolemanparts.com/apps/diagram/" + encodeURIComponent(profile.ocpSlug || "220f");
+          var ocpLookupUrl = "https://oldcolemanparts.com/search?q=" + ocpSearchTerm;
+
+          var stockBadgeHtml = matchedInv
+            ? "<span class=\"" + (matchedInv.qty <= 0 ? "diag-pill" : "badge-status") + "\">Shop Stock (" + matchedInv.name + "): " + matchedInv.qty + "</span>" +
+              "<button type=\"button\" class=\"btn btn-sm\" onclick=\"jumpToInventorySearch('" + (matchedInv.ocpCode || matchedInv.oemNum || "").split("/")[0].trim() + "')\">🔧 View in Inventory</button>"
+            : "<span class=\"brand-sub\" style=\"font-size:0.8rem;\">No exact linked stock card (use + Custom Part to track)</span>";
+
+          stockActions.innerHTML =
+            stockBadgeHtml +
+            "<a href=\"" + ocpLookupUrl + "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-forest\">🛒 Lookup Part on OCP ↗</a>" +
+            "<a href=\"" + ocpDiagUrl + "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-amber\">📐 " + profile.label + " Diagram ↗</a>";
+
+          specSummary.innerHTML =
+            "<span class=\"swatch-dot\" style=\"background:" + toHexColor(profile.fountHex) + "\" title=\"Fount Finish\"></span>" +
+            "<span class=\"swatch-dot\" style=\"background:" + toHexColor(profile.ventHex) + "\" title=\"Vent Finish\"></span>" +
+            "<strong>Finish:</strong> " + profile.paletteLabel + " &middot; " +
+            "<strong>Fuel:</strong> " + profile.fuel + " &middot; " +
+            "<strong>Capacity:</strong> " + profile.cap + " &middot; " +
+            "<strong>Case:</strong> " + profile.caseTip;
+        }
+
+        function highlightSelection(id) {
+          activePartId = id;
+          hitMeshes.forEach(function (mesh) {
+            var match = (mesh.userData.partId === id);
+            mesh.material.emissive.setHex(match ? 0x7a4200 : 0x000000);
+            mesh.material.emissiveIntensity = match ? 0.8 : 0;
+          });
+          document.querySelectorAll("#partButtons .part-pill").forEach(function (pill) {
+            pill.classList.toggle("active", pill.getAttribute("data-pid") === id);
+          });
+          updateReadout();
+        }
+
+        function syncPresetButtons(val) {
+          document.querySelectorAll(".preset-exp").forEach(function (b) {
+            var bVal = parseFloat(b.getAttribute("data-explode"));
+            b.classList.toggle("active", Math.abs(bVal - val) < 0.02);
+          });
+        }
+
+        function switchLanternModel(key) {
+          if (!MODEL_PROFILES[key]) return;
+          activeModelKey = key;
+          modelSelect.value = key;
+          var profile = MODEL_PROFILES[key];
+          titleEl.textContent = profile.label + " — 3D PartSmart Visualizer";
+          document.querySelectorAll("#quickModelChips .model-chip").forEach(function (c) {
+            c.classList.toggle("active", c.getAttribute("data-mkey") === key);
+          });
+          applyModelProfile(profile);
+          updateReadout();
+        }
+
+        // Expose clean hooks for Tab 1 & Tab 2 buttons
+        window.selectPartSmartModel = switchLanternModel;
+        window.selectPartSmartPart = highlightSelection;
+        window.refreshPartSmartReadout = updateReadout;
+
+        document.querySelectorAll("[data-explode]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var val = parseFloat(this.getAttribute("data-explode"));
+            targetExplode = val;
+            slider.value = String(val);
+            syncPresetButtons(val);
+          });
+        });
+
+        slider.addEventListener("input", function () {
+          targetExplode = parseFloat(slider.value);
+          syncPresetButtons(targetExplode);
+        });
+
+        modelSelect.addEventListener("change", function () {
+          switchLanternModel(modelSelect.value);
+        });
+
+        flowBtn.addEventListener("click", function () {
+          showFlow = !showFlow;
+          flowBtn.textContent = "Fuel/Air Flow: " + (showFlow ? "ON" : "OFF");
+          flowBtn.classList.toggle("active", showFlow);
+        });
+
+        resetViewBtn.addEventListener("click", function () {
+          orbit.reset();
+        });
+
+        QUICK_CHIPS.forEach(function (c) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "btn btn-sm model-chip" + (c.key === activeModelKey ? " active" : "");
+          btn.setAttribute("data-mkey", c.key);
+          btn.textContent = c.text;
+          btn.addEventListener("click", function () { switchLanternModel(c.key); });
+          chipsContainer.appendChild(btn);
+        });
+
+        parts.forEach(function (p) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "btn btn-sm part-pill";
+          btn.setAttribute("data-pid", p.id);
+          btn.textContent = p.name;
+          btn.addEventListener("click", function () { highlightSelection(p.id); });
+          pillsContainer.appendChild(btn);
+        });
+
+        var raycaster = new THREE.Raycaster();
+        var pointer = new THREE.Vector2();
+        var downPt = { x: 0, y: 0 };
+
+        renderer.domElement.addEventListener("pointerdown", function (e) {
+          downPt.x = e.clientX;
+          downPt.y = e.clientY;
+        });
+
+        renderer.domElement.addEventListener("pointerup", function (e) {
+          if (Math.hypot(e.clientX - downPt.x, e.clientY - downPt.y) > 6) return;
+          var rect = renderer.domElement.getBoundingClientRect();
+          pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+          pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+          raycaster.setFromCamera(pointer, camera);
+          var visibleMeshes = hitMeshes.filter(function (m) {
+            var cur = m;
+            while (cur) {
+              if (!cur.visible) return false;
+              cur = cur.parent;
+            }
+            return true;
+          });
+          var hits = raycaster.intersectObjects(visibleMeshes, false);
+          if (hits.length > 0) {
+            var chosenHit = hits[0];
+            for (var hi = 0; hi < hits.length; hi++) {
+              if (hits[hi].object.userData.partId !== "globe") {
+                chosenHit = hits[hi];
+                break;
+              }
+            }
+            highlightSelection(chosenHit.object.userData.partId);
+          }
+        });
+
+        function handleResize() {
+          var w = stage.clientWidth;
+          var h = stage.clientHeight;
+          if (!w || !h) return;
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+          renderer.setSize(w, h);
+        }
+        window.resizePartSmart3D = handleResize;
+        window.addEventListener("resize", handleResize);
+        if (typeof ResizeObserver !== "undefined") {
+          new ResizeObserver(handleResize).observe(stage);
+        }
+
+        switchLanternModel("288A");
+        highlightSelection("burnerAssy");
+
+        var lastFlowRebuildExp = 0;
+        function animate() {
+          requestAnimationFrame(animate);
+          // Skip heavy WebGL render pass when 3D tab is hidden to save battery on phones!
+          var tabEl = document.getElementById("tab-partsmart");
+          if (tabEl && !tabEl.classList.contains("active")) return;
+
+          currentExplode += (targetExplode - currentExplode) * 0.15;
+          pctLabel.textContent = Math.round(currentExplode * 100) + "%";
+
+          for (var i = 0; i < parts.length; i++) {
+            var p = parts[i];
+            p.group.position.set(
+              p.base.x + p.delta.x * currentExplode,
+              p.base.y + p.delta.y * currentExplode,
+              p.base.z + p.delta.z * currentExplode
+            );
+          }
+
+          var flowVisible = showFlow && currentExplode > 0.03;
+          flowGroup.visible = flowVisible;
+          if (flowVisible) {
+            if (Math.abs(currentExplode - lastFlowRebuildExp) > 0.008) {
+              rebuildFlowTubes(currentExplode);
+              lastFlowRebuildExp = currentExplode;
+            }
+            var op = Math.min(0.92, currentExplode * 1.5);
+            matFuelFlow.opacity = op;
+            matAirFlow.opacity = op;
+          }
+
+          orbit.update();
+          renderer.render(scene, camera);
+        }
+        animate();
+      } catch (err) {
+        showError(err);
+      }
+    };
+
+    if (typeof window.THREE !== "undefined") {
+      window.initPartSmart3D();
+    }
   </script>
 </body>
 </html>
