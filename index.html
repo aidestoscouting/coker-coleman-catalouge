@@ -1,694 +1,1564 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coker Shop App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: { 
-                        coleman: '#DA291C',
-                        wood: {
-                            100: '#F5F0E6', 200: '#E6D5B8', 300: '#CBA36F',
-                            400: '#9b7647', 500: '#7a5a34', 600: '#644829',
-                            700: '#5C4033', 800: '#3E2723', 900: '#2D1C15',
-                        },
-                        forest: { 800: '#143109' }
-                    },
-                    fontFamily: { 'slab': ['"Roboto Slab"', 'serif'] }
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Roboto+Slab:wght@500;700;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #991B1B;
-            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zM40 40h40v40H40z' fill='%23000' fill-opacity='0.4'/%3E%3Cpath d='M0 40h40v40H0zM40 0h40v40H40z' fill='%23000' fill-opacity='0.15'/%3E%3C/svg%3E");
-            background-attachment: fixed;
-            transition: background-color 0.3s ease;
-            color: #E6D5B8;
-        }
-        .dark body { background-color: #450a0a; background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zM40 40h40v40H40z' fill='%23000' fill-opacity='0.6'/%3E%3Cpath d='M0 40h40v40H0zM40 0h40v40H40z' fill='%23000' fill-opacity='0.25'/%3E%3C/svg%3E"); }
-        .coleman-red { background-color: #DA291C; }
-        .text-coleman-red { color: #DA291C; }
-        .tab-active { border-bottom: 4px solid #DA291C; color: #DA291C; font-weight: 800; }
-        .dark .tab-active { color: #ffadad; border-color: #ffadad; }
-        .tab-inactive { color: #CBA36F !important; border-bottom: 4px solid transparent; }
-        .dark .tab-inactive { color: #CBA36F !important; }
-        .tab-inactive:hover { color: #DA291C !important; border-color: #ffadad; }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-        ::-webkit-scrollbar-thumb { background: #5C4033; border-radius: 4px; }
-        .dark ::-webkit-scrollbar-thumb { background: #3E2723; }
-        .condition-btn.selected { background-color: #DA291C !important; color: white !important; border-color: #991b1b !important; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
-        .toast-enter { animation: slideUpFade 0.4s ease-out forwards; }
-        @keyframes slideUpFade { from { opacity: 0; transform: translateY(100%) translateX(-50%); } to { opacity: 1; transform: translateY(0) translateX(-50%); } }
-        .repair-tag { transition: all 0.2s ease; cursor: pointer; }
-        .bg-wood-100, .bg-white, .dark\:bg-wood-800 { background-color: #3E2723 !important; } 
-        .bg-wood-200, .dark\:bg-wood-900, .bg-wood-50 { background-color: #2D1C15 !important; } 
-        .bg-forest-800 { background-color: #1a100c !important; } 
-        .text-wood-900, .text-wood-800, .text-black, .dark\:text-wood-100, .dark\:text-wood-50, .dark\:text-white { color: #F5F0E6 !important; } 
-        .text-wood-700, .text-wood-600, .dark\:text-wood-200, .dark\:text-wood-300, .dark\:text-wood-400 { color: #CBA36F !important; } 
-        .border-wood-300, .border-wood-400, .dark\:border-wood-700, .dark\:border-wood-600 { border-color: #5C4033 !important; }
-        input, select, textarea { background-color: #1a100c !important; color: #F5F0E6 !important; border-color: #5C4033 !important; }
-        .card-texture { background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coker Family Coleman — Catalogue, Repair Shop & Blueprints</title>
+  <style>
+    :root {
+      --bg-walnut: #1c120b;
+      --bg-panel: #291a10;
+      --bg-panel-alt: #342114;
+      --border-wood: #6b462b;
+      --border-accent: #c78d4e;
+      --text-parchment: #f3e3c6;
+      --text-tan: #d8be94;
+      --text-muted: #b3966b;
+      --accent-red: #9e261d;
+      --accent-red-bright: #c43227;
+      --accent-amber: #c87d1c;
+      --accent-forest: #2e5936;
+      --shadow-heavy: 0 8px 22px rgba(0, 0, 0, 0.55);
+    }
+
+    body.campfire-mode {
+      --bg-walnut: #110b07;
+      --bg-panel: #1b110b;
+      --bg-panel-alt: #24160e;
+      --border-wood: #52341f;
+      --text-parchment: #e8cfa6;
+      --text-tan: #c7a97c;
+      --text-muted: #9b7e55;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Palatino Linotype", "Book Antiqua", serif;
+      color: var(--text-parchment);
+      background-color: var(--bg-walnut);
+      background-image:
+        repeating-linear-gradient(90deg, rgba(138, 28, 22, 0.34) 0px, rgba(138, 28, 22, 0.34) 44px, rgba(18, 12, 8, 0.72) 44px, rgba(18, 12, 8, 0.72) 88px),
+        repeating-linear-gradient(0deg, rgba(138, 28, 22, 0.34) 0px, rgba(138, 28, 22, 0.34) 44px, rgba(18, 12, 8, 0.72) 44px, rgba(18, 12, 8, 0.72) 88px);
+      min-height: 100vh;
+      padding-bottom: 5.5rem;
+    }
+
+    .app-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.9rem;
+    }
+
+    .wood-plaque-header {
+      background: linear-gradient(180deg, #382315 0%, #20130b 100%);
+      border: 2px solid var(--border-wood);
+      border-bottom: 3px solid var(--border-accent);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      box-shadow: var(--shadow-heavy);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .logo-plaque {
+      width: 68px;
+      height: 68px;
+      border-radius: 10px;
+      border: 2px solid var(--border-accent);
+      background: #140c07;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .logo-plaque img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .logo-fallback {
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-align: center;
+      color: var(--text-parchment);
+      line-height: 1.15;
+      padding: 0.25rem;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: 0.03em;
+      color: var(--text-parchment);
+    }
+
+    .brand-sub {
+      margin: 0.15rem 0 0;
+      font-size: 0.85rem;
+      color: var(--text-tan);
+    }
+
+    .sync-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      background: #17100a;
+      border: 1px solid var(--border-wood);
+      color: var(--text-tan);
+      margin-top: 0.35rem;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    .btn {
+      background: var(--bg-panel-alt);
+      color: var(--text-parchment);
+      border: 1px solid var(--border-wood);
+      border-radius: 7px;
+      padding: 0.52rem 0.8rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.06s ease, background 0.15s ease;
+    }
+
+    .btn:hover { border-color: var(--border-accent); }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent-red-bright), var(--accent-red));
+      border-color: #df8b74;
+      color: #fff5e4;
+    }
+
+    .btn-forest {
+      background: var(--accent-forest);
+      border-color: #679c71;
+      color: #eef8ef;
+    }
+
+    .btn-danger {
+      background: #571915;
+      border-color: #b5453c;
+      color: #ffd8d4;
+    }
+
+    .btn-sm {
+      padding: 0.32rem 0.55rem;
+      font-size: 0.8rem;
+    }
+
+    .coker-tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.85rem 0;
+    }
+
+    .coker-tab-btn {
+      background: var(--bg-panel);
+      color: var(--text-tan);
+      border: 2px solid var(--border-wood);
+      border-radius: 8px;
+      padding: 0.6rem 0.95rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .coker-tab-btn.active {
+      background: linear-gradient(180deg, var(--accent-red-bright), var(--accent-red));
+      color: #fff6e6;
+      border-color: var(--border-accent);
+    }
+
+    .coker-tab-panel { display: none; }
+    .coker-tab-panel.active { display: block; }
+
+    .wood-card {
+      background: linear-gradient(180deg, var(--bg-panel) 0%, #1d120b 100%);
+      border: 2px solid var(--border-wood);
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: var(--shadow-heavy);
+      margin-bottom: 1rem;
+    }
+
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+    }
+
+    .search-box {
+      flex: 1 1 260px;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .wood-input, .wood-select, .wood-textarea {
+      width: 100%;
+      background: #140c07;
+      color: var(--text-parchment);
+      border: 1px solid var(--border-wood);
+      border-radius: 7px;
+      padding: 0.55rem 0.68rem;
+      font-size: 0.95rem;
+    }
+
+    .wood-input:focus, .wood-select:focus, .wood-textarea:focus {
+      outline: none;
+      border-color: var(--border-accent);
+    }
+
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(305px, 1fr));
+      gap: 0.9rem;
+    }
+
+    .gear-card {
+      background: var(--bg-panel);
+      border: 2px solid var(--border-wood);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.45);
+    }
+
+    .rush-ribbon {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 3;
+      background: #d62828;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      padding: 0.22rem 0.55rem;
+      border-radius: 5px;
+      border: 1px solid #ffd166;
+      animation: pulseRush 1.4s infinite;
+    }
+
+    @keyframes pulseRush {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .photo-stage {
+      position: relative;
+      height: 185px;
+      background: #120b07;
+      border-bottom: 1px solid var(--border-wood);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .photo-stage img.main-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .stamp-thumb {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 58px;
+      height: 58px;
+      border-radius: 6px;
+      border: 2px solid var(--border-accent);
+      background: #180f09;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .stamp-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .stamp-lens {
+      position: absolute;
+      right: 2px;
+      bottom: 1px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 0.65rem;
+      padding: 0 3px;
+      border-radius: 3px;
+    }
+
+    .gear-body {
+      padding: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      flex: 1;
+    }
+
+    .gear-top-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .gear-model {
+      margin: 0;
+      font-size: 1.12rem;
+      color: var(--text-parchment);
+    }
+
+    .job-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.16rem 0.45rem;
+      border-radius: 4px;
+      background: #3d2718;
+      border: 1px solid var(--border-wood);
+      color: var(--text-tan);
+      white-space: nowrap;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .badge-owner-coker {
+      background: #3b2819;
+      color: var(--text-parchment);
+      border: 1px solid var(--border-wood);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.16rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .badge-owner-customer {
+      background: var(--accent-amber);
+      color: #160e07;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.16rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .badge-status {
+      background: #233b2b;
+      color: #c8f0cf;
+      border: 1px solid #4c7c59;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.16rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .brain-stamp {
+      background: #17271c;
+      border: 1px solid #3c6e47;
+      color: #bce8c5;
+      border-radius: 6px;
+      padding: 0.4rem 0.55rem;
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .diag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .diag-pill {
+      background: #471814;
+      border: 1px solid #a8382e;
+      color: #ffd6d1;
+      font-size: 0.74rem;
+      padding: 0.14rem 0.45rem;
+      border-radius: 4px;
+    }
+
+    .gear-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.4rem;
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(107, 70, 43, 0.45);
+    }
+
+    /* Parts Inventory */
+    .parts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .part-card {
+      background: var(--bg-panel-alt);
+      border: 1px solid var(--border-wood);
+      border-radius: 8px;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .part-card.out-of-stock {
+      border-color: #d6382b;
+      background: #361411;
+    }
+
+    .qty-stepper {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .qty-num {
+      min-width: 2rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    /* Cases & Blueprints */
+    .preset-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .preset-btn.active {
+      background: linear-gradient(180deg, var(--accent-red-bright), var(--accent-red));
+      border-color: var(--border-accent);
+      color: #fff6e6;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-tan);
+      margin-bottom: 0.25rem;
+    }
+
+    .callout-box {
+      background: #170f09;
+      border-left: 4px solid var(--border-accent);
+      border-radius: 6px;
+      padding: 0.65rem 0.8rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.9rem;
+      color: var(--text-parchment);
+    }
+
+    .cut-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .cut-table th, .cut-table td {
+      border: 1px solid var(--border-wood);
+      padding: 0.5rem 0.6rem;
+      text-align: left;
+    }
+
+    .cut-table th {
+      background: #3b2617;
+      color: var(--text-parchment);
+    }
+
+    .case-log-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .case-log-card {
+      background: #170e09;
+      border: 1px solid var(--border-wood);
+      border-radius: 8px;
+      padding: 0.75rem;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem;
+      z-index: 40;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal-card {
+      width: 100%;
+      max-width: 640px;
+      max-height: 92vh;
+      overflow-y: auto;
+      background: var(--bg-panel);
+      border: 2px solid var(--border-accent);
+      border-radius: 12px;
+      padding: 1.05rem;
+      box-shadow: var(--shadow-heavy);
+    }
+
+    .dual-photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+      margin: 0.65rem 0;
+    }
+
+    .photo-drop {
+      border: 1.5px dashed var(--border-accent);
+      border-radius: 8px;
+      padding: 0.6rem;
+      text-align: center;
+      background: #150d08;
+    }
+
+    .photo-drop img {
+      max-width: 100%;
+      max-height: 110px;
+      border-radius: 6px;
+      margin-top: 0.4rem;
+      display: none;
+    }
+
+    .diag-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin: 0.4rem 0 0.75rem;
+    }
+
+    .diag-choice {
+      padding: 0.28rem 0.55rem;
+      border-radius: 5px;
+      border: 1px solid var(--border-wood);
+      background: #160e09;
+      color: var(--text-tan);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .diag-choice.selected {
+      background: var(--accent-red);
+      color: #fff;
+      border-color: #f29b88;
+    }
+
+    /* Mobile Thumb FAB & Toast */
+    .fab-add {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, var(--accent-red-bright), var(--accent-red));
+      color: #fff6e5;
+      border: 2px solid var(--border-accent);
+      font-size: 1.85rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.65);
+      z-index: 30;
+      cursor: pointer;
+    }
+
+    .toast-banner {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(90px);
+      background: #24150c;
+      color: var(--text-parchment);
+      border: 2px solid var(--border-accent);
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-heavy);
+      z-index: 60;
+      opacity: 0;
+      transition: transform 0.22s ease, opacity 0.22s ease;
+    }
+
+    .toast-banner.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (min-width: 820px) {
+      .fab-add { display: none; }
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col text-wood-200 relative pb-16 md:pb-0">
-
-    <!-- Floating Action Button for Mobile -->
-    <button onclick="openAddGearModal()" class="md:hidden fixed bottom-6 right-6 w-16 h-16 bg-coleman-red text-white rounded-full shadow-[0_10px_25px_rgba(0,0,0,0.5)] border-4 border-red-900 flex items-center justify-center z-40 active:bg-red-800 active:scale-90 transition-all">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
-    </button>
-
-    <!-- Toast Container -->
-    <div id="toast-container" class="fixed bottom-24 md:bottom-10 left-1/2 z-[110] flex flex-col gap-2 pointer-events-none"></div>
-
-    <!-- Header Section -->
-    <header class="bg-wood-100 dark:bg-wood-800 shadow-xl border-b-4 border-dashed border-wood-400 dark:border-wood-600 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3 bg-wood-200 dark:bg-wood-900 p-2 sm:pr-6 rounded-xl shadow-[inset_0_2px_8px_rgba(0,0,0,0.6)] border-2 border-wood-300 dark:border-wood-700">
-                <img src="COKERMANPATCH LOGO.png" alt="Coker Logo" class="h-12 sm:h-16 w-auto drop-shadow-md rounded" onerror="this.src='https://placehold.co/200x80/7a5a34/F5F0E6?text=COKER+LOGO'">
-                <div class="hidden sm:block">
-                    <h1 class="text-2xl font-slab font-black text-wood-900 dark:text-wood-50 tracking-tight drop-shadow-sm uppercase">Coker Family</h1>
-                    <p class="text-xs font-bold text-wood-700 dark:text-wood-400 tracking-widest uppercase">Gear & Repair Log</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-4">
-                <button onclick="exportCSV()" class="hidden sm:flex items-center gap-2 p-2 rounded-md bg-green-900 hover:bg-green-800 text-white transition-colors border border-green-950 shadow-inner text-xs font-bold uppercase tracking-widest" title="Backup Database">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    CSV Backup
-                </button>
-                <div id="sync-status" class="hidden sm:flex items-center gap-2 text-xs font-bold text-wood-600 uppercase tracking-widest bg-wood-200 px-3 py-1 rounded-full border border-wood-400">
-                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Offline/Local
-                </div>
-                <button onclick="forceSync()" class="p-2 rounded-md bg-blue-900 hover:bg-blue-800 text-white transition-colors border border-blue-950 shadow-inner" title="Force Cloud Sync">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                </button>
-                <button onclick="toggleDarkMode()" class="hidden sm:block p-2 rounded-md bg-wood-700 hover:bg-wood-800 text-yellow-400 transition-colors border border-wood-900 shadow-inner">
-                    <svg class="w-6 h-6 block dark:hidden text-wood-200" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg class="w-6 h-6 hidden dark:block text-orange-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
-                </button>
-            </div>
+<body>
+  <div class="app-shell">
+    <header class="wood-plaque-header">
+      <div class="brand-lockup">
+        <div class="logo-plaque">
+          <img src="COKERMANPATCH LOGO.png" alt="Coker Family Coleman Logo" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block';" />
+          <div id="logoFallback" class="logo-fallback" style="display:none;">COKER<br/>COLEMAN<br/>SHOP</div>
         </div>
+        <div>
+          <h1 class="brand-title">Coker Family Coleman Shop</h1>
+          <p class="brand-sub">Lantern & Stove Catalogue · Repair Bench · Parts & Case Plans</p>
+          <div id="syncStatusPill" class="sync-pill">☁️ Ready</div>
+        </div>
+      </div>
 
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-8 mt-2 overflow-x-auto border-b-2 border-wood-700/50">
-            <button onclick="switchTab('collection')" id="tab-collection" class="tab-active pb-3 px-2 whitespace-nowrap transition-colors duration-200 uppercase tracking-wide">Shop Inventory</button>
-            <button onclick="switchTab('parts')" id="tab-parts" class="tab-inactive pb-3 px-2 whitespace-nowrap transition-colors duration-200 uppercase tracking-wide font-bold">Parts & Reference</button>
-        </nav>
+      <div class="header-actions">
+        <button type="button" class="btn btn-primary" onclick="openGearModal()">+ Add Gear</button>
+        <button type="button" class="btn btn-forest" onclick="exportGearCSV()">⬇ CSV Backup</button>
+        <button type="button" class="btn" onclick="pullFromCloud(true)">↻ Sync Now</button>
+        <button type="button" class="btn" id="campfireBtn" onclick="toggleCampfireMode()">🔥 Campfire</button>
+      </div>
     </header>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <!-- SECTION: My Collection -->
-        <section id="section-collection" class="block">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4 bg-wood-100 dark:bg-wood-800 p-4 rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.5)] border-2 border-wood-300 dark:border-wood-700 card-texture">
-                <h2 class="text-2xl sm:text-3xl font-slab font-black text-wood-900 dark:text-wood-100 drop-shadow-sm whitespace-nowrap">Logged Gear (<span id="item-count">0</span>)</h2>
-                
-                <div class="flex-grow max-w-lg w-full mx-0 sm:mx-4">
-                    <div class="relative group">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-wood-500 group-focus-within:text-coleman transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        </div>
-                        <input type="text" id="inventory-search" oninput="renderCollection()" placeholder="Search model, owner, or status..." class="w-full pl-10 pr-10 py-3 border-2 border-wood-400 dark:border-wood-600 rounded-lg bg-wood-200 dark:bg-wood-900 text-wood-900 dark:text-white placeholder-wood-500 focus:outline-none focus:border-coleman font-bold shadow-inner text-sm transition-colors">
-                    </div>
-                </div>
+    <nav class="coker-tab-bar" aria-label="Primary Sections">
+      <button type="button" class="coker-tab-btn active" data-tab="gear" onclick="switchTab('gear')">🏮 Gear & Repairs</button>
+      <button type="button" class="coker-tab-btn" data-tab="parts" onclick="switchTab('parts')">🔧 Parts Inventory</button>
+      <button type="button" class="coker-tab-btn" data-tab="cases" onclick="switchTab('cases')">🪵 Cases & Blueprints</button>
+    </nav>
 
-                <div class="flex flex-wrap items-center justify-center gap-2">
-                    <button onclick="openAddGearModal()" class="hidden md:flex coleman-red text-white px-5 py-3 rounded-lg shadow-lg border-b-4 border-red-900 active:border-b-0 active:mt-1 hover:bg-red-700 transition-all text-sm font-black items-center gap-2 uppercase tracking-wider">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                        Add Gear
-                    </button>
-                </div>
-            </div>
-            
-            <div id="collection-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
+    <!-- TAB 1: GEAR & REPAIRS -->
+    <section id="tab-gear" class="coker-tab-panel active">
+      <div class="wood-card">
+        <div class="toolbar-row">
+          <div>
+            <strong id="gearCountLabel">0 Items Logged</strong>
+            <span id="rushCountLabel" style="margin-left:0.6rem; color:#ff9b8f; font-size:0.88rem;"></span>
+          </div>
+          <div class="search-box">
+            <input type="search" id="searchInput" class="wood-input" placeholder="Search model, owner, job #, tag, or note..." oninput="renderGear()" />
+            <button type="button" class="btn btn-sm" onclick="clearSearch()">Clear</button>
+          </div>
+        </div>
+        <div id="gearGrid" class="gear-grid"></div>
+      </div>
+    </section>
 
-        <!-- SECTION: Parts -->
-        <section id="section-parts" class="hidden space-y-8">
-            <div class="bg-wood-100 dark:bg-wood-800 rounded-xl p-6 sm:p-8 border-2 border-wood-300 dark:border-wood-700 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)] card-texture">
-                <h3 class="text-3xl font-slab font-black text-wood-900 dark:text-white uppercase tracking-tight mb-6">Shop Parts Inventory</h3>
-                <div class="flex flex-col sm:flex-row gap-2 mb-6 p-4 bg-wood-200 dark:bg-wood-900 rounded-lg border border-wood-300 dark:border-wood-700 shadow-inner">
-                    <input type="text" id="new-part-name" placeholder="Enter part name..." class="flex-grow p-3 rounded-lg border-2 border-wood-400 dark:border-wood-600 bg-white dark:bg-wood-800 font-bold shadow-inner">
-                    <input type="number" id="new-part-qty" value="1" class="w-full sm:w-24 p-3 rounded-lg border-2 border-wood-400 dark:border-wood-600 bg-white dark:bg-wood-800 font-bold shadow-inner text-center">
-                    <button onclick="addInventoryPart()" class="bg-forest-800 text-white px-6 py-3 rounded-lg font-black uppercase tracking-wider">+ Add Part</button>
-                </div>
-                <div id="parts-inventory-list" class="space-y-3"></div>
+    <!-- TAB 2: PARTS INVENTORY -->
+    <section id="tab-parts" class="coker-tab-panel">
+      <div class="wood-card">
+        <h2>🔧 Shop Parts Inventory</h2>
+        <p class="brand-sub">Track on-hand consumables, generators, globes, and rebuild parts across devices.</p>
+        <div class="form-grid-3" style="margin-top:0.75rem;">
+          <div>
+            <label class="field-label" for="partNameInput">Part Name & Number</label>
+            <input type="text" id="partNameInput" class="wood-input" placeholder="e.g. 220E5891 Generator or #330 Globe" />
+          </div>
+          <div>
+            <label class="field-label" for="partFitInput">Fits Models / Notes</label>
+            <input type="text" id="partFitInput" class="wood-input" placeholder="e.g. 220/228/275 or 200A" />
+          </div>
+          <div>
+            <label class="field-label" for="partQtyInput">Starting Qty</label>
+            <div style="display:flex; gap:0.45rem;">
+              <input type="number" id="partQtyInput" class="wood-input" min="0" value="1" />
+              <button type="button" class="btn btn-primary" onclick="addCustomPart()">+ Add</button>
             </div>
-        </section>
+          </div>
+        </div>
+        <div id="partsGrid" class="parts-grid"></div>
+      </div>
+    </section>
 
-        <!-- MODAL: ADD GEAR -->
-        <div id="add-gear-modal" class="hidden fixed inset-0 bg-wood-900 bg-opacity-95 z-50 flex items-end sm:items-center justify-center sm:p-4 overflow-y-auto backdrop-blur-md">
-            <div class="bg-wood-100 dark:bg-wood-800 w-full sm:max-w-2xl rounded-t-3xl sm:rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] overflow-hidden max-h-[95vh] flex flex-col border-4 border-wood-400 dark:border-wood-700 card-texture">
-                <div class="px-6 py-5 border-b-4 border-wood-400 dark:border-wood-700 flex justify-between items-center bg-wood-200 dark:bg-wood-900 shadow-md z-10">
-                    <h3 class="text-2xl font-slab font-black text-wood-900 dark:text-wood-100 tracking-wide uppercase">Log Shop Gear</h3>
-                    <button onclick="closeAddGearModal()" class="text-wood-600 hover:text-coleman p-2"><svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg></button>
-                </div>
-                <div class="p-6 overflow-y-auto flex-grow space-y-6">
-                    <!-- Dual Camera -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="flex flex-col items-center justify-center w-full">
-                            <label class="block text-xs font-black uppercase tracking-wider mb-2 w-full text-center">Main Profile</label>
-                            <label for="gear-photo-upload" class="flex flex-col items-center justify-center w-full h-56 border-4 border-wood-400 border-dashed rounded-xl cursor-pointer bg-wood-50 relative overflow-hidden">
-                                <div id="gear-photo-placeholder" class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-10 h-10 mb-3 text-wood-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3" stroke-width="2"/></svg>
-                                    <p class="text-xs uppercase tracking-widest text-wood-800 font-black">Snap Profile</p>
-                                </div>
-                                <img id="gear-photo-preview" class="hidden absolute inset-0 w-full h-full object-contain backdrop-blur-xl bg-wood-900/30 p-2">
-                                <input id="gear-photo-upload" type="file" class="hidden" accept="image/*" capture="environment" onchange="processAndCompressImage(event, 'primary')">
-                            </label>
-                        </div>
-                        <div class="flex flex-col items-center justify-center w-full">
-                            <label class="block text-xs font-black uppercase tracking-wider mb-2 w-full text-center">Bottom / Date Stamp</label>
-                            <label for="gear-photo-upload-bottom" class="flex flex-col items-center justify-center w-full h-56 border-4 border-wood-400 border-dashed rounded-xl cursor-pointer bg-wood-50 relative overflow-hidden">
-                                <div id="gear-photo-placeholder-bottom" class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-10 h-10 mb-3 text-wood-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
-                                    <p class="text-xs uppercase tracking-widest text-wood-800 font-black">Snap Bottom</p>
-                                </div>
-                                <img id="gear-photo-preview-bottom" class="hidden absolute inset-0 w-full h-full object-contain backdrop-blur-xl bg-wood-900/30 p-2">
-                                <input id="gear-photo-upload-bottom" type="file" class="hidden" accept="image/*" capture="environment" onchange="processAndCompressImage(event, 'bottom')">
-                            </label>
-                        </div>
-                    </div>
-                    <!-- Autocomplete Model & Dates -->
-                    <div class="bg-wood-200 dark:bg-wood-900 p-4 rounded-xl border-2 border-wood-400 dark:border-wood-700 space-y-4">
-                        <div>
-                            <label class="block text-xs font-black uppercase tracking-wider mb-1">Model / Name</label>
-                            <input type="text" id="gear-model" placeholder="e.g. 200A" oninput="checkColemanBrain()" class="w-full p-4 rounded-lg border-2 border-wood-400 font-black text-xl">
-                            <div id="brain-specs" class="hidden mt-2 p-3 bg-forest-800 border-2 border-green-900 rounded-lg shadow-inner text-green-200 text-xs font-bold uppercase tracking-widest grid grid-cols-2 gap-2">
-                                <div>Gen: <span id="brain-gen" class="text-white"></span></div>
-                                <div>Fuel: <span id="brain-fuel" class="text-white"></span></div>
-                                <div>Mantle: <span id="brain-mantle" class="text-white"></span></div>
-                                <div class="col-span-2 text-[10px]">Notes: <span id="brain-notes" class="text-white"></span></div>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-black uppercase tracking-wider mb-1">Date (Month)</label>
-                                <input type="number" id="gear-month" placeholder="MM" oninput="if(this.value.length >= 2) document.getElementById('gear-year').focus()" class="w-full p-4 rounded-lg border-2 border-wood-400 text-center font-black text-xl" inputmode="numeric">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-black uppercase tracking-wider mb-1">Date (Year)</label>
-                                <input type="number" id="gear-year" placeholder="YY" class="w-full p-4 rounded-lg border-2 border-wood-400 text-center font-black text-xl" inputmode="numeric">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Shop Tracking & Notes -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-wood-200 p-4 rounded-xl border-2 border-wood-400">
-                        <div>
-                            <label class="block text-xs font-black uppercase tracking-wider mb-1">Customer / Owner</label>
-                            <input type="text" id="gear-owner" value="COKER GEAR" class="w-full p-3 rounded-lg border-2 border-wood-400 font-bold text-base">
-                        </div>
-                        <div class="flex items-center mt-1 sm:mt-6">
-                            <label class="flex items-center gap-3 p-2 bg-wood-100 rounded border border-wood-300 w-full">
-                                <input type="checkbox" id="gear-priority" class="w-6 h-6 rounded border-2 border-wood-400 accent-coleman-red">
-                                <span class="text-sm font-black text-red-700 uppercase tracking-widest">Rush Job</span>
-                            </label>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-xs font-black uppercase tracking-wider mb-1">Work Log / Customer Notes</label>
-                            <textarea id="gear-notes" rows="2" class="w-full p-3 rounded-lg border-2 border-wood-400 font-bold text-sm resize-none"></textarea>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-xs font-black uppercase tracking-wider mb-2">Diagnostic / Repair Needs</label>
-                            <div id="repair-tags-container" class="flex flex-wrap gap-2">
-                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Pump Leather</button>
-                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Check Valve</button>
-                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Generator</button>
-                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Cap Gasket</button>
-                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Valve Packing</button>
-                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Fount Rust / Flush</button>
-                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Missing Globe</button>
-                                <button type="button" class="repair-tag border-2 border-wood-400 text-wood-600 rounded px-3 py-1.5 text-xs font-black uppercase tracking-wider shadow-sm hover:border-coleman" onclick="toggleRepairTag(this)">Schrader Valve</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black uppercase tracking-wider mb-2">Shop Status</label>
-                        <select id="gear-op-status" class="w-full p-4 rounded-lg border-2 border-wood-400 text-lg font-black uppercase">
-                            <option value="Intake / In Queue">Intake / In Queue</option>
-                            <option value="On the Bench">On the Bench (Active)</option>
-                            <option value="Waiting on Parts">Waiting on Parts</option>
-                            <option value="Completed / Ready">Completed / Ready</option>
-                        </select>
-                    </div>
-                    <div class="pt-4 pb-8 sm:pb-2">
-                        <button onclick="saveNewGear()" class="w-full coleman-red text-white font-black py-4 px-4 rounded-xl shadow-lg border-b-4 border-red-900 active:border-b-0 active:translate-y-1 hover:bg-red-700 transition-all text-xl uppercase tracking-widest">
-                            Save Job
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <!-- TAB 3: CASES & BLUEPRINTS -->
+    <section id="tab-cases" class="coker-tab-panel">
+      <div class="wood-card">
+        <h2>🪵 Plywood Case Blueprints & Cut List</h2>
+        <p class="brand-sub">Built for 1970s 220H/J/K & 275 dual-mantle lanterns, plus 228 Big Hat & 200A presets.</p>
+
+        <div class="preset-group" style="margin-top:0.75rem;">
+          <button type="button" class="btn preset-btn active" data-preset="220_275" onclick="selectCasePreset('220_275')">1970s 220H/J/K & 275 (7.5")</button>
+          <button type="button" class="btn preset-btn" data-preset="228" onclick="selectCasePreset('228')">228 Big Hat Wide (9.5")</button>
+          <button type="button" class="btn preset-btn" data-preset="200A" onclick="selectCasePreset('200A')">200A Single Mantle (6.5")</button>
         </div>
 
-    </main>
+        <div class="form-grid-3">
+          <div>
+            <label class="field-label" for="casePlySelect">Plywood Thickness</label>
+            <select id="casePlySelect" class="wood-select" onchange="updateCaseBlueprint()">
+              <option value="0.375">3/8" (0.375")</option>
+              <option value="0.5" selected>1/2" Baltic Birch (0.50")</option>
+              <option value="0.75">3/4" Heavy (0.75")</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label" for="caseLidSplitInput">Lid Cut From Top (in)</label>
+            <input type="number" id="caseLidSplitInput" class="wood-input" step="0.25" min="2" max="6" value="3.5" onchange="updateCaseBlueprint()" />
+          </div>
+          <div>
+            <label class="field-label" for="caseOwnerInput">Owner / Job Ref</label>
+            <input type="text" id="caseOwnerInput" class="wood-input" value="COKER GEAR" />
+          </div>
+        </div>
 
-    <!-- MICRO-CLOUD LOGIC (JSONBIN.IO) -->
-    <script>
-        // --- MICRO CLOUD CONFIGURATION ---
-        const JSONBIN_MASTER_KEY = "$2a$10$kO.d9vMG7Nkt6CvP.XNZsen04IZ4XKmvOXu51ax6awGzHMZTt4t2q";
-        const JSONBIN_BIN_ID = "6aff6b14ffd5d16053cf98e5";
+        <div id="caseSummaryCallout" class="callout-box"></div>
 
-        window.myCollection = [];
-        window.shopInventory = []; 
-        let primaryPhotoDataUrl = null, bottomPhotoDataUrl = null;
+        <div style="overflow-x:auto;">
+          <table class="cut-table">
+            <thead>
+              <tr>
+                <th>Part</th>
+                <th>Qty</th>
+                <th>Cut Size (W × L)</th>
+                <th>Shop Notes</th>
+              </tr>
+            </thead>
+            <tbody id="caseCutTableBody"></tbody>
+          </table>
+        </div>
 
-        function toggleRepairTag(el) {
-            el.classList.toggle('selected-tag');
-            el.classList.toggle('bg-red-900');
-            el.classList.toggle('text-white');
-            el.classList.toggle('border-red-900');
-            el.classList.toggle('text-wood-600');
-            el.classList.toggle('border-wood-400');
+        <div class="callout-box">
+          <strong>Build Sequence:</strong> (1) Cut felt-lined fount cradle ring and 3/4" ball-nut stabilizer block. (2) Glue/tack walls and top/bottom caps while keeping fasteners out of the top 3"–4" lid-cut band. (3) Slice lid off around the perimeter and sand flush. (4) Fit nut block to snug the ventilator without crushing mantles, then mount hinge, latch, handle, and feet.
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+          <input type="text" id="caseNotesInput" class="wood-input" style="flex:1 1 240px;" placeholder="Build notes (e.g. 1/4" felt shim on ball-nut block)..." />
+          <select id="caseStatusSelect" class="wood-select" style="width:auto;">
+            <option value="Planned">Planned</option>
+            <option value="Cut">Cut</option>
+            <option value="In Build">In Build</option>
+            <option value="Ready">Ready</option>
+          </select>
+          <button type="button" class="btn btn-primary" onclick="saveCaseBuild()">Save Case Plan</button>
+        </div>
+      </div>
+
+      <div class="wood-card">
+        <h3>📦 Saved Case Builds</h3>
+        <div id="caseLogGrid" class="case-log-grid" style="margin-top:0.65rem;"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ADD / EDIT GEAR MODAL -->
+  <div id="gearModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="gearModalTitle">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.65rem;">
+        <h2 id="gearModalTitle" style="margin:0;">Log Gear / Repair Job</h2>
+        <button type="button" class="btn btn-sm" onclick="closeGearModal()">✕</button>
+      </div>
+
+      <form id="gearForm" onsubmit="saveGearItem(event)">
+        <div class="form-grid-3">
+          <div>
+            <label class="field-label" for="modelInput">Model # (Coleman Brain)</label>
+            <input type="text" id="modelInput" class="wood-input" required placeholder="e.g. 220H, 200A, 237, 413G" oninput="handleModelBrainLookup()" />
+          </div>
+          <div>
+            <label class="field-label" for="monthInput">Date Month (MM)</label>
+            <input type="text" id="monthInput" class="wood-input" maxlength="2" inputmode="numeric" placeholder="11" oninput="handleMonthAutoAdvance()" />
+          </div>
+          <div>
+            <label class="field-label" for="yearInput">Date Year (YY or YYYY)</label>
+            <input type="text" id="yearInput" class="wood-input" maxlength="4" inputmode="numeric" placeholder="74 or 1974" />
+          </div>
+        </div>
+
+        <div id="brainPreviewBox" class="brain-stamp" style="display:none; margin-bottom:0.7rem;"></div>
+
+        <div class="form-grid-3">
+          <div>
+            <label class="field-label" for="ownerInput">Owner / Customer</label>
+            <input type="text" id="ownerInput" class="wood-input" value="COKER GEAR" />
+          </div>
+          <div>
+            <label class="field-label" for="statusSelect">Shop Status</label>
+            <select id="statusSelect" class="wood-select">
+              <option value="Intake / In Queue">Intake / In Queue</option>
+              <option value="On the Bench">On the Bench</option>
+              <option value="Waiting on Parts">Waiting on Parts</option>
+              <option value="Completed / Ready">Completed / Ready</option>
+              <option value="Operational & Tested">Operational & Tested</option>
+              <option value="Not Working - Tested">Not Working - Tested</option>
+              <option value="Untested">Untested</option>
+            </select>
+          </div>
+          <div style="display:flex; align-items:flex-end; padding-bottom:0.45rem;">
+            <label style="display:flex; align-items:center; gap:0.45rem; cursor:pointer; font-weight:700; color:#ff9b8f;">
+              <input type="checkbox" id="rushCheckbox" /> 🚨 RUSH JOB
+            </label>
+          </div>
+        </div>
+
+        <label class="field-label">Mechanic Diagnostic Tags</label>
+        <div id="diagPicker" class="diag-picker"></div>
+
+        <div class="dual-photo-grid">
+          <div class="photo-drop">
+            <label class="field-label" for="mainPhotoInput">Main Profile Photo</label>
+            <input type="file" id="mainPhotoInput" accept="image/*" capture="environment" onchange="handlePhotoUpload(event, 'main')" />
+            <img id="mainPhotoPreview" alt="Main preview" />
+          </div>
+          <div class="photo-drop">
+            <label class="field-label" for="stampPhotoInput">Bottom Stamp Photo</label>
+            <input type="file" id="stampPhotoInput" accept="image/*" capture="environment" onchange="handlePhotoUpload(event, 'stamp')" />
+            <img id="stampPhotoPreview" alt="Stamp preview" />
+          </div>
+        </div>
+
+        <div style="margin-bottom:0.75rem;">
+          <label class="field-label" for="notesInput">Diagnostic & Bench Notes</label>
+          <textarea id="notesInput" class="wood-textarea" rows="2" placeholder="Pressure test notes, generator swap, globe condition..."></textarea>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+          <button type="button" class="btn" onclick="closeGearModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Gear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div id="deleteModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card" style="max-width:420px;">
+      <h3 style="margin-top:0;">Confirm Deletion</h3>
+      <p id="deleteModalText" style="color:var(--text-tan);"></p>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button type="button" class="btn" onclick="closeDeleteModal()">Keep It</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX MODAL -->
+  <div id="photoLightbox" class="modal-backdrop" onclick="this.classList.remove('open')">
+    <div class="modal-card" style="max-width:720px; text-align:center;" onclick="event.stopPropagation()">
+      <img id="lightboxImg" src="" alt="Full view" style="max-width:100%; max-height:75vh; border-radius:8px;" />
+      <div style="margin-top:0.65rem;">
+        <button type="button" class="btn btn-sm" onclick="document.getElementById('photoLightbox').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="fab-add" aria-label="Add Gear" onclick="openGearModal()">+</button>
+  <div id="toastBanner" class="toast-banner"></div>
+
+  <script>
+    const JSONBIN_BIN_ID = "6aff6b14ffd5d16053cf98e5";
+    const JSONBIN_MASTER_KEY = "$2a$10$kO.d9vMG7Nkt6CvP.XNZsen04IZ4XKmvOXu51ax6awGzHMZTt4t2q";
+    const LOCAL_STORAGE_KEY = "coker_coleman_shop_v1";
+
+    const COLEMAN_BRAIN = {
+      "200A": { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (200A Gen)", globe: "#550 / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt" },
+      "200": { fuel: "Coleman Fuel / White Gas", gen: "200A5891 / 200 Gen", globe: "#550 / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt" },
+      "201": { fuel: "Kerosene", gen: "201 Kerosene Gen", globe: "#550 / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt" },
+      "202": { fuel: "Coleman Fuel / White Gas", gen: "200A5891 (Stainless fount)", globe: "#550 / R690B051", mantle: "1x #21 (21A104)", cap: "~1.6 pt" },
+      "220": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (220/228 Gen)", globe: "#330 / 690-048 / R690B048C", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "220F": { fuel: "Coleman Fuel / White Gas", gen: "220E5891", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "220H": { fuel: "Coleman Fuel / White Gas", gen: "220E5891", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "220J": { fuel: "Coleman Fuel / White Gas", gen: "220E5891", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "220K": { fuel: "Coleman Fuel / White Gas", gen: "220E5891", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "228": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (Big Hat)", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "228H": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (Big Hat)", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "228J": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 (Big Hat)", globe: "#330 / 690-048", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "236": { fuel: "Coleman Fuel / White Gas", gen: "236 High-Output Gen", globe: "#660", mantle: "1x Large (#99 / 24A style)", cap: "~2 pt" },
+      "237": { fuel: "Kerosene (Preheat Cup)", gen: "237 Kerosene Gen", globe: "#660", mantle: "1x Large (#99 / 24A style)", cap: "~2 pt" },
+      "242": { fuel: "Coleman Fuel / White Gas", gen: "242 / 200A5891 family", globe: "#550 / #440 Mica", mantle: "1x #21 (21A104)", cap: "~1.33 pt" },
+      "242B": { fuel: "Coleman Fuel / White Gas", gen: "242 / 200A5891 family", globe: "#550 / #440 Mica", mantle: "1x #21 (21A104)", cap: "~1.33 pt" },
+      "242C": { fuel: "Coleman Fuel / White Gas", gen: "242 / 200A5891 family", globe: "#550 / #440 Mica", mantle: "1x #21 (21A104)", cap: "~1.33 pt" },
+      "252A": { fuel: "Unleaded / Mil-Spec / CF", gen: "252A Mil-Spec Gen", globe: "#330 / 252 Mil-Spec", mantle: "1x Mil-Spec / #21", cap: "~1.3 pt" },
+      "275": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 + Schrader Valve", globe: "#880 / 275A0481A Amber", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "275A": { fuel: "Coleman Fuel / White Gas", gen: "220E5891 + Schrader Valve", globe: "#880 / 275A0481A Amber", mantle: "2x #21 (21A104)", cap: "~2 pt" },
+      "413": { fuel: "Coleman Fuel / White Gas", gen: "413A5621 / 3000005106 (2-Burner)", globe: "N/A (Stove)", mantle: "2 Burners", cap: "~3.5 pt" },
+      "413G": { fuel: "Coleman Fuel / White Gas", gen: "413A5621 / 413B6601 Valve", globe: "N/A (Stove)", mantle: "2 Burners", cap: "~3.5 pt" },
+      "425": { fuel: "Coleman Fuel / White Gas", gen: "412-5621 / 3000005108 (2-Burner)", globe: "N/A (Stove)", mantle: "2 Burners", cap: "~2.5 pt" },
+      "426": { fuel: "Coleman Fuel / White Gas", gen: "426-5621 / 413B6601 (3-Burner)", globe: "N/A (Stove)", mantle: "3 Burners", cap: "~4.25 pt" },
+      "500": { fuel: "Coleman Fuel / White Gas", gen: "500 Speedmaster Gen", globe: "N/A (Stove)", mantle: "1 Burner", cap: "~1.25 pt" },
+      "502": { fuel: "Coleman Fuel / White Gas", gen: "502-5891 Sportster Gen", globe: "N/A (Stove)", mantle: "1 Burner", cap: "~1.25 pt" }
+    };
+
+    const DIAGNOSTIC_TAGS = [
+      "Pump Leather", "Check Valve", "Gen Tube", "Valve Packing",
+      "Fount Rust", "Cap Gasket", "Missing Globe", "Schrader Valve"
+    ];
+
+    const DEFAULT_PARTS = [
+      { id: "p_21_mantles", name: "#21 Mantles (21A104)", fit: "200A, 220, 228, 242, 275", qty: 8 },
+      { id: "p_220_gen", name: "220E5891 Generator", fit: "220/228/275 Lanterns", qty: 3 },
+      { id: "p_200_gen", name: "200A5891 Generator", fit: "200A / 242 Family", qty: 3 },
+      { id: "p_pump_cup", name: "Leather Pump Cup (216A5091-60)", fit: "Lanterns & Stoves", qty: 6 },
+      { id: "p_cap_gasket", name: "Fuel Cap Gaskets (TS42 / TS45)", fit: "Standard & 242/500 Caps", qty: 10 },
+      { id: "p_valve_pack", name: "Valve Stem Packing (118D6201)", fit: "Lanterns & Stoves", qty: 5 },
+      { id: "p_globe_330", name: "#330 / 690-048 Globe", fit: "220, 228, 252, 290, 295", qty: 2 }
+    ];
+
+    const CASE_PRESETS = {
+      "220_275": { label: "1970s 220H/J/K & 275", intW: 7.5, intD: 7.5, intH: 15.0, fountCutout: 6.375, note: "6.25\" fount & dual-mantle cage" },
+      "228": { label: "1970s 228H/J Big Hat", intW: 9.5, intD: 9.5, intH: 15.0, fountCutout: 6.375, note: "+2.00\" width for 8.5\" Big Hat brim" },
+      "200A": { label: "200A Single Mantle", intW: 6.5, intD: 6.5, intH: 13.0, fountCutout: 5.375, note: "Compact single-mantle clearance" }
+    };
+
+    let appState = {
+      gear: [],
+      inventory: [],
+      cases: []
+    };
+
+    let currentMainPhoto = "";
+    let currentStampPhoto = "";
+    let selectedDiagTags = new Set();
+    let activeCasePreset = "220_275";
+    let pendingDeleteCallback = null;
+
+    function showToast(msg) {
+      const el = document.getElementById("toastBanner");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => el.classList.remove("show"), 2600);
+    }
+
+    function setSyncStatus(text) {
+      const el = document.getElementById("syncStatusPill");
+      if (el) el.textContent = text;
+    }
+
+    function saveLocal() {
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(appState));
+      } catch (err) {
+        console.warn("Local storage quota/error:", err);
+      }
+    }
+
+    function loadLocal() {
+      try {
+        const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          appState.gear = Array.isArray(parsed.gear) ? parsed.gear : [];
+          appState.inventory = Array.isArray(parsed.inventory) ? parsed.inventory : [];
+          appState.cases = Array.isArray(parsed.cases) ? parsed.cases : [];
         }
+      } catch (e) {}
+      if (!appState.inventory.length) {
+        appState.inventory = DEFAULT_PARTS.map((p) => ({ ...p }));
+      }
+    }
 
-        window.onload = function() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-            loadData(); // Will attempt cloud first, then fallback to local
+    async function pullFromCloud(notify = false) {
+      if (!JSONBIN_BIN_ID || !JSONBIN_MASTER_KEY) {
+        setSyncStatus("💾 Local Mode");
+        return;
+      }
+      setSyncStatus("☁️ Syncing...");
+      try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+          headers: { "X-Master-Key": JSONBIN_MASTER_KEY }
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const rec = data.record || {};
+        if (Array.isArray(rec.gear)) appState.gear = rec.gear;
+        if (Array.isArray(rec.inventory) && rec.inventory.length) appState.inventory = rec.inventory;
+        if (Array.isArray(rec.cases)) appState.cases = rec.cases;
+        saveLocal();
+        setSyncStatus("☁️ Synced");
+        renderAll();
+        if (notify) showToast("Synced with JSONBin!");
+      } catch (err) {
+        setSyncStatus("💾 Offline / Local");
+        if (notify) showToast("Using local data (cloud unreachable)");
+      }
+    }
+
+    async function pushToCloud() {
+      saveLocal();
+      if (!JSONBIN_BIN_ID || !JSONBIN_MASTER_KEY) return;
+      setSyncStatus("☁️ Saving...");
+      try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": JSONBIN_MASTER_KEY
+          },
+          body: JSON.stringify({
+            gear: appState.gear,
+            inventory: appState.inventory,
+            cases: appState.cases
+          })
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        setSyncStatus("☁️ Synced");
+      } catch (err) {
+        setSyncStatus("💾 Saved Locally");
+      }
+    }
+
+    function toggleCampfireMode() {
+      const isDark = document.body.classList.toggle("campfire-mode");
+      localStorage.setItem("coker_campfire_mode", isDark ? "1" : "0");
+      showToast(isDark ? "Campfire Mode ON" : "Lumberjack Mode ON");
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll(".coker-tab-panel").forEach((p) => {
+        p.classList.toggle("active", p.id === `tab-${tabName}`);
+      });
+      document.querySelectorAll(".coker-tab-btn").forEach((b) => {
+        b.classList.toggle("active", b.dataset.tab === tabName);
+      });
+      if (tabName === "parts") renderParts();
+      if (tabName === "cases") {
+        updateCaseBlueprint();
+        renderCaseLog();
+      }
+    }
+
+    function lookupModelBrain(rawModel) {
+      const cleaned = (rawModel || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+      if (!cleaned) return null;
+      if (COLEMAN_BRAIN[cleaned]) return COLEMAN_BRAIN[cleaned];
+      const keys = Object.keys(COLEMAN_BRAIN).sort((a, b) => b.length - a.length);
+      for (const k of keys) {
+        if (cleaned.startsWith(k)) return COLEMAN_BRAIN[k];
+      }
+      return null;
+    }
+
+    function handleModelBrainLookup() {
+      const val = document.getElementById("modelInput").value;
+      const spec = lookupModelBrain(val);
+      const box = document.getElementById("brainPreviewBox");
+      if (!spec) {
+        box.style.display = "none";
+        box.innerHTML = "";
+        return;
+      }
+      box.style.display = "block";
+      box.innerHTML = `<strong>Coleman Brain Match:</strong> Fuel: ${spec.fuel} · Gen: ${spec.gen} · Globe: ${spec.globe} · Mantles/Burners: ${spec.mantle} · Cap: ${spec.cap}`;
+    }
+
+    function handleMonthAutoAdvance() {
+      const mEl = document.getElementById("monthInput");
+      const yEl = document.getElementById("yearInput");
+      mEl.value = mEl.value.replace(/\D/g, "").slice(0, 2);
+      if (mEl.value.length === 2) {
+        yEl.focus();
+      }
+    }
+
+    function formatDateAndAge(monthStr, yearStr) {
+      const m = (monthStr || "").trim().padStart(2, "0");
+      const yRaw = (yearStr || "").trim().replace(/\D/g, "");
+      if (!yRaw) return "Date Unstamped";
+      let fullYear = parseInt(yRaw, 10);
+      if (yRaw.length <= 2) {
+        fullYear = fullYear >= 25 ? 1900 + fullYear : 2000 + fullYear;
+      }
+      const nowYear = new Date().getFullYear();
+      const age = Math.max(0, nowYear - fullYear);
+      const labelDate = yRaw.length <= 2 || m !== "00" ? `${m !== "00" ? m + "/" : ""}${fullYear}` : `${fullYear}`;
+      return `${labelDate} (${age} yrs)`;
+    }
+
+    function buildDiagPicker() {
+      const wrap = document.getElementById("diagPicker");
+      wrap.innerHTML = DIAGNOSTIC_TAGS.map((tag) => {
+        const active = selectedDiagTags.has(tag) ? "selected" : "";
+        return `<button type="button" class="diag-choice ${active}" onclick="toggleDiagTag('${tag}')">${tag}</button>`;
+      }).join("");
+    }
+
+    function toggleDiagTag(tag) {
+      if (selectedDiagTags.has(tag)) selectedDiagTags.delete(tag);
+      else selectedDiagTags.add(tag);
+      buildDiagPicker();
+    }
+
+    function compressImageFile(file, maxWidth = 800, quality = 0.72) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.min(1, maxWidth / img.width);
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL("image/jpeg", quality));
+          };
+          img.src = e.target.result;
         };
+        reader.readAsDataURL(file);
+      });
+    }
 
-        function toggleDarkMode() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.theme = 'light';
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.theme = 'dark';
-            }
-        }
+    async function handlePhotoUpload(event, target) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const compressed = await compressImageFile(file);
+      if (target === "main") {
+        currentMainPhoto = compressed;
+        const prev = document.getElementById("mainPhotoPreview");
+        prev.src = compressed;
+        prev.style.display = "block";
+      } else {
+        currentStampPhoto = compressed;
+        const prev = document.getElementById("stampPhotoPreview");
+        prev.src = compressed;
+        prev.style.display = "block";
+      }
+    }
 
-        // --- CLOUD SYNC ENGINE ---
-        async function loadData() {
-            const statusEl = document.getElementById('sync-status');
-            if (JSONBIN_BIN_ID && JSONBIN_BIN_ID !== "YOUR_BIN_ID_HERE") {
-                try {
-                    statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span> Syncing...`;
-                    let req = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-                        headers: { 'X-Master-Key': JSONBIN_MASTER_KEY }
-                    });
-                    let res = await req.json();
-                    if(res.record) {
-                        window.myCollection = res.record.gear || [];
-                        window.shopInventory = res.record.inventory || [];
-                        statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-400"></span> Cloud Synced`;
-                    }
-                } catch (e) {
-                    console.error("Cloud load failed, using local", e);
-                    loadLocalFallback();
-                    statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-red-500"></span> Cloud Error`;
-                }
-            } else {
-                loadLocalFallback();
-            }
-            renderCollection();
-            renderInventory();
-        }
+    function resetGearForm() {
+      document.getElementById("gearForm").reset();
+      document.getElementById("ownerInput").value = "COKER GEAR";
+      document.getElementById("statusSelect").value = "Intake / In Queue";
+      document.getElementById("brainPreviewBox").style.display = "none";
+      currentMainPhoto = "";
+      currentStampPhoto = "";
+      document.getElementById("mainPhotoInput").value = "";
+      document.getElementById("stampPhotoInput").value = "";
+      const p1 = document.getElementById("mainPhotoPreview");
+      const p2 = document.getElementById("stampPhotoPreview");
+      p1.src = ""; p1.style.display = "none";
+      p2.src = ""; p2.style.display = "none";
+      selectedDiagTags = new Set();
+      buildDiagPicker();
+    }
 
-        async function syncToCloud() {
-            const statusEl = document.getElementById('sync-status');
-            
-            // Always save to local storage immediately as a backup
-            localStorage.setItem('cokerCollection', JSON.stringify(window.myCollection));
-            localStorage.setItem('cokerPartsInventory', JSON.stringify(window.shopInventory));
+    function openGearModal() {
+      resetGearForm();
+      document.getElementById("gearModal").classList.add("open");
+      setTimeout(() => document.getElementById("modelInput").focus(), 60);
+    }
 
-            if (JSONBIN_BIN_ID && JSONBIN_BIN_ID !== "YOUR_BIN_ID_HERE") {
-                statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span> Saving...`;
-                try {
-                    await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-Master-Key': JSONBIN_MASTER_KEY
-                        },
-                        body: JSON.stringify({ gear: window.myCollection, inventory: window.shopInventory })
-                    });
-                    statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-400"></span> Cloud Synced`;
-                } catch (e) {
-                    console.error("Cloud save failed", e);
-                    statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-red-500"></span> Save Failed`;
-                    showToast("Cloud Save Failed. Saved Locally.");
-                }
-            }
-        }
+    function closeGearModal() {
+      document.getElementById("gearModal").classList.remove("open");
+    }
 
-        function forceSync() { showToast("Fetching Cloud Data..."); loadData(); }
+    async function saveGearItem(event) {
+      event.preventDefault();
+      const id = String(Date.now());
+      const jobNum = `#${id.slice(-4)}`;
+      const model = document.getElementById("modelInput").value.trim().toUpperCase();
+      const month = document.getElementById("monthInput").value.trim();
+      const year = document.getElementById("yearInput").value.trim();
+      const ownerClean = document.getElementById("ownerInput").value.trim() || "COKER GEAR";
+      const status = document.getElementById("statusSelect").value;
+      const rush = document.getElementById("rushCheckbox").checked;
+      const notes = document.getElementById("notesInput").value.trim();
+      const brainSpec = lookupModelBrain(model);
 
-        function loadLocalFallback() {
-            const savedGear = localStorage.getItem('cokerCollection');
-            if (savedGear) window.myCollection = JSON.parse(savedGear);
-            const savedInv = localStorage.getItem('cokerPartsInventory');
-            if (savedInv) window.shopInventory = JSON.parse(savedInv);
-            
-            // Auto-seed base inventory if completely empty
-            if (window.shopInventory.length === 0) {
-                window.shopInventory = [
-                    { id: 'inv_1', name: '#21 Mantles (Tie)', qty: 0 },
-                    { id: 'inv_2', name: 'Pump Leathers', qty: 0 },
-                    { id: 'inv_3', name: '3-Piece Cap Gaskets', qty: 0 },
-                    { id: 'inv_4', name: 'Check Valves (w/ stems)', qty: 0 },
-                    { id: 'inv_5', name: 'T66 Generators (200A/242)', qty: 0 },
-                    { id: 'inv_6', name: 'T33 Generators (220/228)', qty: 0 }
-                ];
-            }
-        }
+      const item = {
+        id,
+        jobNum,
+        model,
+        month,
+        year,
+        owner: ownerClean,
+        status,
+        rush,
+        diagTags: Array.from(selectedDiagTags),
+        notes,
+        mainPhoto: currentMainPhoto,
+        stampPhoto: currentStampPhoto,
+        brainSpec: brainSpec || null
+      };
 
-        // --- IMAGE COMPRESSOR (Prevents Cloud Bloat) ---
-        function processAndCompressImage(event, type) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    const MAX_HEIGHT = 600; // Crunch down to 600px tall
-                    let width = img.width;
-                    let height = img.height;
+      appState.gear.unshift(item);
+      closeGearModal();
+      renderGear();
+      await pushToCloud();
+      showToast(`Saved ${jobNum} (${model})`);
+    }
 
-                    if (height > MAX_HEIGHT) {
-                        width = Math.round(width *= MAX_HEIGHT / height);
-                        height = MAX_HEIGHT;
-                    }
-                    canvas.width = width; canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    
-                    // Compress heavily as JPEG to save cloud space (0.6 quality)
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
-                    
-                    if (type === 'primary') {
-                        primaryPhotoDataUrl = dataUrl;
-                        document.getElementById('gear-photo-preview').src = dataUrl;
-                        document.getElementById('gear-photo-preview').classList.remove('hidden');
-                        document.getElementById('gear-photo-placeholder').classList.add('hidden');
-                    } else {
-                        bottomPhotoDataUrl = dataUrl;
-                        document.getElementById('gear-photo-preview-bottom').src = dataUrl;
-                        document.getElementById('gear-photo-preview-bottom').classList.remove('hidden');
-                        document.getElementById('gear-photo-placeholder-bottom').classList.add('hidden');
-                    }
-                }
-                img.src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
+    function duplicateGearItem(id) {
+      const src = appState.gear.find((g) => g.id === id);
+      if (!src) return;
+      const newId = String(Date.now());
+      const copy = {
+        ...src,
+        id: newId,
+        jobNum: `#${newId.slice(-4)}`,
+        diagTags: [...(src.diagTags || [])]
+      };
+      appState.gear.unshift(copy);
+      renderGear();
+      pushToCloud();
+      showToast(`Duplicated as ${copy.jobNum}`);
+    }
 
-        // --- THE COLEMAN BRAIN ---
-        const colemanBrain = {
-            // LANTERNS
-            "200a": { fuel: "White Gas", gen: "T66 / 200A5891", mantle: "1x #21", notes: "The Classic Single Mantle. 1.35 pints." },
-            "200b": { fuel: "White Gas", gen: "288-5891", mantle: "1x #21", notes: "Modern Classic. Uses schrader valve in valve body." },
-            "201": { fuel: "Kerosene", gen: "201-5891", mantle: "1x #21", notes: "Kerosene 200A size. Alcohol preheat required." },
-            "202": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "The Professional. Stainless steel frame/fount." },
-            "220": { fuel: "White Gas", gen: "T33 / 220E5891", mantle: "2x #21", notes: "Standard Double Mantle (B through K models)." },
-            "228": { fuel: "White Gas", gen: "T33 / 220E5891", mantle: "2x #21", notes: "Big Hat Double Mantle." },
-            "236": { fuel: "White Gas", gen: "236-299", mantle: "1x #111", notes: "Major. Blindingly bright. 2 pints." },
-            "237": { fuel: "Kerosene", gen: "237-299", mantle: "1x #111", notes: "Empire. Heavy duty kerosene. Alcohol preheat." },
-            "242a": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "Pre-war junior single mantle." },
-            "242b": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "Junior single mantle." },
-            "242c": { fuel: "White Gas", gen: "T66", mantle: "1x #21", notes: "Junior single mantle. Often has painted fount." },
-            "252a": { fuel: "Leaded/White", gen: "Mil-Spec (Aluminum)", mantle: "Quad-Tie", notes: "Military lantern. Roars loudly. Spares in pump tube." },
-            "275": { fuel: "White Gas", gen: "275-299 (Schrader)", mantle: "2x #21", notes: "The Turd. Brown fount. Schrader valve prone to leak." },
-            "285": { fuel: "Dual Fuel", gen: "285-5891", mantle: "2x #21", notes: "Modern dual fuel double mantle." },
-            "288": { fuel: "White Gas", gen: "288-5891", mantle: "2x #21", notes: "Adjustable two mantle." },
-            "290": { fuel: "White Gas", gen: "290-5891", mantle: "2x #21", notes: "Powerhouse large double mantle." },
-            "295": { fuel: "Dual Fuel", gen: "295-5891", mantle: "2x #21", notes: "Powerhouse dual fuel." },
-            "319": { fuel: "Gasoline", gen: "Q77", mantle: "2x", notes: "Extremely rare early 1930s." },
-            "339": { fuel: "Kerosene", gen: "339-2992", mantle: "1x #111", notes: "Canadian kerosene model." },
-            "639": { fuel: "Kerosene", gen: "639-2992", mantle: "1x #111", notes: "Modern large kerosene." },
-            // STOVES
-            "413": { fuel: "White Gas", gen: "413-5621", mantle: "N/A", notes: "Powerhouse 2-Burner Stove." },
-            "425": { fuel: "White Gas", gen: "412-5621", mantle: "N/A", notes: "Standard 2-Burner Compact Stove." },
-            "426": { fuel: "White Gas", gen: "426-5621", mantle: "N/A", notes: "Large 3-Burner Stove." },
-            "500": { fuel: "White Gas", gen: "500-299", mantle: "N/A", notes: "Speedmaster large single burner." },
-            "502": { fuel: "White Gas", gen: "502-5891", mantle: "N/A", notes: "Sportster single burner. Extremely reliable." },
-            "530": { fuel: "White Gas", gen: "530-299", mantle: "N/A", notes: "GI Pocket Stove. WWII era." },
-            "400a": { fuel: "White Gas", gen: "400-5891", mantle: "N/A", notes: "Black Peak 1 backpacking stove." },
-            "400": { fuel: "White Gas", gen: "400-5891", mantle: "N/A", notes: "Brown Peak 1 backpacking stove." }
-        };
+    function openDeleteConfirm(message, onConfirm) {
+      document.getElementById("deleteModalText").textContent = message;
+      pendingDeleteCallback = onConfirm;
+      document.getElementById("deleteModal").classList.add("open");
+    }
 
-        function checkColemanBrain() {
-            const input = document.getElementById('gear-model').value.trim().toLowerCase();
-            const brainDiv = document.getElementById('brain-specs');
-            
-            let matchedSpec = null;
-            for (const [key, spec] of Object.entries(colemanBrain)) {
-                if (input.includes(key)) {
-                    matchedSpec = spec;
-                    break;
-                }
-            }
+    function closeDeleteModal() {
+      document.getElementById("deleteModal").classList.remove("open");
+      pendingDeleteCallback = null;
+    }
 
-            if (matchedSpec) {
-                document.getElementById('brain-gen').innerText = matchedSpec.gen;
-                document.getElementById('brain-fuel').innerText = matchedSpec.fuel;
-                document.getElementById('brain-mantle').innerText = matchedSpec.mantle;
-                document.getElementById('brain-notes').innerText = matchedSpec.notes;
-                brainDiv.classList.remove('hidden');
-                return matchedSpec;
-            } else {
-                brainDiv.classList.add('hidden');
-                return null;
-            }
-        }
+    document.getElementById("confirmDeleteBtn").addEventListener("click", async () => {
+      if (typeof pendingDeleteCallback === "function") {
+        await pendingDeleteCallback();
+      }
+      closeDeleteModal();
+    });
 
-        // --- CORE LOGIC ---
-        async function saveNewGear() {
-            const id = 'gear_' + Date.now();
-            let owner = document.getElementById('gear-owner').value.trim() || "COKER GEAR";
-            const specs = checkColemanBrain(); 
-            
-            // Gather selected repair tags
-            const selectedTags = Array.from(document.querySelectorAll('.repair-tag.selected-tag')).map(btn => btn.innerText);
-            
-            const gearData = {
-                id: id,
-                model: document.getElementById('gear-model').value.trim(),
-                month: document.getElementById('gear-month').value.trim(),
-                year: document.getElementById('gear-year').value.trim(),
-                owner: owner,
-                priority: document.getElementById('gear-priority').checked,
-                notes: document.getElementById('gear-notes').value.trim(),
-                opStatus: document.getElementById('gear-op-status').value,
-                repairTags: selectedTags, // Save tags
-                photo: primaryPhotoDataUrl,
-                bottomPhoto: bottomPhotoDataUrl,
-                specs: specs
-            };
+    function deleteGearItem(id) {
+      const target = appState.gear.find((g) => g.id === id);
+      if (!target) return;
+      openDeleteConfirm(`Delete ${target.jobNum} (${target.model}) owned by ${target.owner}?`, async () => {
+        appState.gear = appState.gear.filter((g) => g.id !== id);
+        renderGear();
+        await pushToCloud();
+        showToast("Item deleted");
+      });
+    }
 
-            window.myCollection.unshift(gearData);
-            
-            // Clear Form
-            document.getElementById('gear-model').value = '';
-            document.getElementById('gear-month').value = '';
-            document.getElementById('gear-year').value = '';
-            document.getElementById('gear-notes').value = '';
-            document.getElementById('gear-owner').value = 'COKER GEAR';
-            document.getElementById('gear-priority').checked = false;
-            document.getElementById('gear-op-status').value = 'Intake / In Queue';
-            
-            document.getElementById('gear-photo-preview').classList.add('hidden');
-            document.getElementById('gear-photo-preview').src = '';
-            document.getElementById('gear-photo-placeholder').classList.remove('hidden');
-            
-            document.getElementById('gear-photo-preview-bottom').classList.add('hidden');
-            document.getElementById('gear-photo-preview-bottom').src = '';
-            document.getElementById('gear-photo-placeholder-bottom').classList.remove('hidden');
-            
-            document.getElementById('gear-photo-upload').value = '';
-            document.getElementById('gear-photo-upload-bottom').value = '';
-            
-            // Reset Repair Tags visually
-            document.querySelectorAll('.repair-tag.selected-tag').forEach(el => toggleRepairTag(el));
-            
-            document.getElementById('brain-specs').classList.add('hidden');
-            primaryPhotoDataUrl = null;
-            bottomPhotoDataUrl = null;
+    function openLightbox(src) {
+      if (!src) return;
+      document.getElementById("lightboxImg").src = src;
+      document.getElementById("photoLightbox").classList.add("open");
+    }
 
-            renderCollection();
-            closeAddGearModal();
-            showToast("Gear Logged!");
-            await syncToCloud(); // Save to Cloud
-        }
+    function clearSearch() {
+      document.getElementById("searchInput").value = "";
+      renderGear();
+    }
 
-        async function duplicateGear(id) {
-            const itemToCopy = window.myCollection.find(i => i.id === id);
-            if(itemToCopy) {
-                const newItem = { ...itemToCopy, id: 'gear_' + Date.now() };
-                window.myCollection.unshift(newItem);
-                renderCollection();
-                showToast("Item Duplicated! Edit to update details.");
-                await syncToCloud();
-            }
-        }
+    function renderGear() {
+      const q = (document.getElementById("searchInput").value || "").trim().toLowerCase();
+      const filtered = appState.gear.filter((g) => {
+        if (!q) return true;
+        const hay = [
+          g.jobNum, g.model, g.owner, g.status, g.notes,
+          ...(g.diagTags || []),
+          g.brainSpec ? `${g.brainSpec.gen} ${g.brainSpec.fuel} ${g.brainSpec.globe}` : ""
+        ].join(" ").toLowerCase();
+        return hay.includes(q);
+      });
 
-        async function deleteGear(id) {
-            if(confirm("Delete this gear?")) {
-                window.myCollection = window.myCollection.filter(i => i.id !== id);
-                renderCollection();
-                showToast("Item Deleted.");
-                await syncToCloud(); // Save to Cloud
-            }
-        }
+      document.getElementById("gearCountLabel").textContent = `${filtered.length} of ${appState.gear.length} Items Shown`;
+      const rushCount = filtered.filter((g) => g.rush).length;
+      document.getElementById("rushCountLabel").textContent = rushCount ? `🚨 ${rushCount} Rush` : "";
 
-        function renderCollection() {
-            const container = document.getElementById('collection-container');
-            container.innerHTML = '';
-            
-            const searchTerm = (document.getElementById('inventory-search').value || '').toLowerCase();
-            const filteredCollection = window.myCollection.filter(item => {
-                const tagString = (item.repairTags || []).join(' ').toLowerCase();
-                return (item.model || '').toLowerCase().includes(searchTerm) ||
-                       (item.owner || '').toLowerCase().includes(searchTerm) ||
-                       (item.opStatus || '').toLowerCase().includes(searchTerm) ||
-                       (item.notes || '').toLowerCase().includes(searchTerm) ||
-                       tagString.includes(searchTerm);
-            });
+      const grid = document.getElementById("gearGrid");
+      if (!filtered.length) {
+        grid.innerHTML = `<p class="brand-sub">No matching lanterns or stoves found. Click <strong>+ Add Gear</strong> to log one.</p>`;
+        return;
+      }
 
-            document.getElementById('item-count').innerText = filteredCollection.length;
-            
-            filteredCollection.forEach(item => {
-                const ownerBadge = item.owner === 'COKER GEAR' ? 'bg-wood-800 text-white' : 'bg-amber-500 text-black';
-                const prio = item.priority ? `<div class="absolute -top-2 -left-2 bg-red-600 text-white text-[10px] px-2 py-1 rounded-full animate-pulse z-10 font-bold border-2 border-white shadow-lg">RUSH JOB</div>` : '';
-                
-                let ageString = 'Unknown Age';
-                if(item.month && item.year) {
-                    let fullYear = parseInt(item.year);
-                    if (!isNaN(fullYear)) {
-                        if (fullYear < 100) fullYear += (fullYear < 50) ? 2000 : 1900; 
-                        const age = new Date().getFullYear() - fullYear;
-                        const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-                        const mName = monthNames[parseInt(item.month)-1] || item.month;
-                        ageString = `${mName} ${fullYear} (${age} yrs)`;
-                    }
-                }
+      grid.innerHTML = filtered.map((g) => {
+        const isCoker = (g.owner || "").toUpperCase() === "COKER GEAR";
+        const ownerBadge = isCoker
+          ? `<span class="badge-owner-coker">${g.owner}</span>`
+          : `<span class="badge-owner-customer">Owner: ${g.owner}</span>`;
+        const ageText = formatDateAndAge(g.month, g.year);
+        const brainHtml = g.brainSpec
+          ? `<div class="brain-stamp"><strong>Gen:</strong> ${g.brainSpec.gen} · <strong>Globe:</strong> ${g.brainSpec.globe}<br/><strong>Mantles:</strong> ${g.brainSpec.mantle} · <strong>Fuel:</strong> ${g.brainSpec.fuel}</div>`
+          : "";
+        const diagHtml = (g.diagTags && g.diagTags.length)
+          ? `<div class="diag-list">${g.diagTags.map((t) => `<span class="diag-pill">⚠ ${t}</span>`).join("")}</div>`
+          : "";
 
-                let imgHTML = '';
-                if(item.photo) {
-                    imgHTML = `<div class="w-full h-40 bg-black rounded relative mb-3 overflow-hidden border border-wood-700">
-                                   <img src="${item.photo}" class="w-full h-full object-contain">
-                                   ${item.bottomPhoto ? `<img src="${item.bottomPhoto}" class="absolute bottom-1 right-1 w-12 h-12 border-2 border-white rounded shadow-lg object-contain bg-black">` : ''}
-                               </div>`;
-                }
-                
-                let tagsHTML = '';
-                if (item.repairTags && item.repairTags.length > 0) {
-                    tagsHTML = '<div class="flex flex-wrap gap-1 mt-3 mb-1 border-t border-wood-600/50 pt-2">';
-                    item.repairTags.forEach(tag => {
-                        tagsHTML += `<span class="text-[9px] bg-red-900 text-red-100 px-1.5 py-0.5 rounded shadow-inner uppercase tracking-widest font-black flex items-center gap-1"><svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>${tag}</span>`;
-                    });
-                    tagsHTML += '</div>';
-                }
+        const stampOverlay = g.stampPhoto
+          ? `<div class="stamp-thumb" onclick="event.stopPropagation(); openLightbox('${g.stampPhoto}')" title="Bottom Stamp Photo"><img src="${g.stampPhoto}" alt="Stamp" /><span class="stamp-lens">🔍</span></div>`
+          : "";
 
-                container.innerHTML += `
-                    <div class="bg-wood-100 rounded-lg shadow-md border-2 border-wood-400 p-4 relative card-texture">
-                        ${prio}
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-slab font-black text-wood-900">${item.model || 'Unknown'}</h3>
-                            <div class="flex gap-2">
-                                <button onclick="duplicateGear('${item.id}')" class="text-wood-600 hover:text-blue-600 transition-colors" title="Duplicate"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
-                                <button onclick="deleteGear('${item.id}')" class="text-wood-600 hover:text-red-600 transition-colors" title="Delete"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
-                            </div>
-                        </div>
-                        ${imgHTML}
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold ${ownerBadge} px-2 py-1 rounded shadow-sm">${item.owner}</span>
-                            <span class="text-xs font-black text-wood-800 dark:text-wood-200">${ageString}</span>
-                        </div>
-                        <p class="text-xs font-bold text-blue-800 mb-2 uppercase tracking-wide">${item.opStatus}</p>
-                        ${item.specs ? `
-                            <div class="bg-wood-800 text-wood-300 text-[10px] p-2 rounded mb-2 uppercase tracking-wide border border-wood-600 shadow-inner flex flex-wrap gap-2">
-                                <div><span class="text-wood-500">GEN:</span> <span class="text-white font-bold">${item.specs.gen}</span></div>
-                                <div><span class="text-wood-500">FUEL:</span> <span class="text-white font-bold">${item.specs.fuel}</span></div>
-                                <div><span class="text-wood-500">MANTLE:</span> <span class="text-white font-bold">${item.specs.mantle}</span></div>
-                            </div>
-                        ` : ''}
-                        ${tagsHTML}
-                        ${item.notes ? `<p class="text-sm italic border-l-2 border-wood-400 pl-2 mt-2 text-wood-800 dark:text-wood-300">"${item.notes}"</p>` : ''}
-                    </div>`;
-            });
-        }
+        const mainVisual = g.mainPhoto
+          ? `<img class="main-photo" src="${g.mainPhoto}" alt="${g.model}" />`
+          : `<span>No Profile Photo</span>`;
 
-        // --- INVENTORY LOGIC ---
-        async function addInventoryPart() {
-            const name = document.getElementById('new-part-name').value.trim();
-            const qty = parseInt(document.getElementById('new-part-qty').value) || 0;
-            if (name) {
-                window.shopInventory.push({ id: 'inv_' + Date.now(), name, qty });
-                renderInventory();
-                document.getElementById('new-part-name').value = '';
-                await syncToCloud();
-            }
-        }
+        return `
+          <article class="gear-card">
+            ${g.rush ? `<div class="rush-ribbon">RUSH</div>` : ""}
+            <div class="photo-stage" onclick="${g.mainPhoto ? `openLightbox('${g.mainPhoto}')` : ""}">
+              ${mainVisual}
+              ${stampOverlay}
+            </div>
+            <div class="gear-body">
+              <div class="gear-top-line">
+                <h3 class="gear-model">${g.model}</h3>
+                <span class="job-tag">${g.jobNum || ""}</span>
+              </div>
+              <div class="brand-sub">📅 ${ageText}</div>
+              <div class="badge-row">
+                ${ownerBadge}
+                <span class="badge-status">${g.status || "Intake / In Queue"}</span>
+              </div>
+              ${brainHtml}
+              ${diagHtml}
+              ${g.notes ? `<p style="margin:0.2rem 0 0; font-size:0.86rem; color:var(--text-tan);">${g.notes}</p>` : ""}
+              <div class="gear-actions">
+                <button type="button" class="btn btn-sm" onclick="duplicateGearItem('${g.id}')">Copy</button>
+                <button type="button" class="btn btn-sm btn-danger" onclick="deleteGearItem('${g.id}')">Delete</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
 
-        async function updatePartQty(id, change) {
-            const part = window.shopInventory.find(p => p.id === id);
-            if (part) {
-                part.qty = Math.max(0, part.qty + change);
-                renderInventory();
-                await syncToCloud();
-            }
-        }
+    function renderParts() {
+      const grid = document.getElementById("partsGrid");
+      grid.innerHTML = appState.inventory.map((p) => {
+        const out = Number(p.qty) <= 0;
+        return `
+          <div class="part-card ${out ? "out-of-stock" : ""}">
+            <div>
+              <div style="display:flex; justify-content:space-between; gap:0.4rem;">
+                <strong>${p.name}</strong>
+                ${out ? `<span class="diag-pill">OUT OF STOCK</span>` : ""}
+              </div>
+              <div class="brand-sub" style="margin-top:0.25rem;">${p.fit || ""}</div>
+            </div>
+            <div class="qty-stepper">
+              <button type="button" class="btn btn-sm" onclick="adjustPartQty('${p.id}', -1)">-</button>
+              <span class="qty-num">${p.qty}</span>
+              <button type="button" class="btn btn-sm" onclick="adjustPartQty('${p.id}', 1)">+</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
 
-        function renderInventory() {
-            const list = document.getElementById('parts-inventory-list');
-            list.innerHTML = '';
-            window.shopInventory.forEach(part => {
-                const text = part.qty === 0 ? 'text-red-700' : 'text-wood-900';
-                list.innerHTML += `
-                    <div class="flex items-center justify-between p-4 rounded-lg border-2 border-wood-300 bg-wood-200">
-                        <h4 class="font-bold text-lg ${text}">${part.name} ${part.qty === 0 ? '(OUT)' : ''}</h4>
-                        <div class="flex items-center gap-3">
-                            <button onclick="updatePartQty('${part.id}', -1)" class="w-10 h-10 bg-wood-300 rounded font-black">-</button>
-                            <span class="w-8 text-center font-black">${part.qty}</span>
-                            <button onclick="updatePartQty('${part.id}', 1)" class="w-10 h-10 bg-wood-300 rounded font-black">+</button>
-                        </div>
-                    </div>`;
-            });
-        }
+    function adjustPartQty(id, delta) {
+      const part = appState.inventory.find((p) => p.id === id);
+      if (!part) return;
+      part.qty = Math.max(0, Number(part.qty || 0) + delta);
+      renderParts();
+      pushToCloud();
+    }
 
-        // --- UI UTILS ---
-        function exportCSV() {
-            let csv = "Model,Month,Year,Owner,Priority,Status,Repairs_Needed,Notes\n";
-            window.myCollection.forEach(item => {
-                const tagsStr = item.repairTags ? item.repairTags.join('; ') : '';
-                csv += `"${item.model||''}","${item.month||''}","${item.year||''}","${item.owner||''}","${item.priority?'Yes':'No'}","${item.opStatus||''}","${tagsStr}","${(item.notes||'').replace(/"/g, '""')}"\n`;
-            });
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.setAttribute('href', url);
-            a.setAttribute('download', 'Coker_Shop_Inventory.csv');
-            a.click();
-            showToast("CSV Downloaded!");
-        }
+    function addCustomPart() {
+      const name = document.getElementById("partNameInput").value.trim();
+      const fit = document.getElementById("partFitInput").value.trim();
+      const qty = Math.max(0, parseInt(document.getElementById("partQtyInput").value || "0", 10));
+      if (!name) {
+        showToast("Enter a part name first");
+        return;
+      }
+      appState.inventory.unshift({ id: `p_${Date.now()}`, name, fit, qty });
+      document.getElementById("partNameInput").value = "";
+      document.getElementById("partFitInput").value = "";
+      document.getElementById("partQtyInput").value = "1";
+      renderParts();
+      pushToCloud();
+      showToast("Part added to stock");
+    }
 
-        function showToast(msg) {
-            const t = document.createElement('div');
-            t.className = 'bg-wood-900 text-wood-100 px-6 py-3 rounded-xl border-2 border-wood-600 font-black text-sm toast-enter';
-            t.innerText = msg;
-            document.getElementById('toast-container').appendChild(t);
-            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
-        }
-        function openAddGearModal() { document.getElementById('add-gear-modal').classList.remove('hidden'); }
-        function closeAddGearModal() { document.getElementById('add-gear-modal').classList.add('hidden'); }
-        function switchTab(t) {
-            ['collection', 'parts'].forEach(tab => {
-                document.getElementById(`tab-${tab}`).className = t === tab ? 'tab-active pb-3 px-2' : 'tab-inactive pb-3 px-2';
-                document.getElementById(`section-${tab}`).style.display = t === tab ? 'block' : 'none';
-            });
-        }
-    </script>
+    function selectCasePreset(key) {
+      activeCasePreset = key;
+      document.querySelectorAll(".preset-btn").forEach((b) => {
+        b.classList.toggle("active", b.dataset.preset === key);
+      });
+      updateCaseBlueprint();
+    }
+
+    function getCaseCutData() {
+      const p = CASE_PRESETS[activeCasePreset] || CASE_PRESETS["220_275"];
+      const t = parseFloat(document.getElementById("casePlySelect").value || "0.5");
+      const extW = p.intW + 2 * t;
+      const extD = p.intD + 2 * t;
+      const extH = p.intH + 2 * t;
+      const cradle = Number((p.intW - 0.05).toFixed(2));
+      return {
+        preset: p,
+        ply: t,
+        extW,
+        extD,
+        extH,
+        parts: [
+          { part: "Part A — Front & Back", qty: 2, size: `${extW.toFixed(2)}" × ${p.intH.toFixed(2)}"`, note: "Overlaps left/right edges" },
+          { part: "Part B — Left & Right", qty: 2, size: `${p.intD.toFixed(2)}" × ${p.intH.toFixed(2)}"`, note: "Fits between front & back" },
+          { part: "Part C — Top & Bottom Caps", qty: 2, size: `${extW.toFixed(2)}" × ${extD.toFixed(2)}"`, note: "Keep top fasteners clear of lid cut" },
+          { part: "Part D — Fount Base Cradle", qty: 1, size: `${cradle.toFixed(2)}" × ${cradle.toFixed(2)}"`, note: `${p.fountCutout}" center ring + felt` },
+          { part: "Part E — Lid Ball-Nut Block", qty: 1, size: `4.00" × 4.00"`, note: `0.75" center bore + felt` },
+          { part: "Part F — Spare Parts Divider", qty: 1, size: `${cradle.toFixed(2)}" × 2.00"`, note: "Optional rear slot for mantles/tools" }
+        ]
+      };
+    }
+
+    function updateCaseBlueprint() {
+      const d = getCaseCutData();
+      const lidSplit = parseFloat(document.getElementById("caseLidSplitInput").value || "3.5");
+      document.getElementById("caseSummaryCallout").innerHTML =
+        `<strong>${d.preset.label}</strong> (${d.ply.toFixed(3).replace(/0+$/, "").replace(/\.$/, "")}" ply): ` +
+        `Interior <strong>${d.preset.intW.toFixed(2)}" × ${d.preset.intD.toFixed(2)}" × ${d.preset.intH.toFixed(2)}"</strong> · ` +
+        `Exterior <strong>${d.extW.toFixed(2)}" × ${d.extD.toFixed(2)}" × ${d.extH.toFixed(2)}"</strong> · ` +
+        `Lid split <strong>${lidSplit.toFixed(2)}"</strong> from top (${d.preset.note}).`;
+
+      document.getElementById("caseCutTableBody").innerHTML = d.parts.map((row) => `
+        <tr>
+          <td><strong>${row.part}</strong></td>
+          <td>${row.qty}</td>
+          <td><code>${row.size}</code></td>
+          <td>${row.note}</td>
+        </tr>
+      `).join("");
+    }
+
+    function saveCaseBuild() {
+      const d = getCaseCutData();
+      const lidSplit = parseFloat(document.getElementById("caseLidSplitInput").value || "3.5");
+      const owner = (document.getElementById("caseOwnerInput").value || "").trim() || "COKER GEAR";
+      const status = document.getElementById("caseStatusSelect").value;
+      const notes = document.getElementById("caseNotesInput").value.trim();
+
+      appState.cases.unshift({
+        id: `case_${Date.now()}`,
+        targetModel: d.preset.label,
+        plyThickness: d.ply,
+        intDims: { w: d.preset.intW, d: d.preset.intD, h: d.preset.intH },
+        fountCutout: d.preset.fountCutout,
+        lidSplit,
+        owner,
+        status,
+        notes
+      });
+
+      document.getElementById("caseNotesInput").value = "";
+      renderCaseLog();
+      pushToCloud();
+      showToast("Case plan saved");
+    }
+
+    function deleteCaseBuild(id) {
+      openDeleteConfirm("Remove this saved case plan?", async () => {
+        appState.cases = appState.cases.filter((c) => c.id !== id);
+        renderCaseLog();
+        await pushToCloud();
+        showToast("Case plan removed");
+      });
+    }
+
+    function renderCaseLog() {
+      const el = document.getElementById("caseLogGrid");
+      if (!appState.cases.length) {
+        el.innerHTML = `<p class="brand-sub">No saved case plans yet.</p>`;
+        return;
+      }
+      el.innerHTML = appState.cases.map((c) => `
+        <div class="case-log-card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>${c.targetModel}</strong>
+            <span class="badge-status">${c.status}</span>
+          </div>
+          <div class="brand-sub" style="margin-top:0.3rem;">Owner: <strong>${c.owner}</strong> · Ply: ${c.plyThickness}"</div>
+          <div class="brand-sub">Int: ${c.intDims.w}" × ${c.intDims.d}" × ${c.intDims.h}" · Cutout: ${c.fountCutout}"</div>
+          ${c.notes ? `<p style="margin:0.35rem 0 0; font-size:0.85rem;">${c.notes}</p>` : ""}
+          <div style="margin-top:0.5rem; text-align:right;">
+            <button type="button" class="btn btn-sm btn-danger" onclick="deleteCaseBuild('${c.id}')">Delete</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function exportGearCSV() {
+      const headers = ["Job #", "Model", "Month", "Year", "Owner", "Status", "Rush", "Diagnostic Tags", "Notes"];
+      const rows = appState.gear.map((g) => [
+        g.jobNum || "",
+        g.model || "",
+        g.month || "",
+        g.year || "",
+        g.owner || "",
+        g.status || "",
+        g.rush ? "YES" : "NO",
+        (g.diagTags || []).join("; "),
+        (g.notes || "").replace(/"/g, '""')
+      ].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(","));
+
+      const csv = [headers.join(","), ...rows].join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `coker-coleman-shop-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("CSV exported");
+    }
+
+    function renderAll() {
+      renderGear();
+      renderParts();
+      updateCaseBlueprint();
+      renderCaseLog();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("coker_campfire_mode") === "1") {
+        document.body.classList.add("campfire-mode");
+      }
+      buildDiagPicker();
+      loadLocal();
+      renderAll();
+      pullFromCloud(false);
+    });
+  </script>
 </body>
 </html>
