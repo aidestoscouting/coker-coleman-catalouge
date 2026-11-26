@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COKER SHOP — 3D PartSmart Lantern Visualizer (v26)</title>
+  <title>COKER SHOP — 3D PartSmart Lantern Visualizer (v27)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rye&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
@@ -531,6 +531,118 @@
     .toast-msg.show {
       opacity: 1;
     }
+
+    .lantern-timeline-wrap {
+      margin-top: 0.75rem;
+      padding: 0.85rem;
+      background: #150b07;
+      border: 1px solid #5c3a21;
+      border-radius: 10px;
+    }
+
+    .lantern-timeline-track {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      padding-left: 1.55rem;
+      margin-top: 0.65rem;
+    }
+
+    .lantern-timeline-track::before {
+      content: "";
+      position: absolute;
+      left: 0.44rem;
+      top: 0.35rem;
+      bottom: 0.35rem;
+      width: 3px;
+      background: linear-gradient(180deg, #d4af37 0%, #2e7d46 55%, #b8292f 100%);
+      border-radius: 999px;
+    }
+
+    .tl-node {
+      position: relative;
+      background: #20120a;
+      border: 1px solid #4c2f1b;
+      border-radius: 8px;
+      padding: 0.6rem 0.75rem;
+      flex: 0 0 auto;
+    }
+
+    .tl-node::before {
+      content: "";
+      position: absolute;
+      left: -1.32rem;
+      top: 0.82rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff2b2, #d4af37 70%, #8a6914 100%);
+      border: 2px solid #150b07;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.55);
+    }
+
+    .tl-year {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--brass-bright);
+      background: #1e4d2b;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 4px;
+      padding: 0.1rem 0.45rem;
+      margin-bottom: 0.28rem;
+    }
+
+    .tl-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--brass-bright);
+      margin-bottom: 0.2rem;
+    }
+
+    .tl-desc {
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: var(--parchment-warm);
+      margin: 0;
+    }
+
+    @media (min-width: 768px) {
+      .lantern-timeline-track {
+        flex-direction: row;
+        align-items: stretch;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        padding-left: 0.25rem;
+        padding-top: 1.55rem;
+        padding-bottom: 0.65rem;
+        gap: 0.85rem;
+      }
+
+      .lantern-timeline-track::before {
+        left: 0.5rem;
+        right: 0.5rem;
+        top: 0.55rem;
+        bottom: auto;
+        width: auto;
+        height: 3px;
+        background: linear-gradient(90deg, #d4af37 0%, #2e7d46 55%, #b8292f 100%);
+      }
+
+      .tl-node {
+        width: 248px;
+        min-width: 248px;
+        scroll-snap-align: start;
+      }
+
+      .tl-node::before {
+        left: 1.15rem;
+        top: -1.28rem;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -564,7 +676,7 @@
           <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
             <span class="brand-display" style="font-size:1.15rem; color:var(--brass-bright);">COKER SHOP — 3D PARTSMART</span>
             <span class="mono-code" style="font-size:0.68rem; font-weight:700; padding:0.14rem 0.45rem; border-radius:4px; background:#b8292f; color:#f3e5ab; border:1px solid rgba(212,175,55,0.6);">
-              LANTERN EDITION v26
+              LANTERN EDITION v27
             </span>
           </div>
           <div style="font-size:0.74rem; color:var(--parchment-muted);">
@@ -752,6 +864,70 @@
       </div>
 
       <div style="margin-top:0.85rem; font-size:0.82rem; line-height:1.5; display:flex; flex-direction:column; gap:0.55rem;">
+                <div class="lantern-timeline-wrap">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.35rem;">
+            <strong style="color:var(--brass-bright); font-size:0.86rem;">🕰️ Coleman Lantern Timeline (1900–Present)</strong>
+            <span class="mono-code" style="font-size:0.69rem; color:var(--parchment-muted);">Portrait scroll on mobile · Horizontal rail on desktop</span>
+          </div>
+          <div class="lantern-timeline-track">
+            <div class="tl-node">
+              <span class="tl-year">1900</span>
+              <div class="tl-title">Kingfisher &amp; "No Light, No Pay"</div>
+              <p class="tl-desc">W.C. Coleman leases and services pressurized gasoline lamps in Kingfisher, OK, backing steady light with "No Light, No Pay."</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">1902–1903</span>
+              <div class="tl-title">Wichita Headquarters</div>
+              <p class="tl-desc">Moves to Wichita, KS, building early high-pressure gasoline lamps for rural homes, stores, churches, and halls.</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">1914</span>
+              <div class="tl-title">Arc Lantern (Model 316)</div>
+              <p class="tl-desc">First portable all-weather pressure lantern—earning "The Sunshine of the Night" with a bug-screened intake and dual mantles.</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">1916–1920</span>
+              <div class="tl-title">Quick-Lite Era (327)</div>
+              <p class="tl-desc">Two-match generator preheating replaces bulky alcohol torches; nickel-brass founts, mica chimneys, and QL327 conversions take off.</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">1921</span>
+              <div class="tl-title">Coleman Canada (Toronto)</div>
+              <p class="tl-desc">Toronto plant opens, launching Canadian/export icons including 236 Major, 237 Empire, 1938 Model 500, and distinct stamp/globe runs.</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">Mid-1920s</span>
+              <div class="tl-title">Built-In Pumps (427)</div>
+              <p class="tl-desc">Built-in fount pumps eliminate carrying a separate hand pump for every lighting.</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">1927–1930s</span>
+              <div class="tl-title">Instant-Lite (220B / 242)</div>
+              <p class="tl-desc">Internal Fuel/Air pickup tube enables match-lighting; Model 220 debuts ~March 1928 alongside collarless 242 "Junior" and 243 models.</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">1940–1945</span>
+              <div class="tl-title">WWII Conservation (220BX / 252)</div>
+              <p class="tl-desc">Nickel and brass rationing shifts olive/green painted finishes and steel/painted parts while military lanterns serve in the field.</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">1946–1963</span>
+              <div class="tl-title">Post-War Icons (200A / 202 / 228)</div>
+              <p class="tl-desc">Red 200A founts (1951), stainless/brass 202 "Professional" (1954), 228 "Big Hat" wide vents, and 500-CP 236/237 lanterns anchor the era.</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">1963–1983</span>
+              <div class="tl-title">Late 220/200A &amp; 275 "Turd"</div>
+              <p class="tl-desc">220 shifts to stamped chambers and 1-piece caps; 275/275A adds Schrader/Easy-Lite &amp; #880 globe; 220K &amp; 200A conclude in 1983.</p>
+            </div>
+            <div class="tl-node">
+              <span class="tl-year">1983–Present</span>
+              <div class="tl-title">Adjustable &amp; 639 Kerosene</div>
+              <p class="tl-desc">CL1/286, CL2/288, and CLX/290 Powerhouse lanterns (40 Millionth milestone Nov 17, 1986) join 214 and 639 kerosene models.</p>
+            </div>
+          </div>
+        </div>
+
         <div class="walnut-inset" style="padding:0.75rem;">
           <strong style="color:var(--brass-bright);">Pyrex Globe Era Cues (ICCC Reference):</strong>
           <ul style="margin:0.35rem 0 0; padding-left:1.15rem;">
