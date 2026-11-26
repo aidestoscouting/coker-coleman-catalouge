@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COKER SHOP — 3D PartSmart Community Visualizer (v13)</title>
+  <title>COKER SHOP — 3D PartSmart Community Visualizer (v14)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rye&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
@@ -175,8 +175,9 @@
     }
 
     .patch-frame {
-      width: 48px;
-      height: 48px;
+      position: relative;
+      width: 50px;
+      height: 50px;
       border-radius: 9px;
       border: 2px solid var(--brass-gold);
       background: #150c07;
@@ -533,21 +534,47 @@
   <header class="buffalo-plaid-bar sticky top-0 z-30 shadow-xl">
     <div class="header-inner">
       <div class="brand-box">
-        <div class="patch-frame">
+        <div class="patch-frame" title="Coker Shop">
+          <svg viewBox="0 0 120 120" width="44" height="44" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Coker Shop Logo">
+  <defs>
+    <pattern id="plaidPat" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="16" height="16" fill="#7d151b"/>
+      <rect x="0" y="0" width="8" height="8" fill="#170d08" fill-opacity="0.55"/>
+      <rect x="8" y="8" width="8" height="8" fill="#170d08" fill-opacity="0.55"/>
+      <line x1="0" y1="4" x2="16" y2="4" stroke="#b91c1c" stroke-width="1.2" stroke-opacity="0.65"/>
+      <line x1="4" y1="0" x2="4" y2="16" stroke="#b91c1c" stroke-width="1.2" stroke-opacity="0.65"/>
+    </pattern>
+    <radialGradient id="brassBezel" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#fff0a8"/>
+      <stop offset="55%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#856312"/>
+    </radialGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#brassBezel)"/>
+  <circle cx="60" cy="60" r="51" fill="url(#plaidPat)" stroke="#23130a" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="39" fill="#180e09" stroke="#d4af37" stroke-width="2"/>
+  <line x1="60" y1="25" x2="60" y2="32" stroke="#f3e5ab" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="43" y1="29" x2="47" y2="35" stroke="#f3e5ab" stroke-width="2" stroke-linecap="round"/>
+  <line x1="77" y1="29" x2="73" y2="35" stroke="#f3e5ab" stroke-width="2" stroke-linecap="round"/>
+  <path d="M47 43 L73 43 L70 37 L50 37 Z" fill="#1e4d2b" stroke="#d4af37" stroke-width="1.4"/>
+  <rect x="51" y="43" width="18" height="15" rx="2" fill="#fde68a" fill-opacity="0.28" stroke="#f3e5ab" stroke-width="1.4"/>
+  <ellipse cx="60" cy="51" rx="4.5" ry="6" fill="#fffbeb" fill-opacity="0.88"/>
+  <path d="M48 58 L72 58 L75 72 C75 75 45 75 45 72 Z" fill="#1e4d2b" stroke="#d4af37" stroke-width="1.5"/>
+  <text x="60" y="88" text-anchor="middle" fill="#f3e5ab" font-family="Georgia, serif" font-weight="bold" font-size="14" letter-spacing="1.5">COKER</text>
+  <text x="60" y="100" text-anchor="middle" fill="#d4af37" font-family="monospace" font-weight="bold" font-size="8.5" letter-spacing="2">SHOP</text>
+</svg>
           <img
             src="COKERMANPATCH LOGO.png"
             alt="Coker Shop Patch"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0;"
+            onload="this.style.opacity='1';"
           />
-          <div style="display:none; width:100%; height:100%; align-items:center; justify-content:center; background:#1e4d2b; color:#f3e5ab; font-weight:800; font-size:0.65rem; text-align:center;">
-            COKER<br/>SHOP
-          </div>
         </div>
         <div>
           <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
             <span class="brand-display" style="font-size:1.15rem; color:var(--brass-bright);">COKER SHOP — 3D PARTSMART</span>
             <span class="mono-code" style="font-size:0.68rem; font-weight:700; padding:0.14rem 0.45rem; border-radius:4px; background:#b8292f; color:#f3e5ab; border:1px solid rgba(212,175,55,0.6);">
-              COMMUNITY EDITION v13
+              COMMUNITY EDITION v14
             </span>
           </div>
           <div style="font-size:0.74rem; color:var(--parchment-muted);">
@@ -2384,15 +2411,33 @@
           registerPart("lidAndScreens", "Lid & Tapered Windscreens", "case", "1. Case, Lid & Grate", lidG, [0, 0, 0], [0, 0.92, -0.82]);
 
           var grtG = new THREE.Group();
-          var yG = yF + H + 0.03;
-          grtG.add(makeTube([[-W / 2 + 0.14, yG, -D / 2 + 0.16], [W / 2 - 0.14, yG, -D / 2 + 0.16], [W / 2 - 0.14, yG, D / 2 - 0.16], [-W / 2 + 0.14, yG, D / 2 - 0.16], [-W / 2 + 0.14, yG, -D / 2 + 0.16]], 0.028, matSteel));
-          var ribs = spec.burners === 3 ? 13 : 9;
-          for (var ri = 0; ri < ribs; ri++) {
-            var rx = (-W / 2 + 0.28) + (ri / (ribs - 1)) * (W - 0.56);
-            var rb = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, D - 0.34, 10), matSteel);
-            rb.rotation.x = Math.PI / 2; rb.position.set(rx, yG, 0);
-            grtG.add(rb);
-          }
+          var yG = yBowl + 0.285;
+          var gx0 = -W / 2 + 0.14, gx1 = W / 2 - 0.14, gz0 = -D / 2 + 0.16, gz1 = D / 2 - 0.16;
+          grtG.add(makeTube([[gx0, yG, gz0], [gx1, yG, gz0], [gx1, yG, gz1], [gx0, yG, gz1], [gx0, yG, gz0]], 0.028, matSteel));
+          [[gx0, gz0], [gx1, gz0], [gx1, gz1], [gx0, gz1]].forEach(function (pt) {
+            grtG.add(makeTube([[pt[0], yG, pt[1]], [pt[0], yF + 0.04, pt[1]]], 0.024, matSteel));
+          });
+          var bCenters = spec.burners === 3 ? [auxLX, masterX, auxRX] : [auxLX, masterX];
+          var zRails = [-D * 0.24, 0, D * 0.24];
+          zRails.forEach(function (rz) {
+            var zBar = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, gx1 - gx0, 10), matSteel);
+            zBar.rotation.z = Math.PI / 2; zBar.position.set(0, yG, rz);
+            grtG.add(zBar);
+          });
+          var xCols = [gx0 + 0.22, gx1 - 0.22];
+          bCenters.forEach(function (bc) { xCols.push(bc - 0.44, bc + 0.44); });
+          xCols.forEach(function (cx) {
+            if (cx > gx0 + 0.04 && cx < gx1 - 0.04) {
+              var xBar = new THREE.Mesh(new THREE.CylinderGeometry(0.019, 0.019, gz1 - gz0, 10), matSteel);
+              xBar.rotation.x = Math.PI / 2; xBar.position.set(cx, yG, 0);
+              grtG.add(xBar);
+            }
+          });
+          bCenters.forEach(function (bc) {
+            var loopR = new THREE.Mesh(new THREE.TorusGeometry(0.45, 0.021, 10, 32), matSteel);
+            loopR.rotation.x = Math.PI / 2; loopR.position.set(bc, yG, 0);
+            grtG.add(loopR);
+          });
           registerPart("wireGrate", "Wire Cooking Grate", "case", "1. Case, Lid & Grate", grtG, [0, 0, 0], [0, 1.52, 0]);
 
           var manG = new THREE.Group();
@@ -2562,12 +2607,20 @@
           registerPart("generator", "Over-Burner L-Generator (R206)", "fuel", "3. Valve & Generator", gnG, [0, 0, 0], [0.85, 1.42, 0]);
 
           var grtG = new THREE.Group();
-          var gR = new THREE.Mesh(new THREE.TorusGeometry(0.96, 0.026, 10, 36), matSteel); gR.rotation.x = Math.PI / 2; grtG.add(gR);
+          var gOuter = new THREE.Mesh(new THREE.TorusGeometry(0.96, 0.026, 12, 44), matSteel); gOuter.rotation.x = Math.PI / 2;
+          var gInner = new THREE.Mesh(new THREE.TorusGeometry(0.56, 0.022, 12, 36), matSteel); gInner.rotation.x = Math.PI / 2;
+          grtG.add(gOuter, gInner);
           for (var i = 0; i < 4; i++) {
             var a = (i / 4) * Math.PI * 2 + Math.PI / 4;
-            grtG.add(makeTube([[Math.cos(a) * 1.02, -0.25, Math.sin(a) * 1.02], [Math.cos(a) * 1.0, 0.02, Math.sin(a) * 1.0], [Math.cos(a) * 0.35, 0.02, Math.sin(a) * 0.35]], 0.026, matSteel));
+            var ca = Math.cos(a), sa = Math.sin(a);
+            grtG.add(makeTube([
+              [ca * 0.32, 0.0, sa * 0.32],
+              [ca * 0.96, 0.0, sa * 0.96],
+              [ca * 1.05, -0.14, sa * 1.05],
+              [ca * 1.05, -0.34, sa * 1.05]
+            ], 0.025, matSteel));
           }
-          registerPart("grate", "4-Arm Steel Grate (501A501)", "case", "4. Drum, Burner & Grate", grtG, [0, 1.0, 0], [0, 2.02, 0]);
+          registerPart("grate", "4-Arm Steel Grate (501A501)", "case", "4. Drum, Burner & Grate", grtG, [0, 0.78, 0], [0, 1.82, 0]);
 
           addDynamicFlowStream(function (e) {
             return [[0, -0.72 - 1.22 * e, 0], [0, -0.02, 0.88 * e], [0.64 + 0.85 * e, 0.05 + 1.42 * e, 0]];
@@ -2635,13 +2688,19 @@
           addBurnerStack({ prefix: "s500", label: "500 Speedmaster", x: 0, yBowl: 0.42, z: 0, bowlR: 0.62, ringR: 0.54, bowlId: "bowl", ringsId: "rings", capId: "cap", sysTitle: "3. Burner & Grate", isSingle: true });
 
           var grtG = new THREE.Group();
-          var rO = new THREE.Mesh(new THREE.TorusGeometry(1.20, 0.03, 12, 44), matSteel); rO.rotation.x = Math.PI / 2; grtG.add(rO);
+          var rO = new THREE.Mesh(new THREE.TorusGeometry(1.16, 0.028, 12, 48), matSteel); rO.rotation.x = Math.PI / 2;
+          var rI = new THREE.Mesh(new THREE.TorusGeometry(0.68, 0.024, 12, 36), matSteel); rI.rotation.x = Math.PI / 2;
+          grtG.add(rO, rI);
+          for (var sp = 0; sp < 6; sp++) {
+            var spA = (sp / 6) * Math.PI * 2;
+            grtG.add(makeTube([[Math.cos(spA) * 0.34, 0, Math.sin(spA) * 0.34], [Math.cos(spA) * 1.16, 0, Math.sin(spA) * 1.16]], 0.022, matSteel));
+          }
           for (var p = 0; p < 3; p++) {
             var pA = (p / 3) * Math.PI * 2 + 0.5;
-            var pst = new THREE.Mesh(new THREE.CylinderGeometry(0.034, 0.034, 0.98, 10), matSteel); pst.position.set(Math.cos(pA) * 1.14, -0.49, Math.sin(pA) * 1.14);
-            grtG.add(pst);
+            var px = Math.cos(pA) * 1.14, pz = Math.sin(pA) * 1.14;
+            grtG.add(makeTube([[px, 0, pz], [px, -0.74, pz]], 0.032, matSteel));
           }
-          registerPart("grate", "Round Grate & 3 Posts", "case", "3. Burner & Grate", grtG, [0, 0.88, 0], [0, 1.92, 0]);
+          registerPart("grate", "Round Grate & 3 Posts", "case", "3. Burner & Grate", grtG, [0, 0.76, 0], [0, 1.82, 0]);
 
           addDynamicFlowStream(function (e) {
             return [[0.92 + 0.95 * e, -0.62, 0.62 * e], [0.92 + 0.95 * e, 0.18 + 0.15 * e, 0.62 * e], [0.12 + 1.25 * e, 0.18 + 0.55 * e, 0], [0, 0.62 + 0.38 * e, 0]];
@@ -2714,10 +2773,23 @@
           addBurnerStack({ prefix: "pk", label: "Peak 1", x: 0, yBowl: 0.25, z: 0, bowlR: 0.46, ringR: 0.40, bowlId: "bowl", ringsId: "rings", capId: "cap", sysTitle: "3. Burner & X-Baffle", isSingle: true });
 
           var bxG = new THREE.Group();
-          var skrt = new THREE.Mesh(new THREE.CylinderGeometry(0.82, 0.65, 0.38, 32, 1, true), matSteel); skrt.position.y = 0.38;
-          var xp1 = new THREE.Mesh(new THREE.BoxGeometry(1.60, 0.17, 0.03), matSteel); xp1.position.y = 0.66; xp1.rotation.y = Math.PI / 4;
-          var xp2 = xp1.clone(); xp2.rotation.y = -Math.PI / 4;
-          bxG.add(skrt, xp1, xp2);
+          var skrt = new THREE.Mesh(new THREE.CylinderGeometry(0.78, 0.64, 0.36, 32, 1, true), matSteel); skrt.position.y = 0.36;
+          bxG.add(skrt);
+          for (var xi = 0; xi < 4; xi++) {
+            var xa = (xi / 4) * Math.PI * 2 + Math.PI / 4;
+            var cosA = Math.cos(xa), sinA = Math.sin(xa);
+            var blade = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.16, 0.026), matSteel);
+            blade.position.set(cosA * 0.38, 0.62, sinA * 0.38);
+            blade.rotation.y = -xa;
+            bxG.add(blade);
+            for (var tk = 0; tk < 3; tk++) {
+              var tr = 0.56 + tk * 0.11;
+              var tooth = new THREE.Mesh(new THREE.BoxGeometry(0.065, 0.045, 0.032), matSteel);
+              tooth.position.set(cosA * tr, 0.71, sinA * tr);
+              tooth.rotation.y = -xa;
+              bxG.add(tooth);
+            }
+          }
           registerPart("baffleGrate", "Skirt & X-Baffle Grate", "case", "3. Burner & X-Baffle", bxG, [0, 0, 0], [0, 1.82, 0]);
 
           addDynamicFlowStream(function (e) {
