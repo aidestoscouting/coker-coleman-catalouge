@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COKER SHOP — 3D PartSmart Community Visualizer (v15)</title>
+  <title>COKER SHOP — 3D PartSmart Lantern Visualizer (v26)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rye&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
@@ -564,11 +564,11 @@
           <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
             <span class="brand-display" style="font-size:1.15rem; color:var(--brass-bright);">COKER SHOP — 3D PARTSMART</span>
             <span class="mono-code" style="font-size:0.68rem; font-weight:700; padding:0.14rem 0.45rem; border-radius:4px; background:#b8292f; color:#f3e5ab; border:1px solid rgba(212,175,55,0.6);">
-              COMMUNITY EDITION v15
+              LANTERN EDITION v26
             </span>
           </div>
           <div style="font-size:0.74rem; color:var(--parchment-muted);">
-            10 Lanterns &amp; 8 Stoves · Atomic Parts &amp; Single-SKU OCP Lookup · Dynamic Fuel/Air Paths &amp; Lore
+            16 Coleman Lantern Models · Atomic Parts &amp; Single-SKU OCP Lookup · Dynamic Fuel/Air Paths &amp; Lore
           </div>
         </div>
       </div>
@@ -577,7 +577,6 @@
         <button type="button" class="btn-pill" onclick="openModal('datingModal')">📅 Dating &amp; Eras</button>
         <button type="button" class="btn-pill" onclick="openModal('communityModal')">🏕️ Gatherings &amp; Glossary</button>
         <button type="button" class="btn-pill" onclick="openModal('tributeModal')">🏆 OCP &amp; CCF Tribute</button>
-        <button type="button" class="btn-pill" style="border-color:rgba(248,113,113,0.7); color:#fecaca;" onclick="openModal('recallModal')">🪓 1962 501 Recall</button>
       </div>
     </div>
   </header>
@@ -585,16 +584,12 @@
   <main class="app-shell">
     <section class="walnut-panel selector-bar">
       <div class="type-row">
-        <div class="type-tabs" role="tablist">
-          <button type="button" id="catLanternBtn" class="btn-pill type-tab active" onclick="switchEquipmentCategory('lantern')">
-            🏮 Lanterns (10 Models)
-          </button>
-          <button type="button" id="catStoveBtn" class="btn-pill type-tab" onclick="switchEquipmentCategory('stove')">
-            🔥 Stoves (8 Models)
-          </button>
+        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <span class="btn-pill type-tab active" style="cursor:default;">🏮 Coleman Lanterns (16 Models)</span>
+          <span class="mono-code" style="font-size:0.72rem; color:var(--brass-gold);">SINGLE &amp; DUAL MANTLE · GAS &amp; KEROSENE</span>
         </div>
         <div id="categoryHint" style="font-size:0.76rem; color:var(--parchment-muted);">
-          Expandable architecture: Lanterns &amp; Stoves active · Heaters, Hotplates &amp; Gas Plants ready to add
+          Quick-Lite, Instant-Lite, 200/202/214, 220/228, 242, 252A, 275, 288A, 290 Powerhouse &amp; 639 Kero
         </div>
       </div>
 
@@ -650,14 +645,6 @@
               <div id="modelSubline" style="font-size:0.78rem; color:var(--parchment-muted); margin-top:0.15rem;"></div>
             </div>
             <span id="modelEraPill" class="mono-code" style="font-size:0.72rem; font-weight:700; padding:0.22rem 0.55rem; border-radius:5px; background:var(--coleman-green); color:var(--brass-bright); border:1px solid rgba(212,175,55,0.55);"></span>
-          </div>
-
-          <div id="recall502Banner" class="banner-card banner-recall" style="display:none;">
-            <div>
-              <strong style="color:var(--brass-bright);">🪓 1962 Model 501 vs. 502 Check:</strong>
-              <span>Straight brass L-generator (<code class="mono-code" style="color:var(--brass-gold);">502-5891</code> / <code class="mono-code">R206</code>) over burner = <strong>SAFE 502 Sportster</strong> (even if the stamped bottom plate says <code class="mono-code">501</code>). Circular tube loop = <strong>1962 Model 501 — DO NOT FIRE</strong>.</span>
-            </div>
-            <button type="button" class="btn-pill" onclick="openModal('recallModal')">501 Story</button>
           </div>
 
           <div id="checkpointBanner" class="banner-card banner-checkpoint" style="display:none;">
@@ -865,33 +852,6 @@
       </div>
     </div>
   </div>
-
-  <!-- MODAL 4: 1962 MODEL 501 RECALL LORE -->
-  <div id="recallModal" class="modal-backdrop" onclick="if(event.target===this)closeModal('recallModal')">
-    <div class="walnut-panel modal-box" style="border-color:#f87171;">
-      <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:0.6rem; border-bottom:1px solid #5e3c23;">
-        <h2 class="brand-display" style="margin:0; font-size:1.15rem; color:#fecaca;">🪓 The 1962 Coleman 501 / 501A Recall</h2>
-        <button type="button" class="btn-pill" onclick="closeModal('recallModal')">✕</button>
-      </div>
-
-      <div style="margin-top:0.8rem; font-size:0.83rem; line-height:1.52; display:flex; flex-direction:column; gap:0.6rem;">
-        <p style="margin:0;">
-          Introduced in 1962 to succeed the 500 Speedmaster, the <strong>Model 501</strong> (and <strong>501A</strong>) used a circular burner-loop generator with its lighting/control circuit placed where a rich fuel flood could not be positively shut off.
-        </p>
-        <div class="walnut-inset" style="padding:0.75rem; border-left:4px solid #f87171;">
-          <strong style="color:#fecaca;">Bob Hitchcock's "Axe &amp; Drill" Recall Account:</strong>
-          <p style="margin:0.35rem 0 0;">
-            Coleman moved quickly to pull 501s out of circulation and replace them with the redesigned <strong>502 Sportster</strong>. Bob Hitchcock shared on CCF that returned 501s were rendered unusable at factory/service depots with an <strong>axe</strong> or by <strong>drilling a hole through the bottom of the fount</strong>.
-          </p>
-        </div>
-        <div class="walnut-inset" style="padding:0.75rem; border-left:4px solid #34d399;">
-          <strong style="color:#a7f3d0;">The "501-Stamped" 502 Sportster Clue:</strong>
-          <p style="margin:0.35rem 0 0;">
-            Wichita workers reused leftover <code class="mono-code" style="color:var(--brass-gold);">501</code>-stamped fount bottoms on safe <strong>502</strong> builds. Always verify the burner top: a straight brass L-generator (<code class="mono-code">502-5891</code> / <code class="mono-code">R206</code>) crossing over the burner is a safe <strong>502 Sportster</strong>; a circular tube loop around the burner is a <strong>501 — display only, never light</strong>.
-          </p>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div id="toastBanner" class="toast-msg"></div>
@@ -932,33 +892,23 @@
         if (typeof THREE === "undefined" || window.__unifiedPartSmartReady) return;
         window.__unifiedPartSmartReady = true;
 
-        var ZONES_BY_CAT = {
-          lantern: [
-            { id: "all",    label: "All Systems" },
-            { id: "fount",  label: "Fount & Cap" },
-            { id: "pump",   label: "Pump & Check Valve" },
-            { id: "fuel",   label: "Gen & Pickup" },
-            { id: "valve",  label: "Valve & Stem Stack" },
-            { id: "burner", label: "Burner, Globe & Vent" }
-          ],
-          stove: [
-            { id: "all",    label: "All Systems" },
-            { id: "case",   label: "Case / Frame & Grate" },
-            { id: "tank",   label: "Tank & Cap" },
-            { id: "pump",   label: "Pump & Check Valve" },
-            { id: "fuel",   label: "Valve, Gen & Pickup" },
-            { id: "burner", label: "Manifold & Burner Rings" }
-          ]
-        };
+        var LANTERN_ZONES = [
+          { id: "all",    label: "All Systems" },
+          { id: "fount",  label: "Fount & Cap" },
+          { id: "pump",   label: "Pump & Check Valve" },
+          { id: "fuel",   label: "Gen & Pickup" },
+          { id: "valve",  label: "Valve & Stem Stack" },
+          { id: "burner", label: "Burner, Globe & Vent" }
+        ];
 
-        function clonePartDict(src, overrides) {
+        function clonePartDict(srcDict, overrides) {
           var out = {};
-          for (var k in src) {
+          for (var k in srcDict) {
             out[k] = {
-              key: src[k].key,
-              oem: src[k].oem,
-              skus: src[k].skus.map(function (s) { return { code: s.code, label: s.label }; }),
-              desc: src[k].desc
+              key: srcDict[k].key,
+              oem: srcDict[k].oem,
+              skus: srcDict[k].skus.map(function (s) { return { code: s.code, label: s.label }; }),
+              desc: srcDict[k].desc
             };
           }
           if (overrides) {
@@ -1010,9 +960,8 @@
         };
 
         var MODELS = {
-          // ---------------- LANTERNS (10) ----------------
           "288A": {
-            cat: "lantern", chip: "288A700", arch: "pancake288",
+            cat: "lantern", chip: "288A700 (CL2)", arch: "pancake288",
             title: "Coleman 288A700 Adjustable Two-Mantle",
             era: "1984–Present · Coleman Fuel",
             diagramSlug: "288",
@@ -1024,8 +973,8 @@
             valveStyle: "pointer", capStyle: "onePiece",
             fountScaleXZ: 0.96, ventScaleXZ: 1.0, ventHeightScale: 1.0, mantleCount: 2,
             specsMini: "Fuel: Coleman Fuel · 1.26 pt · 2x #21 Mantles · Straight 214A0461 Globe",
-            lore: "Introduced in 1984 as a compact, easily packable dual-mantle lantern with infinite High-to-Low brightness control. A favorite for backpacking basecamps and cabin shelves alike.",
-            checkpoint: "Inspect the lower pickup tube for hairline cracks and replace weeping Schrader cores with fuel-rated Viton R510 (never an automotive tire core).",
+            lore: "Introduced in 1984 as a compact, easily packable dual-mantle lantern with infinite High-to-Low brightness control.",
+            checkpoint: "Inspect the lower pickup tube for hairline cracks and replace weeping Schrader cores with fuel-rated Viton R510.",
             kits: [
               { code: "R510", label: "R510 Schrader Core" },
               { code: "S42", label: "S42 Cap Gasket" },
@@ -1033,6 +982,32 @@
               { code: "R701", label: "R701 CV Tool" }
             ],
             parts: LANTERN_BASE_PARTS
+          },
+          "290": {
+            cat: "lantern", chip: "290 Powerhouse", arch: "pancake288",
+            title: "Coleman 290 / 290A \"The Powerhouse\" (CLX)",
+            era: "1983–Present · Coleman Fuel",
+            diagramSlug: "288",
+            paletteLabel: "Deep green powerhouse fount & wide 2-tier vent, straight #330 globe",
+            fountHex: 0x163d23, fountMetal: 0.36, fountRough: 0.24,
+            ventHex: 0x163d23, collarHex: 0xc8cfd6, collarMetal: 0.80,
+            capHex: 0x1d1815, pumpCapHex: 0xdcd8cf,
+            globeHex: 0xeef8ff, globeOpacity: 0.22, globeStyle: "straight",
+            valveStyle: "pointer", capStyle: "onePiece",
+            fountScaleXZ: 1.04, ventScaleXZ: 1.08, ventHeightScale: 1.02, mantleCount: 2,
+            specsMini: "Fuel: Coleman Fuel · ~2 pt · 2x #21/#95 Mantles · Straight #330 / G04 Globe",
+            lore: "Born in 1983 as the CLX / Model 290 and later branded 'The Powerhouse', delivering big two-mantle output with adjustable brightness.",
+            checkpoint: "Uses a plastic F/A pickup tube and top Schrader core (R510); check the pump cap clip and gasket before pressurizing.",
+            kits: [
+              { code: "R510", label: "R510 Schrader Core" },
+              { code: "G04", label: "G04 #330 Globe" },
+              { code: "S42", label: "S42 Cap Gasket" },
+              { code: "C019", label: "C019 Neoprene Cup" }
+            ],
+            parts: clonePartDict(LANTERN_BASE_PARTS, {
+              generator: { oem: "290-5891 / 288-5891", skus: [{ code: "288-5891", label: "Generator" }], desc: "High-output dual-mantle generator with pricker wire." },
+              globe:     { oem: "690-048 (#330)", skus: [{ code: "G04", label: "#330 Globe" }], desc: "Large #330 straight Pyrex globe." }
+            })
           },
           "220HJK": {
             cat: "lantern", chip: "220H/J/K", arch: "stamped220",
@@ -1047,8 +1022,8 @@
             valveStyle: "wheel", capStyle: "onePiece",
             fountScaleXZ: 1.02, ventScaleXZ: 1.02, ventHeightScale: 1.02, mantleCount: 2,
             specsMini: "Fuel: Coleman Fuel · ~2 pt · 2x #21 Mantles · Straight #330 / G04 Globe",
-            lore: "The closing chapter of the iconic 220 dual-mantle lineage—tens of millions were built for family camping trips, deer camps, and storm blackouts across North America.",
-            checkpoint: "220H–K models transitioned to a stamped sheet-metal mixing chamber (OCP E1381) and 1-piece filler cap (S42), differing from the cast-brass chamber on 220C–F.",
+            lore: "The closing chapter of the iconic 220 dual-mantle lineage built for family camping trips, deer camps, and storm blackouts.",
+            checkpoint: "220H–K models use a stamped sheet-metal mixing chamber (OCP E1381) and 1-piece filler cap (S42).",
             kits: [
               { code: "K10", label: "K10 220/228 Kit" },
               { code: "C002", label: "C002 Generator" },
@@ -1056,7 +1031,7 @@
               { code: "R701", label: "R701 CV Tool" }
             ],
             parts: clonePartDict(LANTERN_BASE_PARTS, {
-              burnerManifold: { oem: "220-5261 Stamped", skus: [{ code: "E1381", label: "Stamped Chamber" }], desc: "Stamped sheet-metal dual-mantle mixing chamber (OCP E1381) & down-tubes." },
+              burnerManifold: { oem: "220-5261 Stamped", skus: [{ code: "E1381", label: "Stamped Chamber" }], desc: "Stamped sheet-metal dual-mantle mixing chamber (OCP E1381)." },
               generator:      { oem: "220E5891-65", skus: [{ code: "C002", label: "220/228 Gen" }], desc: "Standard 220/228/275 brass dual-mantle generator." },
               globe:          { oem: "690-048 (#330)", skus: [{ code: "G04", label: "#330 Globe" }], desc: "Standard #330 clear straight Pyrex globe." }
             })
@@ -1074,8 +1049,8 @@
             valveStyle: "wheel", capStyle: "threePiece",
             fountScaleXZ: 1.02, ventScaleXZ: 1.02, ventHeightScale: 1.02, mantleCount: 2,
             specsMini: "Fuel: Coleman Fuel · ~2 pt · 2x #21 Mantles · Straight #330 / G04 Globe",
-            lore: "A beloved bridge model between 1960s three-piece caps and 1970s one-piece caps—and the last 220 to retain the heavy old-style cast-brass mixing chamber.",
-            checkpoint: "220F uses the cast-brass mixing chamber (OCP E1705), whereas later 220H–K uses stamped E1381. Check whether your cap is 3-piece (S41 gasket) or 1-piece (S42 gasket).",
+            lore: "A bridge model between 1960s three-piece caps and 1970s one-piece caps—and the last 220 to retain the heavy old-style cast-brass mixing chamber.",
+            checkpoint: "220F uses the cast-brass mixing chamber (OCP E1705); check whether your cap is 3-piece (S41) or 1-piece (S42).",
             kits: [
               { code: "K10", label: "K10 220/228 Kit" },
               { code: "C002", label: "C002 Generator" },
@@ -1083,7 +1058,7 @@
               { code: "S42", label: "S42 1-Pc Gasket" }
             ],
             parts: clonePartDict(LANTERN_BASE_PARTS, {
-              burnerManifold: { oem: "220B3261 Cast Brass", skus: [{ code: "E1705", label: "Cast Brass Chamber" }], desc: "Heavy Old-Style Cast-Brass mixing chamber & gooseneck burner tubes." },
+              burnerManifold: { oem: "220B3261 Cast Brass", skus: [{ code: "E1705", label: "Cast Brass Chamber" }], desc: "Heavy Old-Style Cast-Brass mixing chamber." },
               generator:      { oem: "220E5891-65", skus: [{ code: "C002", label: "220/228 Gen" }], desc: "220E5891 brass dual-mantle generator." },
               capGasket:      { oem: "220B1401-G3", skus: [{ code: "S41", label: "3-Pc Gasket" }, { code: "S42", label: "1-Pc Gasket" }], desc: "S41 for 3-piece caps; S42 for 1-piece caps." },
               globe:          { oem: "690-048 (#330)", skus: [{ code: "G04", label: "#330 Globe" }], desc: "Clear #330 straight Pyrex globe." }
@@ -1102,8 +1077,8 @@
             valveStyle: "wheel", capStyle: "threePiece",
             fountScaleXZ: 1.02, ventScaleXZ: 1.02, ventHeightScale: 1.08, mantleCount: 2,
             specsMini: "Fuel: Coleman Fuel · ~2 pt · 2x #21 Mantles · Straight #330 / G04 Globe",
-            lore: "Post-war classics featuring the tall porcelain ventilator, brass trim accents, and green-sunshine or red-letter Pyrex globes that collectors hunt at yard sales and campouts.",
-            checkpoint: "Pre-1970 3-piece filler caps use S41 gaskets (and S68 center screws if stripped). Always oil leather pump cups (C005 / TS81) and verify check valve seating.",
+            lore: "Post-war classics featuring the tall porcelain ventilator, brass trim accents, and green-sunshine or red-letter Pyrex globes.",
+            checkpoint: "Pre-1970 3-piece filler caps use S41 gaskets; oil leather pump cups (C005 / TS81) and verify check valve seating.",
             kits: [
               { code: "K10", label: "K10 220/228 Kit" },
               { code: "C002", label: "C002 Generator" },
@@ -1111,7 +1086,7 @@
               { code: "C005", label: "C005 Leather Kit" }
             ],
             parts: clonePartDict(LANTERN_BASE_PARTS, {
-              burnerManifold: { oem: "220B3261 Cast Brass", skus: [{ code: "E1705", label: "Cast Brass Chamber" }], desc: "Old-Style Cast-Brass mixing chamber & dual burner tubes." },
+              burnerManifold: { oem: "220B3261 Cast Brass", skus: [{ code: "E1705", label: "Cast Brass Chamber" }], desc: "Old-Style Cast-Brass mixing chamber." },
               generator:      { oem: "220E5891-65", skus: [{ code: "C002", label: "220/228 Gen" }], desc: "220E5891 dual-mantle brass generator." },
               capGasket:      { oem: "220B1401-G3", skus: [{ code: "S41", label: "3-Pc Gasket" }], desc: "Three-piece filler cap gasket." },
               globe:          { oem: "690-048 (#330)", skus: [{ code: "G04", label: "#330 Globe" }], desc: "Clear #330 straight Pyrex globe." }
@@ -1130,8 +1105,8 @@
             valveStyle: "wheel", capStyle: "threePiece",
             fountScaleXZ: 1.02, ventScaleXZ: 1.02, ventHeightScale: 1.04, mantleCount: 2,
             specsMini: "Fuel: Coleman Fuel · ~2 pt · 2x #21 Mantles · Straight #330 Globe",
-            lore: "Born in the Instant-Lite era, the 220B gleams in nickel-plated brass while wartime 220C/220BX lanterns reflect WWII brass and nickel conservation.",
-            checkpoint: "Early 220B/C pump barrels often use the larger old-style check valve (R577) and tapered air stem (R420) rather than modern 200-6381 (C001).",
+            lore: "Born in the Instant-Lite era, the 220B shines in nickel-plated brass while wartime 220C/220BX lanterns reflect WWII conservation.",
+            checkpoint: "Early 220B/C pump barrels often use the larger old-style check valve (R577) and tapered air stem (R420).",
             kits: [
               { code: "K10", label: "K10 220/228 Kit" },
               { code: "C002", label: "C002 Generator" },
@@ -1139,11 +1114,38 @@
               { code: "S41", label: "S41 3-Pc Gasket" }
             ],
             parts: clonePartDict(LANTERN_BASE_PARTS, {
-              burnerManifold: { oem: "220B3261 Cast Brass", skus: [{ code: "E1705", label: "Cast Brass Chamber" }], desc: "Heavy cast/machined brass dual-mantle mixing chamber." },
-              checkValve:     { oem: "242B5381 Old Style", skus: [{ code: "R577", label: "Old Check Valve" }, { code: "R420", label: "Old Air Stem" }], desc: "Early large-thread check valve & tapered air stem." },
+              burnerManifold: { oem: "220B3261 Cast Brass", skus: [{ code: "E1705", label: "Cast Brass Chamber" }], desc: "Heavy brass dual-mantle mixing chamber." },
+              checkValve:     { oem: "242B5381 Old Style", skus: [{ code: "R577", label: "Old Check Valve" }, { code: "R420", label: "Old Air Stem" }], desc: "Early check valve & air stem." },
               generator:      { oem: "220E5891 / T44", skus: [{ code: "C002", label: "220 Generator" }], desc: "Dual-mantle brass generator." },
               capGasket:      { oem: "220B1401-G3", skus: [{ code: "S41", label: "3-Pc Gasket" }], desc: "Three-piece cap gasket." },
               globe:          { oem: "690-048 (#330)", skus: [{ code: "G04", label: "#330 Globe" }], desc: "Straight-line Pyrex or mica globe." }
+            })
+          },
+          "L220_SLANT": {
+            cat: "lantern", chip: "L220 / Slant", arch: "cast220",
+            title: "Coleman L220 / Early Slant & Quick-Lite Lineage",
+            era: "1920s–1930 · Gas / Mica & Pyrex",
+            diagramSlug: "220b",
+            paletteLabel: "Heavy brass/nickel fount, slanted generator & green vent",
+            fountHex: 0xc9963b, fountMetal: 0.90, fountRough: 0.16,
+            ventHex: 0x1b5930, collarHex: 0xd4af37, collarMetal: 0.88,
+            capHex: 0xc9963b, pumpCapHex: 0xc9963b,
+            globeHex: 0xeef8ff, globeOpacity: 0.22, globeStyle: "straight",
+            valveStyle: "wheel", capStyle: "threePiece",
+            fountScaleXZ: 1.02, ventScaleXZ: 1.04, ventHeightScale: 1.02, mantleCount: 2,
+            specsMini: "Fuel: Coleman Fuel · 2x #21 Mantles · #330 / Mica Globe Era",
+            lore: "Traces early dual-mantle Coleman architecture from Quick-Lite and L228 wide vents to 1928–29 slant-generator Model 220 lanterns.",
+            checkpoint: "Early 1920s–30 founts often carry side date stamps and use R577 check valves and leather cups (C005 / TS81).",
+            kits: [
+              { code: "R577", label: "R577 Old Check Valve" },
+              { code: "C005", label: "C005 Leather Kit" },
+              { code: "S41", label: "S41 3-Pc Gasket" },
+              { code: "P01", label: "P01 Stem Packing" }
+            ],
+            parts: clonePartDict(LANTERN_BASE_PARTS, {
+              burnerManifold: { oem: "L220 / 220 Slant Brass", skus: [{ code: "E1705", label: "Brass Chamber" }], desc: "Early heavy brass dual-mantle mixing chamber." },
+              checkValve:     { oem: "242B5381 Old Style", skus: [{ code: "R577", label: "Old Check Valve" }, { code: "R420", label: "Old Air Stem" }], desc: "Early check valve & air stem." },
+              globe:          { oem: "690-048 / Mica", skus: [{ code: "G04", label: "#330 Globe" }], desc: "Straight Pyrex or replacement mica globe." }
             })
           },
           "228": {
@@ -1159,8 +1161,8 @@
             valveStyle: "wheel", capStyle: "threePiece",
             fountScaleXZ: 1.02, ventScaleXZ: 1.24, ventHeightScale: 1.0, mantleCount: 2,
             specsMini: "Fuel: Coleman Fuel · ~2 pt · 2x #21 Mantles · 8.5\" Big Hat + #330 Globe",
-            lore: "Collectors call it the 'Big Hat' for its broad 8.5-inch porcelain reflector brim that throws bright light downward onto camp tables, docks, and fish-cleaning stations.",
-            checkpoint: "Identical mechanical powerplant to the 220 series, but mind the wide porcelain rim when setting it down on hard stone—porcelain chips easily on impact.",
+            lore: "Known as the 'Big Hat' for its broad 8.5-inch porcelain reflector brim that casts light downward onto camp tables and docks.",
+            checkpoint: "Identical powerplant to the 220 series, but support the wide porcelain rim carefully so the enamel does not chip.",
             kits: [
               { code: "K10", label: "K10 220/228 Kit" },
               { code: "C002", label: "C002 Generator" },
@@ -1187,8 +1189,8 @@
             valveStyle: "pointer", capStyle: "onePiece",
             fountScaleXZ: 1.0, ventScaleXZ: 1.0, ventHeightScale: 1.0, mantleCount: 2,
             specsMini: "Fuel: Coleman Fuel · 32 oz · 2x #21 Mantles · Tapered #880 / G66 Globe",
-            lore: "Fondly nicknamed 'The Turd' for its distinctive 1970s metallic brown finish and tapered picket-fence/amber globe, the 275 introduced Coleman's Easy-Lite Schrader valve concept.",
-            checkpoint: "Plain 275 valves and 275A valves (275A6571) do NOT interchange. Replace weeping valve cores with fuel-rated R510 (275-1171-50), not standard tire cores.",
+            lore: "Nicknamed 'The Turd' for its 1970s metallic brown finish and tapered picket-fence/amber globe, introducing Coleman's Easy-Lite Schrader valve system.",
+            checkpoint: "275 and 275A valves are NOT interchangeable; use fuel-rated Viton R510 Schrader cores.",
             kits: [
               { code: "R510", label: "R510 Schrader Core" },
               { code: "G66", label: "G66 #880 Globe" },
@@ -1196,7 +1198,7 @@
               { code: "S42", label: "S42 Cap Gasket" }
             ],
             parts: clonePartDict(LANTERN_BASE_PARTS, {
-              valveCore:  { oem: "275-1171-50", skus: [{ code: "R510", label: "Fuel Schrader Core" }], desc: "Fuel-rated Viton Schrader core (R510)—replace if weeping or flaring." },
+              valveCore:  { oem: "275-1171-50", skus: [{ code: "R510", label: "Fuel Schrader Core" }], desc: "Fuel-rated Viton Schrader core (R510)." },
               valveBlock: { oem: "275 vs 275A6571", skus: [{ code: "275A6571", label: "275A Valve" }], desc: "275 and 275A valve assemblies are NOT interchangeable." },
               generator:  { oem: "220E5891-65", skus: [{ code: "C002", label: "220/275 Gen" }], desc: "Uses 220E5891 generator & jamb nut." },
               globe:      { oem: "275A0481 (#880)", skus: [{ code: "G66", label: "#880 Globe" }], desc: "Tapered #880 picket or amber Pyrex globe." }
@@ -1215,8 +1217,8 @@
             valveStyle: "wheel", capStyle: "threePiece",
             fountScaleXZ: 0.88, ventScaleXZ: 0.90, ventHeightScale: 1.08, mantleCount: 1,
             specsMini: "Fuel: Coleman Fuel · ~1.6 pt · 1x #21 Mantle · Bulged #550 Globe",
-            lore: "America's sweetheart single-mantle lantern—famous for its cherry-red fount (rare early 1961–62 burgundy founts are top shelf-queens), bulged #550 globe, and lively hiss.",
-            checkpoint: "Uses the slim T66 / 200A5891 generator (OCP C003), brass burner cap + screen (C009 / S29), and U-frame (R353). Late 1980–83 models were painted forest green.",
+            lore: "Classic single-mantle lantern known for its cherry-red fount, bulged #550 globe, and lively hiss.",
+            checkpoint: "Uses the 200A5891 generator (OCP C003), 242-3231 burner cap (C009), S29 screen, and U-frame (R353).",
             kits: [
               { code: "C003", label: "C003 200A Gen" },
               { code: "C009", label: "C009 Burner Cap" },
@@ -1224,12 +1226,66 @@
               { code: "R651", label: "R651 Tip Cleaner" }
             ],
             parts: clonePartDict(LANTERN_BASE_PARTS, {
-              burnerManifold: { oem: "200A5341 U-Tube", skus: [{ code: "200A5341", label: "200A U-Manifold" }], desc: "Overhead cast U-bend mixing manifold & single burner feed." },
+              burnerManifold: { oem: "200A5341 U-Tube", skus: [{ code: "200A5341", label: "200A U-Manifold" }], desc: "Overhead cast U-bend mixing manifold." },
               burnerCaps:     { oem: "242-3231 + Screen", skus: [{ code: "C009", label: "200A Burner Cap" }, { code: "S29", label: "Burner Screen" }], desc: "Single brass burner cap (C009) & screen (S29)." },
-              generator:      { oem: "200A5891-68", skus: [{ code: "C003", label: "200A Generator" }, { code: "S80", label: "Gen Spring" }], desc: "Slim 200A single-mantle generator (0.007 in. tip)." },
+              generator:      { oem: "200A5891-68", skus: [{ code: "C003", label: "200A Generator" }, { code: "S80", label: "Gen Spring" }], desc: "Slim 200A single-mantle generator." },
               eccentricBlock: { oem: "202-3531 Tip Cleaner", skus: [{ code: "R651", label: "200A Tip Cleaner" }], desc: "Rotary tip-cleaner stem (OCP R651)." },
               frameBottom:    { oem: "200A6621 U-Frame", skus: [{ code: "R353", label: "Steel U-Frame" }], desc: "Stamped steel U-burner frame (OCP R353)." },
               globe:          { oem: "R690B051 (#550)", skus: [{ code: "R690B051", label: "#550 Bulge Globe" }], desc: "Bulged #550 single-mantle Pyrex globe." }
+            })
+          },
+          "202": {
+            cat: "lantern", chip: "202 Pro", arch: "uTube200A",
+            title: "Coleman 202 \"Professional\" Single-Mantle",
+            era: "1954–1963 · Coleman Fuel",
+            diagramSlug: "200a",
+            paletteLabel: "Stainless steel fount, brass base & red vent, bulged #550 globe",
+            fountHex: 0xd0d6dc, fountMetal: 0.90, fountRough: 0.18,
+            ventHex: 0x9e1912, collarHex: 0xd8a138, collarMetal: 0.88,
+            capHex: 0xd8a138, pumpCapHex: 0xd0d6dc,
+            globeHex: 0xeef8ff, globeOpacity: 0.23, globeStyle: "bulged",
+            valveStyle: "wheel", capStyle: "threePiece",
+            fountScaleXZ: 0.88, ventScaleXZ: 0.90, ventHeightScale: 1.06, mantleCount: 1,
+            specsMini: "Fuel: Coleman Fuel · 1x #21 Mantle · Stainless Fount + Brass Base · #550 Globe",
+            lore: "Built with a stainless steel fount, brass base, and red ventilator for wet-weather guiding and fishing.",
+            checkpoint: "Shares 200A5891 generator (C003), 242-3231 burner cap (C009), S29 screen, and #550 bulged globe.",
+            kits: [
+              { code: "C003", label: "C003 200A Gen" },
+              { code: "C009", label: "C009 Burner Cap" },
+              { code: "S29", label: "S29 Burner Screen" },
+              { code: "C005", label: "C005 Leather Kit" }
+            ],
+            parts: clonePartDict(LANTERN_BASE_PARTS, {
+              burnerManifold: { oem: "202 / 200A U-Tube", skus: [{ code: "200A5341", label: "U-Manifold" }], desc: "Single-mantle U-bend burner manifold." },
+              burnerCaps:     { oem: "242-3231 + Screen", skus: [{ code: "C009", label: "Burner Cap" }, { code: "S29", label: "Burner Screen" }], desc: "Brass burner cap & screen." },
+              generator:      { oem: "200A5891-68", skus: [{ code: "C003", label: "200A Generator" }], desc: "Single-mantle generator." },
+              globe:          { oem: "R690B051 (#550)", skus: [{ code: "R690B051", label: "#550 Bulge Globe" }], desc: "Bulged #550 Pyrex globe." }
+            })
+          },
+          "201_214": {
+            cat: "lantern", chip: "201 / 214 Kero", arch: "uTube200A",
+            title: "Coleman 201 / 214 Kerosene Single-Mantle",
+            era: "1974–2008+ · Kerosene",
+            diagramSlug: "200a",
+            paletteLabel: "Red / green kerosene fount, bulged #550 globe & kero generator",
+            fountHex: 0x9e1b14, fountMetal: 0.35, fountRough: 0.24,
+            ventHex: 0x1b4d2b, collarHex: 0xc8cfd6, collarMetal: 0.82,
+            capHex: 0x9e1b14, pumpCapHex: 0xc8cfd6,
+            globeHex: 0xeef8ff, globeOpacity: 0.23, globeStyle: "bulged",
+            valveStyle: "wheel", capStyle: "threePiece",
+            fountScaleXZ: 0.88, ventScaleXZ: 0.92, ventHeightScale: 1.06, mantleCount: 1,
+            specsMini: "Fuel: Kerosene · 1x #21 Mantle · Kero Generator C022 · #550 Bulge Globe",
+            lore: "Single-mantle kerosene lanterns (201 and 214 series) designed for safe kerosene operation.",
+            checkpoint: "Preheat thoroughly before opening full flow and use kerosene-specific generator jetting (OCP C022).",
+            kits: [
+              { code: "C022", label: "C022 Kero Gen" },
+              { code: "C009", label: "C009 Burner Cap" },
+              { code: "S41", label: "S41 Cap Gasket" },
+              { code: "C005", label: "C005 Leather Kit" }
+            ],
+            parts: clonePartDict(LANTERN_BASE_PARTS, {
+              generator: { oem: "201-5891 / 214-5891", skus: [{ code: "C022", label: "201/214 Kero Gen" }], desc: "Kerosene single-mantle generator assembly." },
+              globe:     { oem: "R690B051 (#550)", skus: [{ code: "R690B051", label: "#550 Bulge Globe" }], desc: "Bulged #550 Pyrex globe." }
             })
           },
           "242": {
@@ -1245,8 +1301,8 @@
             valveStyle: "wheel", capStyle: "threePiece",
             fountScaleXZ: 0.84, ventScaleXZ: 0.86, ventHeightScale: 1.0, mantleCount: 1,
             specsMini: "Fuel: Coleman Fuel · ~1.33 pt · 1x #21/#99 Mantle · Small S45 Cap",
-            lore: "A compact, collarless cast-brass single-mantle gem that punches far above its size—beloved by collectors for its rugged brass construction and bright output.",
-            checkpoint: "242 filler necks take the SMALL gasket (OCP S45 / 603-1361), NOT standard S41/S42. Also note there is no sheet-metal collar—the cast base seats straight onto the valve.",
+            lore: "Compact, collarless cast-brass single-mantle lantern prized for rugged brass construction.",
+            checkpoint: "242 filler necks take the small gasket (OCP S45 / 603-1361), not S41/S42.",
             kits: [
               { code: "S45", label: "S45 Small Gasket" },
               { code: "TS45", label: "TS45 10-Pack" },
@@ -1254,7 +1310,7 @@
               { code: "C009", label: "C009 Burner Cap" }
             ],
             parts: clonePartDict(LANTERN_BASE_PARTS, {
-              collar:         { oem: "Collarless Cast Neck", skus: [{ code: "242B", label: "242 Cast Base" }], desc: "No sheet-metal collar—cast brass base seats directly above valve." },
+              collar:         { oem: "Collarless Cast Neck", skus: [{ code: "242B", label: "242 Cast Base" }], desc: "No sheet-metal collar; cast base seats above valve." },
               capGasket:      { oem: "603-1361 Small Gasket", skus: [{ code: "S45", label: "Small 242 Gasket" }, { code: "TS45", label: "10-Pack S45" }], desc: "Small 242/500 filler cap gasket (S45)." },
               burnerManifold: { oem: "242 Cast Twin-Tube", skus: [{ code: "242C", label: "242 Cast Chamber" }], desc: "Twin cast side air tubes feeding top burner cap." },
               burnerCaps:     { oem: "242-3231 + Screen", skus: [{ code: "C009", label: "Burner Cap" }, { code: "S29", label: "Burner Screen" }], desc: "Single brass burner cap & screen." },
@@ -1262,8 +1318,34 @@
               globe:          { oem: "R690B051 (#550)", skus: [{ code: "R690B051", label: "#550 Globe" }], desc: "Bulged #550 or straight #440 Pyrex globe." }
             })
           },
+          "252A": {
+            cat: "lantern", chip: "252A Mil-Spec", arch: "cast220",
+            title: "Coleman 252 / 252A G.I. Military Lantern",
+            era: "1944–1979 · Multifuel / CF",
+            diagramSlug: "220f",
+            paletteLabel: "Olive drab / gunmetal G.I. fount & tall vent, straight #330 globe",
+            fountHex: 0x3f4a36, fountMetal: 0.42, fountRough: 0.34,
+            ventHex: 0x3f4a36, collarHex: 0x565e4d, collarMetal: 0.55,
+            capHex: 0x3f4a36, pumpCapHex: 0x3f4a36,
+            globeHex: 0xeef8ff, globeOpacity: 0.22, globeStyle: "straight",
+            valveStyle: "wheel", capStyle: "threePiece",
+            fountScaleXZ: 0.96, ventScaleXZ: 1.0, ventHeightScale: 1.06, mantleCount: 1,
+            specsMini: "Fuel: Multifuel / Coleman Fuel · 1x Mil-Spec Mantle · Straight #330 Globe",
+            lore: "Military field lantern with stowable spare-parts compartment built for rugged service.",
+            checkpoint: "Uses mil-spec generator parts (252B2891 / E1659); verify check valve seal and stem packing.",
+            kits: [
+              { code: "E1659", label: "E1659 Mil-Spec Gen" },
+              { code: "G04", label: "G04 #330 Globe" },
+              { code: "S41", label: "S41 Cap Gasket" },
+              { code: "C005", label: "C005 Leather Kit" }
+            ],
+            parts: clonePartDict(LANTERN_BASE_PARTS, {
+              generator: { oem: "252B2891", skus: [{ code: "E1659", label: "252A Generator" }], desc: "Military 252/252A generator assembly." },
+              globe:     { oem: "690-048 (#330)", skus: [{ code: "G04", label: "#330 Globe" }], desc: "Straight #330 Pyrex globe." }
+            })
+          },
           "236_237": {
-            cat: "lantern", chip: "236/237", arch: "uTube200A",
+            cat: "lantern", chip: "236/237 (500 CP)", arch: "uTube200A",
             title: "Coleman 236 Major / 237 Empire (500 CP)",
             era: "1930s–1974 · Gas (236) / Kero (237)",
             diagramSlug: "200a",
@@ -1275,8 +1357,8 @@
             valveStyle: "wheel", capStyle: "threePiece",
             fountScaleXZ: 1.04, ventScaleXZ: 1.08, ventHeightScale: 1.04, mantleCount: 1,
             specsMini: "Fuel: Gas (236) / Kero (237) · ~2 pt · 500 CP Mantle · Bulged #660 Globe",
-            lore: "Towering 500-candlepower heavyweights pioneered by Coleman Canada and built across US 237/237A/237B/237 Green A eras—known for preheat cups, heavy mixing chambers, and bright output.",
-            checkpoint: "Model 237 runs kerosene and needs denatured alcohol in the preheat cup to vaporize fuel cleanly before opening the main valve; keep the globe on to hold generator heat.",
+            lore: "500-candlepower lanterns (236 gas, 237 kerosene with preheat cup) with oversized #660 bulge globes.",
+            checkpoint: "Model 237 uses alcohol in the preheat cup to vaporize kerosene cleanly before opening the main valve.",
             kits: [
               { code: "S41", label: "S41 3-Pc Gasket" },
               { code: "P01", label: "P01 Stem Packing" },
@@ -1290,294 +1372,32 @@
               globe:      { oem: "#660 Bulge Globe", skus: [{ code: "660", label: "#660 Globe" }], desc: "Oversized #660 bulged Pyrex globe." }
             })
           },
-
-          // ---------------- STOVES (8) ----------------
-          "413G": {
-            cat: "stove", chip: "413G Deluxe", arch: "suitcase2",
-            title: "Coleman 413G Deluxe 2-Burner Suitcase",
-            era: "1965–1980 · Coleman Fuel",
-            diagramSlug: "413g",
-            paletteLabel: "Forest green 22\" steel case, chrome towel bar & red front tank",
-            fountHex: 0x1e4d2b, fountMetal: 0.34, fountRough: 0.30,
-            ventHex: 0x1e4d2b, collarHex: 0xc2c8ce, collarMetal: 0.78,
-            capHex: 0xd4af37, pumpCapHex: 0x1c1815,
-            globeHex: 0xeef8ff, globeOpacity: 0.2, globeStyle: "straight",
-            valveStyle: "wheel", capStyle: "threePiece",
-            burners: 2, hasTowelBar: true, caseW: 4.5, caseD: 2.65, caseH: 0.92,
-            specsMini: "22\" Case · ~3.5 pt · 2 Burners · Gen 413A5621 (C030) · Valve+Gen C033",
-            lore: "The classic full-size American camp kitchen—wide enough for two large skillets, complete with a folding lid that doubles as a towel bar when propped open.",
-            checkpoint: "Spider webs or mud-dauber nests inside the U-manifold cause yellow, sooty flames. Compressed air rarely clears silk—rod the throat with a frayed cable or bore brush.",
+          "639_KERO": {
+            cat: "lantern", chip: "639 Kerosene", arch: "uTube200A",
+            title: "Coleman 639 / 639A–C Kerosene Lantern (500 CP)",
+            era: "Late 1970s–Present · Kerosene",
+            diagramSlug: "200a",
+            paletteLabel: "Green fount & vent, 500 CP single mantle & bulged #660 globe",
+            fountHex: 0x1b542e, fountMetal: 0.36, fountRough: 0.24,
+            ventHex: 0x1b542e, collarHex: 0xc2c8ce, collarMetal: 0.80,
+            capHex: 0x1b542e, pumpCapHex: 0xd8d5cc,
+            globeHex: 0xeef8ff, globeOpacity: 0.23, globeStyle: "bulged",
+            valveStyle: "wheel", capStyle: "onePiece",
+            fountScaleXZ: 1.04, ventScaleXZ: 1.06, ventHeightScale: 1.04, mantleCount: 1,
+            specsMini: "Fuel: Kerosene · 500 CP Single Mantle · Bulged #660 / G06 Globe",
+            lore: "High-output 500-candlepower kerosene lantern with preheat-cup starting and a #660 bulge globe.",
+            checkpoint: "Preheat thoroughly with alcohol in the preheat cup so kerosene vaporizes cleanly.",
             kits: [
-              { code: "C030", label: "C030 Generator" },
-              { code: "C033", label: "C033 Valve+Gen" },
-              { code: "C053", label: "C053 Master Stack" },
+              { code: "G06", label: "G06 #660 Globe" },
+              { code: "S42", label: "S42 Cap Gasket" },
+              { code: "C005", label: "C005 Leather Kit" },
               { code: "R701", label: "R701 CV Tool" }
             ],
-            parts: {}
-          },
-          "425E": {
-            cat: "stove", chip: "425E Compact", arch: "suitcase2",
-            title: "Coleman 425E Compact 2-Burner Suitcase",
-            era: "1968–1979 · Coleman Fuel",
-            diagramSlug: "425e",
-            paletteLabel: "Forest green 17.5\" compact steel case & red front tank",
-            fountHex: 0x1e4d2b, fountMetal: 0.34, fountRough: 0.30,
-            ventHex: 0x1e4d2b, collarHex: 0xc2c8ce, collarMetal: 0.78,
-            capHex: 0xd4af37, pumpCapHex: 0x1c1815,
-            globeHex: 0xeef8ff, globeOpacity: 0.2, globeStyle: "straight",
-            valveStyle: "wheel", capStyle: "threePiece",
-            burners: 2, hasTowelBar: false, caseW: 3.65, caseD: 2.28, caseH: 0.84,
-            specsMini: "17.5\" Case · ~2.5 pt · 2 Burners · Valve+Gen 412-6601 (C029)",
-            lore: "Trimmed down for tight trunks, canoes, and family station wagons while keeping full two-burner versatility for coffee and bacon.",
-            checkpoint: "Keep the Start/Light lever UP for about 60 seconds when cold-lighting, then flip DOWN to run—leaving it UP bleeds tank air pressure quickly.",
-            kits: [
-              { code: "C029", label: "C029 425 Valve+Gen" },
-              { code: "E1261", label: "E1261 Light Lever" },
-              { code: "E1681", label: "E1681 Aux Cap/Rings" },
-              { code: "S81", label: "S81 Leather Cup" }
-            ],
-            parts: {}
-          },
-          "426D": {
-            cat: "stove", chip: "426D 3-Burner", arch: "suitcase3",
-            title: "Coleman 426D 3-Burner Camp Kitchen",
-            era: "1965–1980 · Coleman Fuel",
-            diagramSlug: "426d",
-            paletteLabel: "Wide 28.5\" forest green 3-burner case & red front tank",
-            fountHex: 0x1e4d2b, fountMetal: 0.34, fountRough: 0.30,
-            ventHex: 0x1e4d2b, collarHex: 0xc2c8ce, collarMetal: 0.78,
-            capHex: 0xd4af37, pumpCapHex: 0x1c1815,
-            globeHex: 0xeef8ff, globeOpacity: 0.2, globeStyle: "straight",
-            valveStyle: "wheel", capStyle: "threePiece",
-            burners: 3, hasTowelBar: true, caseW: 5.75, caseD: 2.75, caseH: 0.96,
-            specsMini: "28.5\" Case · ~4.25 pt · 3 Burners · Gen 413A5621 (C030)",
-            lore: "Built for big crews, hunting cabins, and Scout patrols—three burners let you boil water, fry eggs, and warm tortillas all at once.",
-            checkpoint: "OCP C030 (413A5621) fits 426B, 426C, and 426D, but does NOT fit early cast/transition 426 or 426A stoves. Rod both auxiliary manifold runners if outer flames lag.",
-            kits: [
-              { code: "C030", label: "C030 Generator" },
-              { code: "C033", label: "C033 Valve+Gen" },
-              { code: "E1465", label: "E1465 F/A Tube" },
-              { code: "S71", label: "S71 Ring Screw" }
-            ],
-            parts: {}
-          },
-          "502": {
-            cat: "stove", chip: "502 Sportster", arch: "stove502",
-            title: "Coleman 502 Sportster Single-Burner",
-            era: "1962–1984 · Coleman Fuel",
-            diagramSlug: "502",
-            paletteLabel: "Forest green fount, slotted aluminum Heat Drum & over-burner L-gen",
-            fountHex: 0x1e4d2b, fountMetal: 0.35, fountRough: 0.26,
-            ventHex: 0xc2c8ce, collarHex: 0xc2c8ce, collarMetal: 0.78,
-            capHex: 0x1e4d2b, pumpCapHex: 0xc2c8ce,
-            globeHex: 0xeef8ff, globeOpacity: 0.2, globeStyle: "straight",
-            valveStyle: "wheel", capStyle: "threePiece",
-            specsMini: "1 pt · 1 Burner · Gen 502-5891 (R206) · Kit K05 · Screw 502-3451",
-            lore: "Engineered as an all-steel/brass tank after the recalled 501, the 502 earned a loyal following for its steady simmer, tough aluminum heat drum, and optional cook-pot case.",
-            checkpoint: "The center burner bowl screw (502-3451) commonly seizes in the hot cast Bunsen. Soak overnight with penetrating oil and use a snug hollow-ground driver bit.",
-            kits: [
-              { code: "K05", label: "K05 502 Rebuild Kit" },
-              { code: "R206", label: "R206 502 Generator" },
-              { code: "P01", label: "P01 Stem Packing" },
-              { code: "C005", label: "C005 Leather Cup" }
-            ],
-            parts: {}
-          },
-          "500": {
-            cat: "stove", chip: "500 Speedmaster", arch: "stove500",
-            title: "Coleman 500 Speedmaster Single-Burner",
-            era: "1938 (Canada) / 1940–1961 (US)",
-            diagramSlug: "500",
-            paletteLabel: "Wide green/seafoam fount, cast step-up Bunsen & round grate",
-            fountHex: 0x2c6649, fountMetal: 0.36, fountRough: 0.28,
-            ventHex: 0x3a3d40, collarHex: 0xd4af37, collarMetal: 0.82,
-            capHex: 0xd4af37, pumpCapHex: 0xd4af37,
-            globeHex: 0xeef8ff, globeOpacity: 0.2, globeStyle: "straight",
-            valveStyle: "wheel", capStyle: "threePiece",
-            specsMini: "~1.5–2 pt · 1 Burner · Gen 500-2891 · Small Gasket S45 · Nut S65",
-            lore: "First introduced in Toronto in 1938 (stamped C 38) before reaching Wichita in 1940, the wide-fount 500 is prized for rock-solid stability and smooth simmering.",
-            checkpoint: "Uses the SMALL 242-size cap gasket (OCP S45 / TS45), NOT S41. Keep Flat and Wavy burner rings strictly alternating so caps don't glow red or soot up.",
-            kits: [
-              { code: "S45", label: "S45 Small Gasket" },
-              { code: "TS45", label: "TS45 10-Pack" },
-              { code: "S65", label: "S65 Grate Nut" },
-              { code: "S81", label: "S81 Leather Cup" }
-            ],
-            parts: {}
-          },
-          "400": {
-            cat: "stove", chip: "400 Peak 1", arch: "peak400",
-            title: "Coleman 400 Peak 1 \"Brown\" (2-Lever Simmer)",
-            era: "1979–1984 · Coleman Fuel",
-            diagramSlug: "400-peak",
-            paletteLabel: "Metallic brown fount & tripod legs, red + black levers, brass F/A tube",
-            fountHex: 0x4e2e1e, fountMetal: 0.36, fountRough: 0.28,
-            ventHex: 0xb0b7bf, collarHex: 0xb0b7bf, collarMetal: 0.78,
-            capHex: 0x4e2e1e, pumpCapHex: 0x181512,
-            globeHex: 0xeef8ff, globeOpacity: 0.2, globeStyle: "straight",
-            valveStyle: "wheel", capStyle: "onePiece",
-            specsMini: "~10 oz · 2-Lever (Red + Black Simmer) · Gen 400-5891 · Core R510",
-            lore: "Launched with Coleman's Peak 1 backpacking line in 1979, the brown 2-lever 400 is famous among backpackers for fine simmer control via its separate black generator lever.",
-            checkpoint: "Install only a fuel-rated Viton Schrader core (OCP R510)—automotive tire rubber swells in white gas. Set core seating depth cleanly for smooth valve operation.",
-            kits: [
-              { code: "R510", label: "R510 Schrader Core" },
-              { code: "C035", label: "C035 Pump Assy" },
-              { code: "C036", label: "C036 Valve Assy" },
-              { code: "S42", label: "S42 Cap Gasket" }
-            ],
-            parts: {}
-          },
-          "400B": {
-            cat: "stove", chip: "400B / 533", arch: "peak400B",
-            title: "Coleman 400B Feather / 533 Dual-Fuel (1-Lever)",
-            era: "1989–Present · CF / Unleaded",
-            diagramSlug: "400b-peak",
-            paletteLabel: "Gloss black fount & tripod legs, single red lever, plastic F/A tube",
-            fountHex: 0x1c1e21, fountMetal: 0.38, fountRough: 0.26,
-            ventHex: 0xb0b7bf, collarHex: 0xb0b7bf, collarMetal: 0.78,
-            capHex: 0x1c1e21, pumpCapHex: 0x181512,
-            globeHex: 0xeef8ff, globeOpacity: 0.2, globeStyle: "straight",
-            valveStyle: "wheel", capStyle: "onePiece",
-            specsMini: "1-Lever · Gen 400B2891 / 533-5891 (C013) · Core R510 · Plastic F/A Tube",
-            lore: "Simplified to a single red control lever and leverless generator shared across 400B, 442 Feather, 508A, and 533 Dual-Fuel stoves for easy trail maintenance.",
-            checkpoint: "NEVER use a torch on a stuck valve—heat melts the internal plastic F/A pickup tube (use acetone instead). Note: OCP R510 gives solid shutoff but may limit low simmer on 400B/533.",
-            kits: [
-              { code: "C013", label: "C013 Generator" },
-              { code: "R510", label: "R510 Schrader Core" },
-              { code: "C019", label: "C019 Neoprene Cup" },
-              { code: "S42", label: "S42 Cap Gasket" }
-            ],
-            parts: {}
-          },
-          "530": {
-            cat: "stove", chip: "530 Pocket", arch: "pocket530",
-            title: "Coleman 530 G.I. Pocket Stove",
-            era: "1946–1949 · Coleman Fuel",
-            diagramSlug: "530-pocket-stove",
-            paletteLabel: "Nickel-plated brass cylindrical fount, vertical vaporizer & roarer bell",
-            fountHex: 0xe3dfd3, fountMetal: 0.90, fountRough: 0.16,
-            ventHex: 0xa67f2e, collarHex: 0xb0b7bf, collarMetal: 0.80,
-            capHex: 0xe3dfd3, pumpCapHex: 0xe3dfd3,
-            globeHex: 0xeef8ff, globeOpacity: 0.2, globeStyle: "straight",
-            valveStyle: "wheel", capStyle: "threePiece",
-            specsMini: "~5/8 pt · Roarer Burner · Vaporizer 530-2991 (R213) · Kit K45 · Gasket S41",
-            lore: "A gleaming post-war civilian cousin of the WWII 520 pocket stove, packing inside a two-piece aluminum canister with a detachable handle that works as a pot grip and wrench.",
-            checkpoint: "No F/A instant-light air bleed—cold starts draw raw liquid fuel and flare yellow for 30–45 seconds. Prime with alcohol outdoors and use S41 cap gasket (per OCP K45 kit).",
-            kits: [
-              { code: "K45", label: "K45 530 Rebuild Kit" },
-              { code: "R213", label: "R213 Vaporizer" },
-              { code: "S92", label: "S92 Needle" },
-              { code: "S41", label: "S41 Cap Gasket" }
-            ],
-            parts: {}
+            parts: clonePartDict(LANTERN_BASE_PARTS, {
+              globe: { oem: "690-058 (#660)", skus: [{ code: "G06", label: "#660 Globe" }], desc: "Large #660 bulged Pyrex globe for 236/237/635/639 lanterns." }
+            })
           }
         };
-
-        (function populateStoveAtomicParts() {
-          ["413G", "425E", "426D"].forEach(function (k) {
-            var m = MODELS[k];
-            var is425 = (k === "425E");
-            var is426 = (k === "426D");
-            var genSku = is425 ? "C029" : "C030";
-            var genOem = is425 ? "412-5621 / 3000005108" : "413A5621 / 3000005106";
-            var d = {
-              suitcaseCase: { key: "#1", oem: k + "-Case", skus: [{ code: k, label: k + " Model" }], desc: "Stamped forest-green steel suitcase pan with drip recess & tank slot." },
-              lidAndScreens: { key: "#2", oem: (m.hasTowelBar ? "413B5061 / " : "") + "Windscreens", skus: [{ code: "413G", label: "Lid & Screens" }], desc: m.hasTowelBar ? "Hinged lid, tapered side windscreens & chrome towel-bar prop." : "Hinged lid & tapered side windscreens (compact 425E without towel bar)." },
-              wireGrate: { key: "#3", oem: k + "-Grate", skus: [{ code: k, label: k + " Grate" }], desc: "Heavy steel wire cooking grate supporting pots and skillets." },
-              uManifold: { key: "#4", oem: "415D326 / 413-6561", skus: [{ code: "E1465", label: "E1465 F/A Tube" }], desc: "Bunsen throat & manifold distributing fuel-air mix to burners." },
-              auxValve: { key: "#5", oem: "413-5541 / 413C3601", skus: [{ code: "413-5541", label: "Aux Valve Stem" }], desc: is426 ? "Left & right auxiliary burner control stems." : "Left auxiliary burner control stem." },
-              masterBowl: { key: "#6A", oem: is425 ? "425-Bowl" : "413C302", skus: [{ code: "C053", label: "C053 Master Assy" }, { code: "E1656", label: "E1656 NOS Bowl" }], desc: "Master burner bowl supporting the primary ring stack." },
-              masterRings: { key: "#6B", oem: "413A130-4 / Rings", skus: [{ code: "C053", label: "C053 Rings" }, { code: "S71", label: "S71 Ring Screw" }], desc: "Alternating Flat → Wavy → Flat burner rings on Master burner." },
-              masterCap: { key: "#6C", oem: "413C345 / 413A130-4", skus: [{ code: "C053", label: "C053 Cap" }, { code: "S71", label: "S71 Screw" }], desc: "Top Master burner cap & retaining screw." },
-              auxLeftBowl: { key: "#7A", oem: "413C3061", skus: [{ code: "E1681", label: "E1681 Aux Assy" }, { code: "E1698", label: "E1698 NOS Bowl" }], desc: "Auxiliary burner bowl." },
-              auxLeftRings: { key: "#7B", oem: is425 ? "425-3451" : "413C346", skus: [{ code: "E1681", label: "E1681 Aux Rings" }, { code: "S71", label: "S71 Screw" }], desc: "Alternating Flat & Wavy rings on auxiliary burner." },
-              auxLeftCap: { key: "#7C", oem: is425 ? "425-3451" : "413C346", skus: [{ code: "E1681", label: "E1681 Aux Cap" }, { code: "S71", label: "S71 Screw" }], desc: "Top auxiliary burner cap & screw." },
-              frontTank: { key: "#8", oem: k + "-Tank", skus: [{ code: k, label: k + " Tank" }], desc: "Front steel fuel tank with mounting tabs." },
-              capGasket: { key: "#9B", oem: "220C1401-Gasket", skus: [{ code: "S41", label: "S41 3-Pc Gasket" }, { code: "TS45", label: "TS45 10-Pack" }], desc: "Fuel filler cap gasket (S41 / S42)." },
-              fuelCap: { key: "#9A", oem: "220C1401", skus: [{ code: "C004", label: "C004 Brass Cap" }, { code: "R302", label: "R302 Test Cap" }], desc: "Fuel filler cap sealing the tank." },
-              checkValve: { key: "#10A", oem: "200-6381ZCL", skus: [{ code: "C001", label: "C001 Check Valve" }, { code: "R701", label: "R701 CV Tool" }, { code: "TS20", label: "TS20 CV O-Rings" }], desc: "One-way check valve & air stem inside pump tube." },
-              pumpCup: { key: "#10B", oem: "216-5091 / 216A5091", skus: [{ code: "S81", label: "S81 Leather Cup" }, { code: "C005", label: "C005 Leather Kit" }, { code: "TS81", label: "TS81 10-Pack" }], desc: "7/8 in. leather pump cup & push-on nut (S09)." },
-              pumpPlunger: { key: "#10C", oem: "242D5201", skus: [{ code: "C045", label: "C045 Leather Pump" }, { code: "C006", label: "C006 Neoprene Pump" }], desc: "Pump plunger rod, cap & knob." },
-              faTube: { key: "#11", oem: is425 ? "412-646" : "413A6461", skus: [{ code: "E1465", label: "E1465 F/A Tube" }], desc: "Internal fuel/air pickup tube." },
-              valveBody: { key: "#12A", oem: is425 ? "412-6601" : "413B6601", skus: [{ code: is425 ? "C029" : "C033", label: (is425 ? "C029" : "C033") + " Valve+Gen" }], desc: "Main brass valve body." },
-              valvePacking: { key: "#12B", oem: "118D6201 / 242-6201", skus: [{ code: "P01", label: "P01 Graphite Pack" }, { code: "TP01", label: "TP01 10-Pack" }, { code: "P03", label: "P03 PTFE Pack" }], desc: "Valve stem packing sealing the control shaft." },
-              valveWheel: { key: "#12C", oem: "412-Wheel", skus: [{ code: "C033", label: "C033 Valve Assy" }], desc: "Fuel control wheel & screw." },
-              lightLever: { key: "#13", oem: "412-3531", skus: [{ code: "E1261", label: "E1261 Light Lever" }], desc: "Start/Light lever (UP = Light, DOWN = Burn)." },
-              generator: { key: "#14", oem: genOem, skus: [{ code: genSku, label: genSku + " Generator" }], desc: "Horizontal stove generator & jamb nut." }
-            };
-            if (is426) {
-              d.auxRightBowl = { key: "#15A", oem: "413C3061", skus: [{ code: "E1681", label: "E1681 Aux Assy" }, { code: "E1698", label: "E1698 NOS Bowl" }], desc: "Right auxiliary burner bowl." };
-              d.auxRightRings = { key: "#15B", oem: "413C346", skus: [{ code: "E1681", label: "E1681 Aux Rings" }, { code: "S71", label: "S71 Ring Screw" }], desc: "Alternating Flat & Wavy rings on right auxiliary burner." };
-              d.auxRightCap = { key: "#15C", oem: "413C346", skus: [{ code: "E1681", label: "E1681 Aux Cap" }, { code: "S71", label: "S71 Screw" }], desc: "Top burner cap & screw on right auxiliary burner." };
-            }
-            m.parts = d;
-          });
-
-          MODELS["502"].parts = {
-            fount: { key: "#1", oem: "502-Fount", skus: [{ code: "502", label: "502 Model" }, { code: "K05", label: "K05 Rebuild Kit" }], desc: "1-pint forest-green steel fount (may carry a 501-stamped bottom plate)." },
-            capGasket: { key: "#2B", oem: "220C1401-Gasket", skus: [{ code: "S41", label: "S41 Gasket" }, { code: "S42", label: "S42 Gasket" }], desc: "Fuel filler cap gasket." },
-            fuelCap: { key: "#2A", oem: "220C1401", skus: [{ code: "C004", label: "C004 Brass Cap" }], desc: "Fuel filler cap on left shoulder." },
-            checkValve: { key: "#3A", oem: "200-6381ZCL", skus: [{ code: "C001", label: "C001 Check Valve" }, { code: "R701", label: "R701 CV Tool" }], desc: "Check valve & air stem inside pump barrel." },
-            pumpCup: { key: "#3B", oem: "216-5091", skus: [{ code: "S81", label: "S81 Leather Cup" }, { code: "C005", label: "C005 Leather Kit" }], desc: "Leather pump cup." },
-            pumpPlunger: { key: "#3C", oem: "242D5201", skus: [{ code: "C045", label: "C045 Leather Pump" }, { code: "C019", label: "C019 Neoprene Cup" }], desc: "Pump plunger rod & cap." },
-            faTube: { key: "#4", oem: "502-FA", skus: [{ code: "K05", label: "K05 Rebuild Kit" }], desc: "Internal F/A pickup tube." },
-            valveBody: { key: "#5A", oem: "502-Valve", skus: [{ code: "P01", label: "P01 Stem Packing" }], desc: "Lower brass valve body & stem packing." },
-            valveWheel: { key: "#5B", oem: "502-Wheel", skus: [{ code: "K05", label: "K05 Rebuild Kit" }], desc: "Black fuel control wheel & tip cleaner." },
-            heatDrum: { key: "#6", oem: "502-3291", skus: [{ code: "502-3291", label: "502 Heat Drum" }], desc: "Slotted brushed-aluminum heat drum." },
-            bunsen: { key: "#7", oem: "502-Bunsen", skus: [{ code: "R206", label: "R206 502 Gen" }], desc: "Cast-brass Bunsen mixing shoe beneath burner bowl." },
-            bowl: { key: "#8A", oem: "502-Bowl", skus: [{ code: "K05", label: "K05 Rebuild Kit" }], desc: "Stamped 502 burner bowl." },
-            rings: { key: "#8B", oem: "502-Rings", skus: [{ code: "K05", label: "K05 Rebuild Kit" }], desc: "Alternating Flat & Wavy burner rings." },
-            capScrew: { key: "#8C", oem: "502-3451", skus: [{ code: "502-3451", label: "502-3451 Screw" }], desc: "Burner cap & center screw (502-3451—watch for heat seizure)." },
-            generator: { key: "#9", oem: "502-5891", skus: [{ code: "R206", label: "R206 502 Generator" }], desc: "Over-burner L-shaped brass generator (OCP R206)." },
-            grate: { key: "#10", oem: "501A501", skus: [{ code: "501A501", label: "501A501 Grate" }], desc: "4-arm steel cooking grate." }
-          };
-
-          MODELS["500"].parts = {
-            fount: { key: "#1", oem: "500-Fount", skus: [{ code: "500", label: "500 Speedmaster" }], desc: "Wide fount introduced in Toronto (C 38) before Wichita." },
-            capGasket: { key: "#2B", oem: "603-1361-185", skus: [{ code: "S45", label: "S45 Small Gasket" }, { code: "TS45", label: "TS45 10-Pack" }], desc: "Small 242-size gasket (S45) used on Speedmaster caps." },
-            fuelCap: { key: "#2A", oem: "220C1401", skus: [{ code: "C004", label: "C004 Brass Cap" }], desc: "Fuel filler cap on left shoulder." },
-            checkValve: { key: "#3A", oem: "200-6381ZCL", skus: [{ code: "C001", label: "C001 Check Valve" }, { code: "R701", label: "R701 CV Tool" }], desc: "Check valve & air stem in pump tube." },
-            pumpCup: { key: "#3B", oem: "216-5091", skus: [{ code: "S81", label: "S81 Leather Cup" }, { code: "C005", label: "C005 Leather Kit" }], desc: "Leather pump cup." },
-            pumpPlunger: { key: "#3C", oem: "242D5201", skus: [{ code: "C045", label: "C045 Leather Pump" }], desc: "Pump plunger & cap." },
-            valve: { key: "#4", oem: "500-Valve", skus: [{ code: "P01", label: "P01 Stem Packing" }, { code: "P02", label: "P02 Small Packing" }], desc: "Offset brass valve, packing & L-lighting lever." },
-            generator: { key: "#5", oem: "500-2891", skus: [{ code: "500-2891", label: "500 Generator" }], desc: "Straight horizontal generator feeding the cast Bunsen." },
-            bunsen: { key: "#6", oem: "500-Bunsen", skus: [{ code: "500", label: "500 Bunsen" }], desc: "Heavy cast step-up Bunsen with underside air bell." },
-            bowl: { key: "#7A", oem: "500-Bowl", skus: [{ code: "500", label: "500 Bowl" }], desc: "Wide burner bowl." },
-            rings: { key: "#7B", oem: "500-Rings", skus: [{ code: "500", label: "500 Rings" }], desc: "Alternating Flat & Wavy burner rings." },
-            cap: { key: "#7C", oem: "500-Cap", skus: [{ code: "500", label: "500 Cap" }], desc: "Top burner cap & screw." },
-            grate: { key: "#8", oem: "500-Grate / 500-435", skus: [{ code: "S65", label: "S65 Grate Nut" }], desc: "Round chrome wire grate on 3 support posts (nut S65)." }
-          };
-
-          ["400", "400B"].forEach(function (k) {
-            var isB = (k === "400B");
-            MODELS[k].parts = {
-              fount: { key: "#1", oem: isB ? "400B-Fount" : "400-Fount", skus: [{ code: isB ? "400B" : "400", label: k + " Fount" }], desc: isB ? "Black backpacking fount (400B / 533)." : "Brown 1979 Peak 1 backpacking fount." },
-              tripodLegs: { key: "#2", oem: "400-Legs", skus: [{ code: isB ? "400B" : "400", label: "Tripod Legs" }], desc: "Three fold-out stamped steel tripod feet." },
-              capGasket: { key: "#3B", oem: "220C1401-Gasket", skus: [{ code: "S42", label: "S42 Gasket" }, { code: "TS42", label: "TS42 10-Pack" }], desc: "One-piece cap gasket (S42)." },
-              fuelCap: { key: "#3A", oem: "220C1401", skus: [{ code: "C004", label: "C004 Brass Cap" }], desc: "Fuel filler cap." },
-              pump: { key: "#4", oem: isB ? "216-1091" : "400A5201-5", skus: [{ code: isB ? "C019" : "C035", label: (isB ? "C019" : "C035") + " Pump" }, { code: "C001", label: "C001 Check Valve" }], desc: "Compact pump & check valve assembly." },
-              faAndCore: { key: "#5", oem: "275-1171-50", skus: [{ code: "R510", label: "R510 Schrader Core" }], desc: isB ? "Fuel-rated R510 core & plastic F/A tube (NO torch heat)." : "Fuel-rated R510 core & brass F/A tube." },
-              valve: { key: "#6", oem: isB ? "400B-Valve" : "400-5551-4", skus: [{ code: isB ? "R510" : "C036", label: isB ? "R510 Core" : "C036 Valve" }], desc: isB ? "Single red-lever valve assembly." : "2-lever valve assembly (red On/Off + black simmer)." },
-              generator: { key: "#7", oem: isB ? "400B2891 / 533-5891" : "400-5891", skus: [{ code: isB ? "C013" : "400-5891", label: isB ? "C013 Generator" : "400-5891 Gen" }], desc: isB ? "Leverless generator (OCP C013)." : "Curved generator with dedicated black Simmer lever." },
-              bowl: { key: "#8A", oem: "400-Bowl", skus: [{ code: isB ? "C013" : "C054", label: isB ? "C013 Spec" : "C054 Burner" }], desc: "Burner bowl." },
-              rings: { key: "#8B", oem: "400-Rings", skus: [{ code: isB ? "C013" : "C054", label: isB ? "C013 Spec" : "C054 Rings" }], desc: "Alternating Flat & Wavy burner rings." },
-              cap: { key: "#8C", oem: isB ? "400-3451" : "400-3451-2", skus: [{ code: isB ? "C013" : "C054", label: isB ? "C013 Spec" : "C054 Cap" }], desc: "Burner cap & screw." },
-              baffleGrate: { key: "#9", oem: "400-XGrate", skus: [{ code: isB ? "400B" : "400", label: "X-Baffle Grate" }], desc: "Stepped burner skirt & X-baffle pot grate." }
-            };
-          });
-
-          MODELS["530"].parts = {
-            fount: { key: "#1", oem: "530-Fount", skus: [{ code: "K45", label: "K45 530 Kit" }], desc: "Nickel-plated brass cylindrical fount (1946–49)." },
-            capGasket: { key: "#2B", oem: "220B1401-G3", skus: [{ code: "S41", label: "S41 3-Pc Gasket" }], desc: "Standard 3-piece fuel cap gasket (S41 per OCP K45 kit)." },
-            fuelCap: { key: "#2A", oem: "530-Cap", skus: [{ code: "S41", label: "S41 Gasket" }], desc: "Nickel/brass filler cap." },
-            pump: { key: "#3", oem: "530-Pump / 216-5091", skus: [{ code: "S81", label: "S81 Leather Cup" }, { code: "C001", label: "C001 Check Valve" }], desc: "Vertical pump plunger & leather cup." },
-            pickup: { key: "#4", oem: "530-Pickup", skus: [{ code: "K45", label: "K45 530 Kit" }], desc: "Straight liquid fuel pickup tube (no air-bleed circuit)." },
-            valve: { key: "#5", oem: "530-Valve", skus: [{ code: "P01", label: "P01 Stem Packing" }, { code: "K45", label: "K45 530 Kit" }], desc: "Brass valve, packing & preheat cup." },
-            vaporizer: { key: "#6", oem: "530-2991 / 530-2381", skus: [{ code: "R213", label: "R213 Vaporizer" }, { code: "S92", label: "S92 Needle" }], desc: "Vertical vaporizer (R213) & pricker needle (S92)." },
-            roarerBell: { key: "#7", oem: "530-Burner", skus: [{ code: "530-pocket-stove", label: "530 Diagram" }], desc: "Slotted roarer burner bell & flame spreader." },
-            cage: { key: "#8", oem: "530-Frame", skus: [{ code: "530-pocket-stove", label: "530 Diagram" }], desc: "3-strut frame cage & folding pot fingers." }
-          };
-        })();
 
         var stage = document.getElementById("canvasStage");
         var slider = document.getElementById("explodeSlider");
@@ -1669,7 +1489,6 @@
         var flowStreams = [];
         var checkpointMarkers = [];
 
-        // Keep globe sub-group references at top scope of engine so applyGlobeModeToScene always has them
         var glStr = null, glBlg = null, glTap = null;
 
         var capAxis = new THREE.Vector3(-Math.sin(0.52), Math.cos(0.52), 0.14).normalize();
@@ -1693,14 +1512,12 @@
         var matBrass = makeMat("brass", { color: 0xd8a138, roughness: 0.25, metalness: 0.85 });
         var matCastBrass = makeMat("castBrass", { color: 0xb88428, roughness: 0.42, metalness: 0.76, side: THREE.DoubleSide });
         var matSteel = makeMat("steel", { color: 0xbac1c8, roughness: 0.33, metalness: 0.76, side: THREE.DoubleSide });
-        var matCastIron = makeMat("castIron", { color: 0x3b3e42, roughness: 0.66, metalness: 0.55 });
         var matDark = makeMat("dark", { color: 0x1c1613, roughness: 0.46, metalness: 0.2 });
         var matGasket = makeMat("gasket", { color: 0x2a2624, roughness: 0.72, metalness: 0.08 });
         var matLeather = makeMat("leather", { color: 0x7a4822, roughness: 0.78, metalness: 0.06 });
         var matGraphite = makeMat("graphite", { color: 0x2e3136, roughness: 0.42, metalness: 0.55 });
         var matMantle = makeMat("mantle", { color: 0xf5eedc, roughness: 0.90, metalness: 0.02, side: THREE.DoubleSide });
         var matDecalRed = makeMat("decalRed", { color: 0xa3221a, roughness: 0.4, metalness: 0.15 });
-        var matRedLever = makeMat("redLever", { color: 0xb8292f, roughness: 0.3, metalness: 0.25 });
 
         function clearSceneEntities() {
           scene.remove(rootModelGroup);
@@ -1754,102 +1571,6 @@
         function makeTube(pts, r, m) {
           var curve = new THREE.CatmullRomCurve3(pts.map(function (p) { return new THREE.Vector3(p[0], p[1], p[2]); }));
           return new THREE.Mesh(new THREE.TubeGeometry(curve, 36, r, 12, false), m);
-        }
-
-        function makeFlatRing(outerR, innerR) {
-          var g = new THREE.RingGeometry(innerR, outerR, 44);
-          g.rotateX(-Math.PI / 2);
-          return new THREE.Mesh(g, matSteel);
-        }
-
-        function makeWavyRing(outerR, innerR, amp, lobes) {
-          var g = new THREE.RingGeometry(innerR, outerR, 64, 2);
-          g.rotateX(-Math.PI / 2);
-          var pos = g.attributes.position;
-          for (var i = 0; i < pos.count; i++) {
-            var x = pos.getX(i), z = pos.getZ(i);
-            var r = Math.hypot(x, z);
-            var ang = Math.atan2(z, x);
-            var w = 0.35 + 0.65 * ((r - innerR) / Math.max(0.01, outerR - innerR));
-            pos.setY(i, Math.sin(ang * lobes) * amp * w);
-          }
-          g.computeVertexNormals();
-          return new THREE.Mesh(g, matSteel);
-        }
-
-        function addBurnerStack(cfg) {
-          var bowlGrp = new THREE.Group();
-          var bPts = [
-            new THREE.Vector2(0.07, 0.0),
-            new THREE.Vector2(cfg.bowlR * 0.56, 0.02),
-            new THREE.Vector2(cfg.bowlR * 0.92, 0.10),
-            new THREE.Vector2(cfg.bowlR, 0.16),
-            new THREE.Vector2(cfg.bowlR * 1.06, 0.17)
-          ];
-          bowlGrp.add(new THREE.Mesh(new THREE.LatheGeometry(bPts, 36), matSteel));
-          registerPart(cfg.bowlId, cfg.label + " Bowl", "burner", cfg.sysTitle, bowlGrp, [cfg.x, cfg.yBowl, cfg.z], [0, 0.38, 0]);
-
-          var ringsGrp = new THREE.Group();
-          ringsGrp.userData.ringMeshes = [];
-          var seq = [
-            { t: "flat", y: 0.18, dy: 0.24 },
-            { t: "wavy", y: 0.20, dy: 0.48 },
-            { t: "flat", y: 0.22, dy: 0.72 },
-            { t: "wavy", y: 0.24, dy: 0.96 },
-            { t: "flat", y: 0.26, dy: 1.20 }
-          ];
-          seq.forEach(function (item) {
-            var rm = item.t === "wavy"
-              ? makeWavyRing(cfg.ringR, cfg.ringR * 0.56, 0.014, 18)
-              : makeFlatRing(cfg.ringR, cfg.ringR * 0.56);
-            rm.position.y = item.y;
-            rm.userData.baseY = item.y;
-            rm.userData.fanDeltaY = item.dy;
-            ringsGrp.add(rm);
-            ringsGrp.userData.ringMeshes.push(rm);
-          });
-          registerPart(cfg.ringsId, cfg.label + " Alternating Rings", "burner", cfg.sysTitle, ringsGrp, [cfg.x, cfg.yBowl, cfg.z], [0, 0.45, 0]);
-
-          var capGrp = new THREE.Group();
-          var cPts = [
-            new THREE.Vector2(0.0, 0.05),
-            new THREE.Vector2(cfg.ringR * 0.55, 0.045),
-            new THREE.Vector2(cfg.ringR * 0.96, 0.02),
-            new THREE.Vector2(cfg.ringR * 1.03, 0.0)
-          ];
-          var capMesh = new THREE.Mesh(new THREE.LatheGeometry(cPts, 36), matSteel);
-          capMesh.position.y = 0.27;
-          var scrHead = new THREE.Mesh(new THREE.CylinderGeometry(0.052, 0.052, 0.032, 16), matBrass);
-          scrHead.position.y = 0.325;
-          var scrSlot = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.014, 0.015), matDark);
-          scrSlot.position.y = 0.34;
-          capGrp.add(capMesh, scrHead, scrSlot);
-          registerPart(cfg.capId, cfg.label + " Cap & Screw", "burner", cfg.sysTitle, capGrp, [cfg.x, cfg.yBowl, cfg.z], [0, 1.95, 0]);
-
-          addFlameCrown(cfg.x, cfg.yBowl + 0.22, cfg.z, cfg.ringR * 1.12, cfg.isSingle ? 1.05 : 0.88);
-        }
-
-        function addFlameCrown(cx, cy, cz, radius, scaleFactor) {
-          var crown = new THREE.Group();
-          crown.position.set(cx, cy, cz);
-          for (var i = 0; i < 18; i++) {
-            var ang = (i / 18) * Math.PI * 2;
-            var jGeo = new THREE.ConeGeometry(0.038 * scaleFactor, 0.18 * scaleFactor, 8);
-            jGeo.translate(0, 0.09 * scaleFactor, 0);
-            var jMat = new THREE.MeshBasicMaterial({
-              color: i % 2 === 0 ? 0x38bdf8 : 0x67e8f9,
-              transparent: true,
-              opacity: 0.78
-            });
-            var jet = new THREE.Mesh(jGeo, jMat);
-            jet.position.set(Math.cos(ang) * radius, 0, Math.sin(ang) * radius);
-            jet.rotation.z = -Math.cos(ang) * 1.1;
-            jet.rotation.x = Math.sin(ang) * 1.1;
-            jet.userData.phase = i * 0.65;
-            crown.add(jet);
-            flameJets.push(jet);
-          }
-          fxOperationGroup.add(crown);
         }
 
         function addDynamicFlowStream(getPtsFn, hexColor, count, speed) {
@@ -2316,10 +2037,9 @@
 
         function applyGlobeModeToScene() {
           var profile = MODELS[activeModelKey];
-          var isLantern = profile && profile.cat === "lantern";
           hitMeshes.forEach(function (m) {
             if (m.material.userData.matRole === "globe") {
-              if (!isLantern || globeMode === "hidden") {
+              if (globeMode === "hidden") {
                 m.visible = false;
               } else {
                 var gKind = m.userData.globeKind || (m.parent && m.parent.userData && m.parent.userData.globeKind);
@@ -2330,576 +2050,20 @@
           });
         }
 
-        function buildStove3D(profile) {
-          if (profile.arch === "suitcase2" || profile.arch === "suitcase3") {
-            buildRefinedSuitcase3D(profile);
-          } else if (profile.arch === "stove502") {
-            buildRefined502_3D(profile);
-          } else if (profile.arch === "stove500") {
-            buildRefined500_3D(profile);
-          } else if (profile.arch === "peak400" || profile.arch === "peak400B") {
-            buildRefinedPeak1_3D(profile);
-          } else if (profile.arch === "pocket530") {
-            buildRefined530_3D(profile);
-          }
-          applyProfileColorsToMeshes(profile);
-          syncOperationVisuals();
-        }
-
-        function buildRefinedSuitcase3D(spec) {
-          var W = spec.caseW, D = spec.caseD, H = spec.caseH, wall = 0.055, yF = -0.55;
-          var masterX = spec.burners === 3 ? 0.0 : W * 0.22;
-          var auxLX = spec.burners === 3 ? -W * 0.31 : -W * 0.23;
-          var auxRX = W * 0.31;
-          var yBowl = yF + 0.34;
-          var tankW = W * 0.56, tankH = 0.64, tankD = 0.70, tankZ = D / 2 + 0.48, tankY = yF + 0.36;
-          var tankX = masterX - tankW * 0.25;
-
-          var caseG = new THREE.Group();
-          var flr = new THREE.Mesh(new THREE.BoxGeometry(W, wall, D), matFount); flr.position.y = yF;
-          var drip = new THREE.Mesh(new THREE.BoxGeometry(W - 0.16, 0.02, D - 0.16), matSteel); drip.position.y = yF + 0.035;
-          var backW = new THREE.Mesh(new THREE.BoxGeometry(W, H, wall), matFount); backW.position.set(0, yF + H / 2, -D / 2 + wall / 2);
-          var leftW = new THREE.Mesh(new THREE.BoxGeometry(wall, H, D), matFount); leftW.position.set(-W / 2 + wall / 2, yF + H / 2, 0);
-          var rightW = leftW.clone(); rightW.position.x = W / 2 - wall / 2;
-
-          var slotHalf = 0.14;
-          var fwLeftW = Math.max(0.2, (masterX - slotHalf) - (-W / 2 + wall));
-          var fwLeft = new THREE.Mesh(new THREE.BoxGeometry(fwLeftW, H, wall), matFount);
-          fwLeft.position.set(-W / 2 + wall + fwLeftW / 2, yF + H / 2, D / 2 - wall / 2);
-          var fwRightStart = masterX + slotHalf;
-          var fwRightW = Math.max(0.2, (W / 2 - wall) - fwRightStart);
-          var fwRight = new THREE.Mesh(new THREE.BoxGeometry(fwRightW, H, wall), matFount);
-          fwRight.position.set(fwRightStart + fwRightW / 2, yF + H / 2, D / 2 - wall / 2);
-          var fwSill = new THREE.Mesh(new THREE.BoxGeometry(slotHalf * 2, H * 0.58, wall), matFount);
-          fwSill.position.set(masterX, yF + H * 0.29, D / 2 - wall / 2);
-          caseG.add(flr, drip, backW, leftW, rightW, fwLeft, fwRight, fwSill);
-          registerPart("suitcaseCase", "Suitcase Case & Drip Tray", "case", "1. Case, Lid & Grate", caseG, [0, 0, 0], [0, -0.52, 0]);
-
-          var lidG = new THREE.Group();
-          var pivot = new THREE.Group(); pivot.position.set(0, yF + H, -D / 2);
-          var lidTop = new THREE.Mesh(new THREE.BoxGeometry(W, 0.15, D), matFount); lidTop.position.set(0, 0.075, D / 2);
-          pivot.add(lidTop);
-          if (spec.hasTowelBar) {
-            pivot.add(makeTube([[-W * 0.35, 0.075, D - 0.04], [-W * 0.35, 0.075, D + 0.34], [W * 0.35, 0.075, D + 0.34], [W * 0.35, 0.075, D - 0.04]], 0.03, matSteel));
-          }
-          pivot.rotation.x = -1.36;
-          lidG.add(pivot);
-
-          var trapShape = new THREE.Shape();
-          trapShape.moveTo(-D * 0.44, 0);
-          trapShape.lineTo(D * 0.44, 0);
-          trapShape.lineTo(D * 0.30, D * 0.88);
-          trapShape.lineTo(-D * 0.34, D * 0.88);
-          trapShape.closePath();
-          var trapGeo = new THREE.ExtrudeGeometry(trapShape, { depth: 0.03, bevelEnabled: false });
-          trapGeo.rotateY(Math.PI / 2);
-
-          var wsL = new THREE.Mesh(trapGeo, matFount); wsL.position.set(-W / 2 + 0.06, yF + H, -0.04);
-          var wsR = new THREE.Mesh(trapGeo, matFount); wsR.position.set(W / 2 - 0.09, yF + H, -0.04);
-          lidG.add(wsL, wsR);
-          registerPart("lidAndScreens", "Lid & Tapered Windscreens", "case", "1. Case, Lid & Grate", lidG, [0, 0, 0], [0, 0.92, -0.82]);
-
-          var grtG = new THREE.Group();
-          var yG = yBowl + 0.285;
-          var gx0 = -W / 2 + 0.14, gx1 = W / 2 - 0.14, gz0 = -D / 2 + 0.16, gz1 = D / 2 - 0.16;
-          // Outer rectangular suitcase grate rails
-          grtG.add(makeTube([[gx0, yG, gz0], [gx1, yG, gz0], [gx1, yG, gz1], [gx0, yG, gz1], [gx0, yG, gz0]], 0.026, matSteel));
-          // Corner legs dropping down into the case floor/drip tray
-          [[gx0, gz0], [gx1, gz0], [gx1, gz1], [gx0, gz1]].forEach(function (pt) {
-            grtG.add(makeTube([[pt[0], yG, pt[1]], [pt[0], yF + 0.04, pt[1]]], 0.022, matSteel));
-          });
-          // Parallel front-to-back grate bars with a clean open window over each burner (no circular grill rings)
-          var bCenters = spec.burners === 3 ? [auxLX, masterX, auxRX] : [auxLX, masterX];
-          var barCount = spec.burners === 3 ? 15 : 11;
-          for (var bi = 0; bi < barCount; bi++) {
-            var bx = gx0 + 0.16 + (bi / (barCount - 1)) * (gx1 - gx0 - 0.32);
-            var nearBurner = bCenters.some(function (bc) { return Math.abs(bx - bc) < 0.34; });
-            if (!nearBurner) {
-              var barM = new THREE.Mesh(new THREE.CylinderGeometry(0.017, 0.017, gz1 - gz0 - 0.04, 10), matSteel);
-              barM.rotation.x = Math.PI / 2;
-              barM.position.set(bx, yG, 0);
-              grtG.add(barM);
-            } else {
-              // Front and back bridge stubs outside the burner opening
-              var stubLen = (gz1 - gz0) * 0.24;
-              var fStub = new THREE.Mesh(new THREE.CylinderGeometry(0.017, 0.017, stubLen, 10), matSteel);
-              fStub.rotation.x = Math.PI / 2;
-              fStub.position.set(bx, yG, gz1 - 0.02 - stubLen * 0.5);
-              var rStub = fStub.clone();
-              rStub.position.z = gz0 + 0.02 + stubLen * 0.5;
-              grtG.add(fStub, rStub);
-            }
-          }
-          // Front and rear tie-bars connecting the parallel slats
-          [-D * 0.31, D * 0.31].forEach(function (tz) {
-            var tieB = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, gx1 - gx0 - 0.04, 10), matSteel);
-            tieB.rotation.z = Math.PI / 2;
-            tieB.position.set(0, yG, tz);
-            grtG.add(tieB);
-          });
-          registerPart("wireGrate", "Suitcase Slatted Grate", "case", "1. Case, Lid & Grate", grtG, [0, 0, 0], [0, 1.52, 0]);
-
-          var manG = new THREE.Group();
-          manG.add(makeTube([[masterX, yF + 0.36, D / 2 - 0.02], [masterX, yF + 0.20, 0.32], [masterX, yBowl, 0]], 0.125, matCastIron));
-          manG.add(makeTube([[masterX, yBowl - 0.08, 0], [(masterX + auxLX) * 0.5, yBowl - 0.12, 0], [auxLX, yBowl, 0]], 0.09, matCastIron));
-          if (spec.burners === 3) {
-            manG.add(makeTube([[masterX, yBowl - 0.08, 0], [(masterX + auxRX) * 0.5, yBowl - 0.12, 0], [auxRX, yBowl, 0]], 0.09, matCastIron));
-          }
-          registerPart("uManifold", "U-Manifold & Bunsen Throat", "burner", "2. Manifold & Burner Rings", manG, [0, 0, 0], [0, -0.1, 0]);
-
-          var auxVG = new THREE.Group();
-          var sLen = Math.abs(-W / 2 - auxLX) + 0.22;
-          var sL = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, sLen, 12), matSteel); sL.rotation.z = Math.PI / 2; sL.position.set((-W / 2 + auxLX) / 2 - 0.08, yBowl - 0.08, 0);
-          var wL = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.19, 0.11), matBrass); wL.position.set(-W / 2 - 0.16, yBowl - 0.08, 0);
-          auxVG.add(sL, wL);
-          if (spec.burners === 3) {
-            var sR = sL.clone(); sR.position.x = (W / 2 + auxRX) / 2 + 0.08;
-            var wR = wL.clone(); wR.position.x = W / 2 + 0.16;
-            auxVG.add(sR, wR);
-          }
-          registerPart("auxValve", "Auxiliary Valve Stem", "burner", "2. Manifold & Burner Rings", auxVG, [0, 0, 0], [spec.burners === 3 ? 0 : -1.05, 0.22, 0]);
-
-          addBurnerStack({ prefix: "m", label: "Master Burner", x: masterX, yBowl: yBowl, z: 0, bowlR: 0.44, ringR: 0.39, bowlId: "masterBowl", ringsId: "masterRings", capId: "masterCap", sysTitle: "2. Manifold & Burner Rings", isSingle: false });
-          addBurnerStack({ prefix: "al", label: spec.burners === 3 ? "Left Aux Burner" : "Aux Burner", x: auxLX, yBowl: yBowl, z: 0, bowlR: 0.38, ringR: 0.33, bowlId: "auxLeftBowl", ringsId: "auxLeftRings", capId: "auxLeftCap", sysTitle: "2. Manifold & Burner Rings", isSingle: false });
-          if (spec.burners === 3) {
-            addBurnerStack({ prefix: "ar", label: "Right Aux Burner", x: auxRX, yBowl: yBowl, z: 0, bowlR: 0.38, ringR: 0.33, bowlId: "auxRightBowl", ringsId: "auxRightRings", capId: "auxRightCap", sysTitle: "2. Manifold & Burner Rings", isSingle: false });
-          }
-
-          var tGrp = new THREE.Group();
-          var cLen = Math.max(0.2, tankW - tankH); var rad = tankH * 0.5;
-          var tCyl = new THREE.Mesh(new THREE.CylinderGeometry(rad, rad, cLen, 28), matRedLever); tCyl.rotation.z = Math.PI / 2; tCyl.scale.set(1, 1, tankD / tankH);
-          var tCapL = new THREE.Mesh(new THREE.SphereGeometry(rad, 22, 16), matRedLever); tCapL.scale.set(0.65, 1, tankD / tankH); tCapL.position.x = -cLen * 0.5;
-          var tCapR = tCapL.clone(); tCapR.position.x = cLen * 0.5;
-          var tbL = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.16, 0.24), matRedLever); tbL.position.set(-tankW * 0.3, 0.12, -tankD * 0.5);
-          var tbR = tbL.clone(); tbR.position.x = tankW * 0.3;
-          tGrp.add(tCyl, tCapL, tCapR, tbL, tbR);
-          registerPart("frontTank", "Front Fuel Tank", "tank", "3. Tank & Cap", tGrp, [tankX, tankY, tankZ], [0, -0.06, 1.25]);
-
-          var cGsk = new THREE.Group(); cGsk.rotation.x = 0.45;
-          var gR = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.024, 12, 24), matGasket); gR.rotation.x = Math.PI / 2; cGsk.add(gR);
-          registerPart("capGasket", "Fuel Cap Gasket", "tank", "3. Tank & Cap", cGsk, [tankX - tankW * 0.3, tankY + 0.27, tankZ + 0.14], [-0.45, 0.45, 1.52]);
-
-          var fCap = new THREE.Group(); fCap.rotation.x = 0.45;
-          fCap.add(new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.156, 0.13, 24), matBrass));
-          registerPart("fuelCap", "Fuel Filler Cap", "tank", "3. Tank & Cap", fCap, [tankX - tankW * 0.3, tankY + 0.32, tankZ + 0.18], [-0.55, 0.68, 1.72]);
-
-          var pBaseX = tankX + tankW * 0.46;
-          var cvG = new THREE.Group();
-          var cvM = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.16, 14), matBrass); cvM.rotation.z = Math.PI / 2; cvM.position.x = -0.35;
-          cvG.add(cvM);
-          registerPart("checkValve", "Check Valve & Air Stem", "pump", "4. Pump & Check Valve", cvG, [pBaseX, tankY, tankZ], [0.55, 0, 1.25]);
-
-          var cupG = new THREE.Group();
-          var cpM = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.12, 0.10, 18), matLeather); cpM.rotation.z = Math.PI / 2; cpM.position.x = -0.14;
-          cupG.add(cpM);
-          registerPart("pumpCup", "Leather Pump Cup", "pump", "4. Pump & Check Valve", cupG, [pBaseX, tankY, tankZ], [1.05, 0, 1.25]);
-
-          var plG = new THREE.Group();
-          var plRod = new THREE.Mesh(new THREE.CylinderGeometry(0.034, 0.034, 0.62, 12), matSteel); plRod.rotation.z = Math.PI / 2; plRod.position.x = 0.12;
-          var plKnb = new THREE.Mesh(new THREE.CylinderGeometry(0.145, 0.145, 0.09, 20), matDark); plKnb.rotation.z = Math.PI / 2; plKnb.position.x = 0.42;
-          plG.add(plRod, plKnb);
-          registerPart("pumpPlunger", "Pump Plunger & Knob", "pump", "4. Pump & Check Valve", plG, [pBaseX, tankY, tankZ], [1.62, 0, 1.25]);
-
-          registerPart("faTube", "Fuel/Air Pickup Tube", "fuel", "5. Valve, Gen & Pickup", new THREE.Mesh(new THREE.CylinderGeometry(0.048, 0.048, 0.50, 16), matBrass), [masterX, tankY - 0.04, tankZ], [0, -0.92, 1.25]);
-          registerPart("valveBody", "Main Brass Valve Body", "fuel", "5. Valve, Gen & Pickup", new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.26, 0.22), matBrass), [masterX, tankY + 0.34, tankZ], [0, 0.12, 1.35]);
-
-          var pkSG = new THREE.Group();
-          var pkSM = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.12, 18), matGraphite); pkSM.rotation.x = Math.PI / 2;
-          pkSG.add(pkSM);
-          registerPart("valvePacking", "Valve Stem Packing", "fuel", "5. Valve, Gen & Pickup", pkSG, [masterX, tankY + 0.34, tankZ + 0.16], [0, 0.12, 1.72]);
-
-          var whSG = new THREE.Group();
-          var whSM = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.085, 24), matDark); whSM.rotation.x = Math.PI / 2;
-          whSG.add(whSM);
-          registerPart("valveWheel", "Fuel Control Wheel", "fuel", "5. Valve, Gen & Pickup", whSG, [masterX, tankY + 0.34, tankZ + 0.30], [0, 0.12, 2.12]);
-
-          var lvG = new THREE.Group();
-          var lvSt = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.26, 10), matBrass); lvSt.rotation.z = Math.PI / 2; lvSt.position.x = -0.16;
-          var lvTb = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.05, 0.05), matRedLever); lvTb.position.set(-0.29, 0.04, 0);
-          lvG.add(lvSt, lvTb);
-          registerPart("lightLever", "Start / Light Lever", "fuel", "5. Valve, Gen & Pickup", lvG, [masterX, tankY + 0.36, tankZ], [-0.72, 0.32, 1.75]);
-
-          var gLen = tankZ - (D / 2 - 0.12);
-          var gnG = new THREE.Group();
-          var gnTb = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, gLen, 18), matBrass); gnTb.rotation.x = Math.PI / 2; gnTb.position.z = -gLen * 0.5;
-          gnG.add(gnTb);
-          registerPart("generator", "Stove Generator", "fuel", "5. Valve, Gen & Pickup", gnG, [masterX, tankY + 0.34, tankZ - 0.08], [0.65, 0.52, 1.25]);
-
-          addDynamicFlowStream(function (e) {
-            return [
-              [masterX, tankY - 0.22 - 0.92 * e, tankZ + 1.25 * e],
-              [masterX, tankY + 0.34 + 0.12 * e, tankZ + 1.35 * e]
-            ];
-          }, 0xfbbf24, 4, 0.30);
-
-          addDynamicFlowStream(function (e) {
-            return [
-              [masterX + 0.65 * e, tankY + 0.34 + 0.52 * e, tankZ - 0.08 + 1.25 * e],
-              [masterX, yF + 0.36 - 0.10 * e, D / 2 - 0.02]
-            ];
-          }, 0xf97316, 5, 0.38);
-
-          addDynamicFlowStream(function (e) {
-            return [
-              [masterX, yF + 0.36 - 0.10 * e, D / 2 - 0.02],
-              [masterX, yBowl + 0.18 + 0.38 * e, 0]
-            ];
-          }, 0x22d3ee, 5, 0.35);
-
-          addCheckpointRing([masterX, yF + 0.36, D / 2 - 0.02], 0.24);
-        }
-
-        function buildRefined502_3D(spec) {
-          var fG = new THREE.Group();
-          var fPts = [
-            new THREE.Vector2(0, -1.08), new THREE.Vector2(1.22, -1.08), new THREE.Vector2(1.26, -1.02),
-            new THREE.Vector2(1.20, -0.45), new THREE.Vector2(0.95, -0.22), new THREE.Vector2(0.42, -0.10), new THREE.Vector2(0, -0.10)
-          ];
-          var fGeo = new THREE.LatheGeometry(fPts, 44); fGeo.computeVertexNormals();
-          fG.add(new THREE.Mesh(fGeo, matFount));
-          registerPart("fount", "502 Steel Fount", "tank", "1. Fount & Cap", fG, [0, 0, 0], [0, -0.52, 0]);
-
-          var gsk = new THREE.Group(); gsk.rotation.z = 0.45; gsk.rotation.x = 0.12;
-          var gt = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.022, 12, 24), matGasket); gt.rotation.x = Math.PI / 2; gsk.add(gt);
-          registerPart("capGasket", "Fuel Cap Gasket", "tank", "1. Fount & Cap", gsk, [-0.82, -0.24, 0.34], [capAxis.x * 0.65, capAxis.y * 0.65, capAxis.z * 0.65]);
-
-          var fc = new THREE.Group(); fc.rotation.z = 0.45; fc.rotation.x = 0.12;
-          fc.add(new THREE.Mesh(new THREE.CylinderGeometry(0.165, 0.172, 0.11, 24), matCap));
-          registerPart("fuelCap", "Fuel Filler Cap", "tank", "1. Fount & Cap", fc, [-0.86, -0.19, 0.36], [capAxis.x * 1.15, capAxis.y * 1.15, capAxis.z * 1.15]);
-
-          var cvG = new THREE.Group(); cvG.rotation.z = -0.48; cvG.rotation.x = 0.12;
-          var cvM = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.15, 14), matBrass); cvM.position.y = -0.52; cvG.add(cvM);
-          registerPart("checkValve", "Check Valve & Air Stem", "pump", "2. Pump & Check Valve", cvG, [0.85, -0.22, 0.35], [pumpAxis.x * 0.48, pumpAxis.y * 0.48, pumpAxis.z * 0.48]);
-
-          var cpG = new THREE.Group(); cpG.rotation.z = -0.48; cpG.rotation.x = 0.12;
-          var cpM = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.12, 0.095, 18), matLeather); cpM.position.y = -0.34; cpG.add(cpM);
-          registerPart("pumpCup", "Leather Pump Cup", "pump", "2. Pump & Check Valve", cpG, [0.85, -0.22, 0.35], [pumpAxis.x * 0.96, pumpAxis.y * 0.96, pumpAxis.z * 0.96]);
-
-          var plG = new THREE.Group(); plG.rotation.z = -0.48; plG.rotation.x = 0.12;
-          var plR = new THREE.Mesh(new THREE.CylinderGeometry(0.036, 0.036, 0.42, 12), matSteel); plR.position.y = -0.14;
-          var plC = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.17, 0.10, 22), matPumpCap); plC.position.y = 0.05;
-          var plK = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.10, 0.055, 20), matPumpCap); plK.position.y = 0.12;
-          plG.add(plR, plC, plK);
-          registerPart("pumpPlunger", "Pump Plunger & Cap", "pump", "2. Pump & Check Valve", plG, [0.85, -0.22, 0.35], [pumpAxis.x * 1.48, pumpAxis.y * 1.48, pumpAxis.z * 1.48]);
-
-          registerPart("faTube", "F/A Pickup Tube", "fuel", "3. Valve & Generator", new THREE.Mesh(new THREE.CylinderGeometry(0.048, 0.048, 0.68, 14), matBrass), [0, -0.58, 0], [0, -1.22, 0]);
-
-          var vbG = new THREE.Group();
-          vbG.add(new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.15, 0.32, 18), matBrass));
-          var wh = new THREE.Mesh(new THREE.CylinderGeometry(0.20, 0.20, 0.085, 24), matDark); wh.rotation.x = Math.PI / 2; wh.position.z = 0.42;
-          vbG.add(wh);
-          registerPart("valveBody", "Valve Body & Control Wheel", "fuel", "3. Valve & Generator", vbG, [0, -0.02, 0], [0, 0, 0.88]);
-
-          var drmG = new THREE.Group();
-          drmG.add(new THREE.Mesh(new THREE.CylinderGeometry(1.06, 1.06, 0.66, 40, 1, true), matCollar));
-          registerPart("heatDrum", "Aluminum Heat Drum (502-3291)", "case", "4. Drum, Burner & Grate", drmG, [0, 0.36, 0], [0, 0.32, 0]);
-
-          var bunG = new THREE.Group();
-          bunG.add(new THREE.Mesh(new THREE.CylinderGeometry(0.23, 0.19, 0.34, 20), matCastBrass));
-          bunG.add(makeTube([[-0.56, 0.34, 0], [-0.42, 0.02, 0], [0, 0, 0]], 0.09, matCastBrass));
-          registerPart("bunsen", "Cast-Brass Bunsen Shoe", "burner", "4. Drum, Burner & Grate", bunG, [0, 0.28, 0], [0, 0.52, 0]);
-
-          addBurnerStack({ prefix: "s502", label: "502 Sportster", x: 0, yBowl: 0.44, z: 0, bowlR: 0.52, ringR: 0.45, bowlId: "bowl", ringsId: "rings", capId: "capScrew", sysTitle: "4. Drum, Burner & Grate", isSingle: true });
-
-          var gnG = new THREE.Group();
-          gnG.add(makeTube([[0.64, 0.05, 0], [0.64, 0.88, 0], [-0.56, 0.88, 0], [-0.58, 0.64, 0]], 0.046, matBrass));
-          registerPart("generator", "Over-Burner L-Generator (R206)", "fuel", "3. Valve & Generator", gnG, [0, 0, 0], [0.85, 1.42, 0]);
-
-          var grtG = new THREE.Group();
-          var gOuter = new THREE.Mesh(new THREE.TorusGeometry(0.96, 0.026, 12, 44), matSteel); gOuter.rotation.x = Math.PI / 2;
-          var gInner = new THREE.Mesh(new THREE.TorusGeometry(0.56, 0.022, 12, 36), matSteel); gInner.rotation.x = Math.PI / 2;
-          grtG.add(gOuter, gInner);
-          for (var i = 0; i < 4; i++) {
-            var a = (i / 4) * Math.PI * 2 + Math.PI / 4;
-            var ca = Math.cos(a), sa = Math.sin(a);
-            grtG.add(makeTube([
-              [ca * 0.32, 0.0, sa * 0.32],
-              [ca * 0.96, 0.0, sa * 0.96],
-              [ca * 1.05, -0.14, sa * 1.05],
-              [ca * 1.05, -0.34, sa * 1.05]
-            ], 0.025, matSteel));
-          }
-          registerPart("grate", "4-Arm Steel Grate (501A501)", "case", "4. Drum, Burner & Grate", grtG, [0, 0.78, 0], [0, 1.82, 0]);
-
-          addDynamicFlowStream(function (e) {
-            return [[0, -0.72 - 1.22 * e, 0], [0, -0.02, 0.88 * e], [0.64 + 0.85 * e, 0.05 + 1.42 * e, 0]];
-          }, 0xfbbf24, 5, 0.30);
-
-          addDynamicFlowStream(function (e) {
-            return [[0.64 + 0.85 * e, 0.12 + 1.42 * e, 0], [0.64 + 0.85 * e, 0.88 + 1.42 * e, 0], [-0.56 + 0.85 * e, 0.88 + 1.42 * e, 0], [-0.58 + 0.85 * e, 0.64 + 1.42 * e, 0]];
-          }, 0xf97316, 6, 0.38);
-
-          addDynamicFlowStream(function (e) {
-            return [[-0.58 + 0.85 * e, 0.58 + 1.42 * e, 0], [-0.42, 0.30 + 0.52 * e, 0], [0, 0.62 + 0.38 * e, 0]];
-          }, 0x22d3ee, 5, 0.34);
-
-          addCheckpointRing([0, 0.78, 0], 0.22);
-        }
-
-        function buildRefined500_3D(spec) {
-          var fG = new THREE.Group();
-          var fPts = [
-            new THREE.Vector2(0, -1.06), new THREE.Vector2(1.46, -1.06), new THREE.Vector2(1.50, -0.98),
-            new THREE.Vector2(1.42, -0.44), new THREE.Vector2(1.04, -0.18), new THREE.Vector2(0.45, -0.08), new THREE.Vector2(0, -0.08)
-          ];
-          var fGeo = new THREE.LatheGeometry(fPts, 48); fGeo.computeVertexNormals();
-          fG.add(new THREE.Mesh(fGeo, matFount));
-          registerPart("fount", "500 Speedmaster Fount", "tank", "1. Fount & Cap", fG, [0, 0, 0], [0, -0.52, 0]);
-
-          var gsk = new THREE.Group(); gsk.rotation.z = 0.42; gsk.rotation.x = 0.12;
-          var gt = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.022, 12, 24), matGasket); gt.rotation.x = Math.PI / 2; gsk.add(gt);
-          registerPart("capGasket", "Small S45 Cap Gasket", "tank", "1. Fount & Cap", gsk, [-0.98, -0.23, 0.40], [capAxis.x * 0.65, capAxis.y * 0.65, capAxis.z * 0.65]);
-
-          var fc = new THREE.Group(); fc.rotation.z = 0.42; fc.rotation.x = 0.12;
-          fc.add(new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.18, 0.12, 24), matCap));
-          registerPart("fuelCap", "Fuel Filler Cap", "tank", "1. Fount & Cap", fc, [-1.02, -0.18, 0.42], [capAxis.x * 1.15, capAxis.y * 1.15, capAxis.z * 1.15]);
-
-          var cvG = new THREE.Group(); cvG.rotation.z = -0.46; cvG.rotation.x = 0.12;
-          var cvM = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.16, 14), matBrass); cvM.position.y = -0.52; cvG.add(cvM);
-          registerPart("checkValve", "Check Valve & Air Stem", "pump", "2. Pump & Valve", cvG, [1.02, -0.22, 0.42], [pumpAxis.x * 0.48, pumpAxis.y * 0.48, pumpAxis.z * 0.48]);
-
-          var cpG = new THREE.Group(); cpG.rotation.z = -0.46; cpG.rotation.x = 0.12;
-          var cpM = new THREE.Mesh(new THREE.CylinderGeometry(0.115, 0.125, 0.095, 18), matLeather); cpM.position.y = -0.34; cpG.add(cpM);
-          registerPart("pumpCup", "Leather Pump Cup", "pump", "2. Pump & Valve", cpG, [1.02, -0.22, 0.42], [pumpAxis.x * 0.96, pumpAxis.y * 0.96, pumpAxis.z * 0.96]);
-
-          var plG = new THREE.Group(); plG.rotation.z = -0.46; plG.rotation.x = 0.12;
-          var plR = new THREE.Mesh(new THREE.CylinderGeometry(0.036, 0.036, 0.46, 12), matBrass); plR.position.y = -0.14;
-          var plC = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.175, 0.11, 22), matPumpCap); plC.position.y = 0.05;
-          var plK = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.10, 0.055, 20), matPumpCap); plK.position.y = 0.12;
-          plG.add(plR, plC, plK);
-          registerPart("pumpPlunger", "Pump Plunger & Cap", "pump", "2. Pump & Valve", plG, [1.02, -0.22, 0.42], [pumpAxis.x * 1.48, pumpAxis.y * 1.48, pumpAxis.z * 1.48]);
-
-          var vlG = new THREE.Group();
-          vlG.add(new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.32, 0.24), matBrass));
-          var wh = new THREE.Mesh(new THREE.CylinderGeometry(0.21, 0.21, 0.085, 24), matDark); wh.rotation.x = Math.PI / 2; wh.position.z = 0.32;
-          vlG.add(wh);
-          registerPart("valve", "Brass Valve & Wheel", "fuel", "2. Pump & Valve", vlG, [0.92, 0.08, 0], [0.95, 0.15, 0.62]);
-
-          var gnG = new THREE.Group();
-          gnG.add(makeTube([[0.85, 0.18, 0], [0.12, 0.18, 0]], 0.052, matBrass));
-          registerPart("generator", "500-2891 Generator", "fuel", "3. Burner & Grate", gnG, [0, 0, 0], [1.25, 0.55, 0]);
-
-          var bnG = new THREE.Group();
-          var bPlate = new THREE.Mesh(new THREE.CylinderGeometry(0.54, 0.56, 0.09, 28), matCastIron); bPlate.position.y = -0.02;
-          bnG.add(bPlate, makeTube([[0.42, 0.18, 0], [0.12, 0.16, 0], [0, 0.42, 0]], 0.135, matCastIron));
-          registerPart("bunsen", "Cast Step-Up Bunsen", "burner", "3. Burner & Grate", bnG, [0, 0, 0], [0, 0.35, 0]);
-
-          addBurnerStack({ prefix: "s500", label: "500 Speedmaster", x: 0, yBowl: 0.42, z: 0, bowlR: 0.62, ringR: 0.54, bowlId: "bowl", ringsId: "rings", capId: "cap", sysTitle: "3. Burner & Grate", isSingle: true });
-
-          var grtG = new THREE.Group();
-          var rO = new THREE.Mesh(new THREE.TorusGeometry(1.16, 0.028, 12, 48), matSteel); rO.rotation.x = Math.PI / 2;
-          var rI = new THREE.Mesh(new THREE.TorusGeometry(0.68, 0.024, 12, 36), matSteel); rI.rotation.x = Math.PI / 2;
-          grtG.add(rO, rI);
-          for (var sp = 0; sp < 6; sp++) {
-            var spA = (sp / 6) * Math.PI * 2;
-            grtG.add(makeTube([[Math.cos(spA) * 0.34, 0, Math.sin(spA) * 0.34], [Math.cos(spA) * 1.16, 0, Math.sin(spA) * 1.16]], 0.022, matSteel));
-          }
-          for (var p = 0; p < 3; p++) {
-            var pA = (p / 3) * Math.PI * 2 + 0.5;
-            var px = Math.cos(pA) * 1.14, pz = Math.sin(pA) * 1.14;
-            grtG.add(makeTube([[px, 0, pz], [px, -0.74, pz]], 0.032, matSteel));
-          }
-          registerPart("grate", "Round Grate & 3 Posts", "case", "3. Burner & Grate", grtG, [0, 0.76, 0], [0, 1.82, 0]);
-
-          addDynamicFlowStream(function (e) {
-            return [[0.92 + 0.95 * e, -0.62, 0.62 * e], [0.92 + 0.95 * e, 0.18 + 0.15 * e, 0.62 * e], [0.12 + 1.25 * e, 0.18 + 0.55 * e, 0], [0, 0.62 + 0.38 * e, 0]];
-          }, 0xf97316, 6, 0.36);
-
-          addCheckpointRing([0.36, 0.18, 0], 0.22);
-        }
-
-        function buildRefinedPeak1_3D(spec) {
-          var isBrown = (spec.arch === "peak400");
-          var fG = new THREE.Group();
-          var fPts = [
-            new THREE.Vector2(0, -0.92), new THREE.Vector2(0.96, -0.92), new THREE.Vector2(1.00, -0.85),
-            new THREE.Vector2(0.95, -0.34), new THREE.Vector2(0.72, -0.14), new THREE.Vector2(0.32, -0.05), new THREE.Vector2(0, -0.05)
-          ];
-          var fGeo = new THREE.LatheGeometry(fPts, 40); fGeo.computeVertexNormals();
-          fG.add(new THREE.Mesh(fGeo, matFount));
-          registerPart("fount", "Peak 1 Fount", "tank", "1. Fount & Legs", fG, [0, 0, 0], [0, -0.48, 0]);
-
-          var legG = new THREE.Group();
-          for (var i = 0; i < 3; i++) {
-            var a = (i / 3) * Math.PI * 2 + 0.52;
-            var ft = new THREE.Mesh(new THREE.BoxGeometry(0.66, 0.13, 0.06), matSteel);
-            ft.position.set(Math.cos(a) * 1.02, -0.96, Math.sin(a) * 1.02);
-            ft.rotation.y = -a;
-            legG.add(ft);
-          }
-          registerPart("tripodLegs", "3 Tripod Stabilizer Legs", "case", "1. Fount & Legs", legG, [0, 0, 0], [0, -0.92, 0]);
-
-          var gsk = new THREE.Group(); gsk.rotation.z = 0.44; gsk.rotation.x = 0.12;
-          var gt = new THREE.Mesh(new THREE.TorusGeometry(0.10, 0.02, 12, 24), matGasket); gt.rotation.x = Math.PI / 2; gsk.add(gt);
-          registerPart("capGasket", "S42 Cap Gasket", "tank", "1. Fount & Legs", gsk, [-0.66, -0.22, 0.28], [capAxis.x * 0.62, capAxis.y * 0.62, capAxis.z * 0.62]);
-
-          var fc = new THREE.Group(); fc.rotation.z = 0.44; fc.rotation.x = 0.12;
-          fc.add(new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.156, 0.10, 24), matCap));
-          registerPart("fuelCap", "Fuel Filler Cap", "tank", "1. Fount & Legs", fc, [-0.69, -0.17, 0.30], [capAxis.x * 1.12, capAxis.y * 1.12, capAxis.z * 1.12]);
-
-          var pmpG = new THREE.Group(); pmpG.rotation.z = -0.46; pmpG.rotation.x = 0.12;
-          var pU = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.11, 0.08, 16), matLeather); pU.position.y = -0.28;
-          var pR = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.36, 10), matSteel); pR.position.y = -0.12;
-          var pC = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.09, 18), matPumpCap); pC.position.y = 0.04;
-          var pK = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.088, 0.05, 18), matPumpCap); pK.position.y = 0.10;
-          pmpG.add(pU, pR, pC, pK);
-          registerPart("pump", "Pump & Check Valve", "pump", "2. Valve, Core & Gen", pmpG, [0.68, -0.18, 0.30], [pumpAxis.x * 1.25, pumpAxis.y * 1.25, pumpAxis.z * 1.25]);
-
-          var faMat = isBrown ? matBrass : new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.32, metalness: 0.04, transparent: true, opacity: 0.85 });
-          var faG = new THREE.Group();
-          var faT = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.60, 16), faMat); faT.position.y = -0.46;
-          var sch = new THREE.Mesh(new THREE.CylinderGeometry(0.056, 0.056, 0.18, 14), matBrass); sch.position.y = -0.10;
-          faG.add(faT, sch);
-          registerPart("faAndCore", isBrown ? "R510 Core & Brass F/A Tube" : "R510 Core & Plastic F/A Tube", "fuel", "2. Valve, Core & Gen", faG, [0, -0.05, 0], [0, -1.18, 0]);
-
-          var vlG = new THREE.Group();
-          vlG.add(new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.28, 0.24), matBrass));
-          var rSt = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.34, 10), matSteel); rSt.rotation.x = Math.PI / 2; rSt.position.z = 0.22;
-          var rTb = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.06, 0.12), matRedLever); rTb.position.z = 0.40;
-          vlG.add(rSt, rTb);
-          registerPart("valve", "Valve Body & Red Lever", "fuel", "2. Valve, Core & Gen", vlG, [0, 0.08, 0], [0, 0.12, 0.92]);
-
-          var gnG = new THREE.Group();
-          gnG.add(makeTube([[0.14, 0.14, 0], [0.52, 0.38, 0], [0.44, 0.78, 0], [0, 0.80, 0], [-0.44, 0.76, 0], [-0.42, 0.36, 0], [-0.12, 0.24, 0]], 0.042, matBrass));
-          if (isBrown) {
-            var sBox = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.13, 0.13), matBrass); sBox.position.set(-0.44, 0.36, 0);
-            var sRod = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.36, 10), matSteel); sRod.rotation.z = Math.PI / 2; sRod.position.set(-0.62, 0.36, 0);
-            var bTab = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.06, 0.11), matDark); bTab.position.set(-0.80, 0.36, 0);
-            gnG.add(sBox, sRod, bTab);
-          }
-          registerPart("generator", isBrown ? "400-5891 Gen + Simmer Lever" : "400B2891 Leverless Gen", "fuel", "2. Valve, Core & Gen", gnG, [0, 0, 0], [0.85, 1.32, 0]);
-
-          addBurnerStack({ prefix: "pk", label: "Peak 1", x: 0, yBowl: 0.25, z: 0, bowlR: 0.46, ringR: 0.40, bowlId: "bowl", ringsId: "rings", capId: "cap", sysTitle: "3. Burner & X-Baffle", isSingle: true });
-
-          var bxG = new THREE.Group();
-          var skrt = new THREE.Mesh(new THREE.CylinderGeometry(0.78, 0.64, 0.36, 32, 1, true), matSteel); skrt.position.y = 0.36;
-          bxG.add(skrt);
-          for (var xi = 0; xi < 4; xi++) {
-            var xa = (xi / 4) * Math.PI * 2 + Math.PI / 4;
-            var cosA = Math.cos(xa), sinA = Math.sin(xa);
-            var blade = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.16, 0.026), matSteel);
-            blade.position.set(cosA * 0.38, 0.62, sinA * 0.38);
-            blade.rotation.y = -xa;
-            bxG.add(blade);
-            for (var tk = 0; tk < 3; tk++) {
-              var tr = 0.56 + tk * 0.11;
-              var tooth = new THREE.Mesh(new THREE.BoxGeometry(0.065, 0.045, 0.032), matSteel);
-              tooth.position.set(cosA * tr, 0.71, sinA * tr);
-              tooth.rotation.y = -xa;
-              bxG.add(tooth);
-            }
-          }
-          registerPart("baffleGrate", "Skirt & X-Baffle Grate", "case", "3. Burner & X-Baffle", bxG, [0, 0, 0], [0, 1.82, 0]);
-
-          addDynamicFlowStream(function (e) {
-            return [[0, -0.62 - 1.18 * e, 0], [0, 0.10 + 0.12 * e, 0.92 * e], [0.14 + 0.85 * e, 0.14 + 1.32 * e, 0]];
-          }, 0xfbbf24, 4, 0.30);
-
-          addDynamicFlowStream(function (e) {
-            return [[0.14 + 0.85 * e, 0.14 + 1.32 * e, 0], [0.48 + 0.85 * e, 0.45 + 1.32 * e, 0], [0 + 0.85 * e, 0.80 + 1.32 * e, 0], [-0.42 + 0.85 * e, 0.36 + 1.32 * e, 0], [0, 0.45 + 0.38 * e, 0]];
-          }, 0xf97316, 6, 0.38);
-
-          addCheckpointRing([0, isBrown ? -0.15 : -0.45, 0], 0.22);
-        }
-
-        function buildRefined530_3D(spec) {
-          var fG = new THREE.Group();
-          var fPts = [
-            new THREE.Vector2(0, -1.24), new THREE.Vector2(0.76, -1.24), new THREE.Vector2(0.80, -1.16),
-            new THREE.Vector2(0.76, -0.22), new THREE.Vector2(0.58, -0.06), new THREE.Vector2(0.24, 0), new THREE.Vector2(0, 0)
-          ];
-          var fGeo = new THREE.LatheGeometry(fPts, 44); fGeo.computeVertexNormals();
-          fG.add(new THREE.Mesh(fGeo, matFount));
-          registerPart("fount", "530 Nickel Fount", "tank", "1. Fount & Cap", fG, [0, 0, 0], [0, -0.58, 0]);
-
-          var gsk = new THREE.Group();
-          var gt = new THREE.Mesh(new THREE.TorusGeometry(0.095, 0.02, 12, 24), matGasket); gt.rotation.x = Math.PI / 2; gsk.add(gt);
-          registerPart("capGasket", "S41 Cap Gasket", "tank", "1. Fount & Cap", gsk, [-0.45, -0.04, 0.21], [-0.45, 0.42, 0.25]);
-
-          var fc = new THREE.Group();
-          fc.add(new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.136, 0.10, 24), matCap));
-          registerPart("fuelCap", "Fuel Filler Cap", "tank", "1. Fount & Cap", fc, [-0.46, 0.03, 0.22], [-0.55, 0.72, 0.35]);
-
-          var pmpG = new THREE.Group();
-          var pU = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.11, 0.085, 16), matLeather); pU.position.y = -0.34;
-          var pR = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.42, 12), matBrass); pR.position.y = -0.14;
-          var pC = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.09, 20), matPumpCap); pC.position.y = 0.05;
-          var pK = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.088, 0.05, 18), matPumpCap); pK.position.y = 0.12;
-          pmpG.add(pU, pR, pC, pK);
-          registerPart("pump", "Vertical Pump & Cup", "pump", "2. Valve & Vaporizer", pmpG, [0.46, 0.04, 0.22], [0.55, 0.85, 0.32]);
-
-          registerPart("pickup", "Straight Fuel Pickup Tube", "fuel", "2. Valve & Vaporizer", new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.042, 0.88, 14), matBrass), [0, -0.58, 0], [0, -1.32, 0]);
-
-          var vlG = new THREE.Group();
-          vlG.add(new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.28, 0.24), matBrass));
-          var wh = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.07, 24), matBrass); wh.rotation.x = Math.PI / 2; wh.position.z = 0.34;
-          var pCup = new THREE.Mesh(new THREE.CylinderGeometry(0.23, 0.15, 0.11, 24), matBrass); pCup.position.y = 0.19;
-          vlG.add(wh, pCup);
-          registerPart("valve", "Valve & Preheat Cup", "fuel", "2. Valve & Vaporizer", vlG, [0, 0.15, 0], [0, 0.05, 0.85]);
-
-          var vpG = new THREE.Group();
-          var vpT = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.072, 0.58, 18), matBrass); vpT.position.y = 0.30;
-          var jN = new THREE.Mesh(new THREE.CylinderGeometry(0.105, 0.105, 0.11, 6), matBrass); jN.position.y = 0.05;
-          vpG.add(vpT, jN);
-          registerPart("vaporizer", "530-2991 Vaporizer (R213)", "fuel", "2. Valve & Vaporizer", vpG, [0, 0.30, 0], [0.75, 0.62, 0]);
-
-          var blG = new THREE.Group();
-          var bPts = [new THREE.Vector2(0.10, 0), new THREE.Vector2(0.14, 0.14), new THREE.Vector2(0.32, 0.32), new THREE.Vector2(0.35, 0.38)];
-          blG.add(new THREE.Mesh(new THREE.LatheGeometry(bPts, 28), matCastBrass));
-          var spr = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.03, 24), matSteel); spr.position.y = 0.38;
-          blG.add(spr);
-          registerPart("roarerBell", "Roarer Bell & Spreader", "burner", "3. Burner & Cage", blG, [0, 0.88, 0], [0, 1.42, 0]);
-
-          var cgG = new THREE.Group();
-          var uRg = new THREE.Mesh(new THREE.TorusGeometry(0.72, 0.028, 10, 36), matSteel); uRg.rotation.x = Math.PI / 2; uRg.position.y = 1.30;
-          var lRg = new THREE.Mesh(new THREE.TorusGeometry(0.74, 0.028, 10, 36), matSteel); lRg.rotation.x = Math.PI / 2; lRg.position.y = -0.02;
-          cgG.add(uRg, lRg);
-          for (var i = 0; i < 3; i++) {
-            var a = (i / 3) * Math.PI * 2 + 0.4;
-            var st = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.32, 10), matSteel); st.position.set(Math.cos(a) * 0.73, 0.64, Math.sin(a) * 0.73);
-            var fg = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.036, 0.075), matSteel); fg.rotation.y = -a; fg.position.set(Math.cos(a) * 0.55, 1.33, Math.sin(a) * 0.55);
-            cgG.add(st, fg);
-          }
-          registerPart("cage", "3-Strut Cage & Pot Fingers", "case", "3. Burner & Cage", cgG, [0, 0, 0], [0, 2.02, 0]);
-
-          addFlameCrown(0, 1.24, 0, 0.26, 1.15);
-          addDynamicFlowStream(function (e) {
-            return [[0, -0.92 - 1.32 * e, 0], [0, 0.25 + 0.05 * e, 0.85 * e]];
-          }, 0xfbbf24, 5, 0.30);
-
-          addDynamicFlowStream(function (e) {
-            return [[0.75 * e, 0.28 + 0.62 * e, 0], [0.75 * e, 0.88 + 0.62 * e, 0], [0, 1.22 + 1.42 * e, 0]];
-          }, 0xf97316, 5, 0.38);
-
-          addCheckpointRing([0, 1.12, 0], 0.26);
-        }
-
         function syncOperationVisuals() {
-          var profile = MODELS[activeModelKey];
-          var isLantern = profile && profile.cat === "lantern";
           fxOperationGroup.visible = liveOpActive;
           document.getElementById("liveFlowLegend").style.display = liveOpActive ? "block" : "none";
-
-          if (isLantern) {
-            flameJets.forEach(function (j) { j.visible = false; });
-            lanternGlowLight.intensity = liveOpActive ? 2.4 : 0.0;
-            mantleMeshes.forEach(function (mm) {
-              if (liveOpActive) {
-                mm.material.emissive.setHex(0xffc966);
-                mm.material.emissiveIntensity = 0.92;
-              } else {
-                mm.material.emissive.setHex(0x000000);
-                mm.material.emissiveIntensity = 0.0;
-              }
-            });
-          } else {
-            flameJets.forEach(function (j) { j.visible = true; });
-            lanternGlowLight.intensity = 0.0;
-            mantleMeshes.forEach(function (mm) {
+          flameJets.forEach(function (j) { j.visible = false; });
+          lanternGlowLight.intensity = liveOpActive ? 2.45 : 0.0;
+          mantleMeshes.forEach(function (mm) {
+            if (liveOpActive) {
+              mm.material.emissive.setHex(0xffc966);
+              mm.material.emissiveIntensity = 0.94;
+            } else {
               mm.material.emissive.setHex(0x000000);
               mm.material.emissiveIntensity = 0.0;
-            });
-          }
+            }
+          });
         }
 
         function syncCheckpointVisuals() {
@@ -2915,22 +2079,13 @@
           }
         }
 
-        function switchEquipmentCategory(cat) {
-          activeCategory = cat;
-          document.getElementById("catLanternBtn").classList.toggle("active", cat === "lantern");
-          document.getElementById("catStoveBtn").classList.toggle("active", cat === "stove");
-          document.getElementById("btnGlobeMode").style.display = cat === "lantern" ? "inline-flex" : "none";
-          document.getElementById("liveOpLabel").textContent = cat === "lantern" ? "Live Lighting View" : "Live Burner View";
-          document.getElementById("stageBottomRightHint").textContent = cat === "lantern"
-            ? "Burner Stack Rule: Bowl → Rings → Cap · Toggle Globe to inspect inside"
-            : "Burner Stack Rule: Flat → Wavy → Flat → Wavy → Flat → Cap";
-
+        function switchEquipmentCategory() {
+          activeCategory = "lantern";
+          document.getElementById("btnGlobeMode").style.display = "inline-flex";
+          document.getElementById("liveOpLabel").textContent = "Live Lighting View";
+          document.getElementById("stageBottomRightHint").textContent = "Click any lantern part in 3D or in the parts list →";
           renderModelChips();
-          var firstKey = null;
-          for (var k in MODELS) {
-            if (MODELS[k].cat === cat) { firstKey = k; break; }
-          }
-          if (firstKey) selectModel(firstKey);
+          selectModel("288A");
         }
 
         function renderModelChips() {
@@ -2938,7 +2093,7 @@
           for (var k in MODELS) {
             if (MODELS[k].cat !== activeCategory) continue;
             var isAct = (k === activeModelKey) ? " active" : "";
-            html += "<button type=\"button\" class=\"btn-pill" + isAct + "\" data-mkey=\"" + k + "\">" + MODELS[k].chip + "</button>";
+            html += '<button type="button" class="btn-pill' + isAct + '" data-mkey="' + k + '">' + MODELS[k].chip + "</button>";
           }
           chipsContainer.innerHTML = html;
           chipsContainer.querySelectorAll("[data-mkey]").forEach(function (btn) {
@@ -2949,10 +2104,9 @@
         }
 
         function renderZoneButtons() {
-          var zList = ZONES_BY_CAT[activeCategory] || ZONES_BY_CAT.lantern;
-          zoneContainer.innerHTML = zList.map(function (z) {
+          zoneContainer.innerHTML = LANTERN_ZONES.map(function (z) {
             var act = (z.id === activeZone) ? " active" : "";
-            return "<button type=\"button\" class=\"btn-pill" + act + "\" data-zkey=\"" + z.id + "\">" + z.label + "</button>";
+            return '<button type="button" class="btn-pill' + act + '" data-zkey="' + z.id + '">' + z.label + "</button>";
           }).join("");
           zoneContainer.querySelectorAll("[data-zkey]").forEach(function (btn) {
             btn.addEventListener("click", function () {
@@ -2981,14 +2135,9 @@
           document.getElementById("modelEraPill").textContent = profile.era;
           document.getElementById("modelSpecsMini").textContent = profile.specsMini;
           document.getElementById("modelLoreText").textContent = profile.lore;
-          document.getElementById("recall502Banner").style.display = (key === "502") ? "flex" : "none";
 
           clearSceneEntities();
-          if (profile.cat === "lantern") {
-            buildLantern3D(profile);
-          } else {
-            buildStove3D(profile);
-          }
+          buildLantern3D(profile);
 
           syncCheckpointVisuals();
           renderPartsTree();
@@ -3024,14 +2173,14 @@
             var skuHtml = "";
             meta.skus.forEach(function (s) {
               var q = encodeURIComponent(s.code);
-              skuHtml += "<a class=\"btn-pill btn-ocp\" href=\"https://oldcolemanparts.com/search?q=" + q + "\" target=\"_blank\" rel=\"noopener\">🛒 OCP: " + s.code + " (" + s.label + ") ↗</a>";
+              skuHtml += '<a class="btn-pill btn-ocp" href="https://oldcolemanparts.com/search?q=' + q + '" target="_blank" rel="noopener">🛒 OCP: ' + s.code + " (" + s.label + ") ↗</a>";
             });
-            skuHtml += "<a class=\"btn-pill btn-diag\" href=\"https://oldcolemanparts.com/apps/diagram/" + encodeURIComponent(profile.diagramSlug) + "\" target=\"_blank\" rel=\"noopener\">📐 " + profile.chip + " Diagram ↗</a>";
+            skuHtml += '<a class="btn-pill btn-diag" href="https://oldcolemanparts.com/apps/diagram/' + encodeURIComponent(profile.diagramSlug) + '" target="_blank" rel="noopener">📐 ' + profile.chip + " Diagram ↗</a>";
             document.getElementById("inspSkuContainer").innerHTML = skuHtml;
 
-            var kitHtml = "<span class=\"mono-code\" style=\"font-size:0.68rem; color:var(--parchment-muted); width:100%;\">MODEL REBUILD KITS &amp; SHOP STAPLES:</span>";
+            var kitHtml = '<span class="mono-code" style="font-size:0.68rem; color:var(--parchment-muted); width:100%;">MODEL REBUILD KITS &amp; SHOP STAPLES:</span>';
             (profile.kits || []).forEach(function (k) {
-              kitHtml += "<a class=\"btn-pill\" href=\"https://oldcolemanparts.com/search?q=" + encodeURIComponent(k.code) + "\" target=\"_blank\" rel=\"noopener\">" + k.label + " ↗</a>";
+              kitHtml += '<a class="btn-pill" href="https://oldcolemanparts.com/search?q=' + encodeURIComponent(k.code) + '" target="_blank" rel="noopener">' + k.label + " ↗</a>";
             });
             document.getElementById("modelKitLinks").innerHTML = kitHtml;
           }
@@ -3077,7 +2226,7 @@
           document.getElementById("treeCountPill").textContent = totalVisible + " Parts";
 
           if (!groupOrder.length) {
-            treeContainer.innerHTML = "<div style=\"font-size:0.78rem; color:var(--parchment-muted); padding:0.4rem;\">No parts match filter.</div>";
+            treeContainer.innerHTML = '<div style="font-size:0.78rem; color:var(--parchment-muted); padding:0.4rem;">No parts match filter.</div>';
             return;
           }
 
@@ -3086,13 +2235,13 @@
               var sel = (item.p.id === selectedPartId) ? " selected" : "";
               var badge = item.meta.skus[0] ? item.meta.skus[0].code : item.meta.oem;
               return (
-                "<button type=\"button\" class=\"part-item-btn" + sel + "\" data-pid=\"" + item.p.id + "\">" +
-                  "<span><span class=\"callout-key\">" + item.meta.key + "</span>" + item.p.name + "</span>" +
-                  "<span class=\"mono-code\" style=\"font-size:0.7rem; color:#86efac; white-space:nowrap;\">" + badge + "</span>" +
+                '<button type="button" class="part-item-btn' + sel + '" data-pid="' + item.p.id + '">' +
+                  '<span><span class="callout-key">' + item.meta.key + "</span>" + item.p.name + "</span>" +
+                  '<span class="mono-code" style="font-size:0.7rem; color:#86efac; white-space:nowrap;">' + badge + "</span>" +
                 "</button>"
               );
             }).join("");
-            return "<div><div class=\"group-label\"><span>" + gName + "</span><span>" + groups[gName].length + "</span></div>" + rows + "</div>";
+            return '<div><div class="group-label"><span>' + gName + "</span><span>" + groups[gName].length + "</span></div>" + rows + "</div>";
           }).join("");
 
           treeContainer.querySelectorAll("[data-pid]").forEach(function (btn) {
@@ -3143,17 +2292,12 @@
 
         function resetCameraView() {
           var p = MODELS[activeModelKey];
-          if (p && p.cat === "stove") {
-            orbit.targetTheta = 0.42;
-            orbit.targetPhi = 1.04;
-            orbit.targetRadius = p.burners === 3 ? 8.6 : (p.arch === "suitcase2" ? 7.2 : 5.4);
-            orbit.targetPan.set(0, 0.05, 0.15);
-          } else {
-            orbit.targetTheta = 0.24;
-            orbit.targetPhi = 1.28;
-            orbit.targetRadius = 5.5;
-            orbit.targetPan.set(0, 0.05, 0);
-          }
+          var isBigHat = p && p.ventScaleXZ > 1.15;
+          var isWide = p && p.fountScaleXZ > 1.02;
+          orbit.targetTheta = 0.24;
+          orbit.targetPhi = 1.24;
+          orbit.targetRadius = isBigHat ? 6.2 : (isWide ? 5.8 : 5.4);
+          orbit.targetPan.set(0, 0.06, 0);
         }
 
         function copySelectedPartInfo() {
@@ -3202,7 +2346,7 @@
             var yr = parseInt(qMatch[2], 10);
             var fullYr = yr >= 20 ? 1900 + yr : 2000 + yr;
             var ageQ = Math.max(0, new Date().getFullYear() - fullYr);
-            out.innerHTML = "<strong>Toronto Quarter Stamp:</strong> " + qMap[qMatch[1]] + " <strong>" + fullYr + "</strong> (~" + ageQ + " yrs old). Classic Canadian early era!";
+            out.innerHTML = "<strong>Toronto Quarter Stamp:</strong> " + qMap[qMatch[1]] + " <strong>" + fullYr + "</strong> (~" + ageQ + " yrs old).";
             return;
           }
           var nums = raw.match(/\d+/g);
@@ -3364,11 +2508,6 @@
               p.base.y + p.delta.y * p.curExp,
               p.base.z + p.delta.z * p.curExp
             );
-            if (p.group.userData.ringMeshes) {
-              p.group.userData.ringMeshes.forEach(function (rm) {
-                rm.position.y = rm.userData.baseY + rm.userData.fanDeltaY * p.curExp;
-              });
-            }
           }
 
           if (liveOpActive) {
@@ -3376,18 +2515,13 @@
               updateFlowStreamsGeometry(currentExplode);
               lastFlowExp = currentExplode;
             }
-            flameJets.forEach(function (j) {
-              j.scale.set(1, 0.85 + 0.24 * Math.sin(tClock * 3.8 + j.userData.phase), 1);
-            });
             flowStreams.forEach(function (st) {
               st.dots.forEach(function (fp) {
                 fp.t = (fp.t + fp.speed * 0.014) % 1.0;
                 st.curve.getPointAt(fp.t, fp.mesh.position);
               });
             });
-            if (MODELS[activeModelKey] && MODELS[activeModelKey].cat === "lantern") {
-              lanternGlowLight.intensity = 2.35 + 0.18 * Math.sin(tClock * 5.0);
-            }
+            lanternGlowLight.intensity = 2.35 + 0.18 * Math.sin(tClock * 5.0);
           }
 
           if (checkpointsActive) {
@@ -3413,6 +2547,6 @@
     if (typeof window.THREE !== "undefined") {
       window.__startUnifiedPartSmart();
     }
-  </script>
+</script>
 </body>
 </html>
