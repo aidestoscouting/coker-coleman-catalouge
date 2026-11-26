@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COKER SHOP — 3D PartSmart Community Visualizer (v14)</title>
+  <title>COKER SHOP — 3D PartSmart Community Visualizer (v15)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rye&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
@@ -176,8 +176,9 @@
 
     .patch-frame {
       position: relative;
-      width: 50px;
-      height: 50px;
+      min-width: 170px;
+      width: 196px;
+      height: 52px;
       border-radius: 9px;
       border: 2px solid var(--brass-gold);
       background: #150c07;
@@ -186,12 +187,14 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      padding: 2px 6px;
     }
 
+    .patch-frame svg,
     .patch-frame img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .selector-bar {
@@ -534,39 +537,26 @@
   <header class="buffalo-plaid-bar sticky top-0 z-30 shadow-xl">
     <div class="header-inner">
       <div class="brand-box">
-        <div class="patch-frame" title="Coker Shop">
-          <svg viewBox="0 0 120 120" width="44" height="44" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Coker Shop Logo">
+        <div class="patch-frame" title="COKERMANPATCH">
+          <svg viewBox="0 0 360 96" width="184" height="48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CokerManPatch Long Patch">
   <defs>
-    <pattern id="plaidPat" width="16" height="16" patternUnits="userSpaceOnUse">
+    <pattern id="longPlaid" width="16" height="16" patternUnits="userSpaceOnUse">
       <rect width="16" height="16" fill="#7d151b"/>
-      <rect x="0" y="0" width="8" height="8" fill="#170d08" fill-opacity="0.55"/>
-      <rect x="8" y="8" width="8" height="8" fill="#170d08" fill-opacity="0.55"/>
-      <line x1="0" y1="4" x2="16" y2="4" stroke="#b91c1c" stroke-width="1.2" stroke-opacity="0.65"/>
-      <line x1="4" y1="0" x2="4" y2="16" stroke="#b91c1c" stroke-width="1.2" stroke-opacity="0.65"/>
+      <rect x="0" y="0" width="8" height="8" fill="#170d08" fill-opacity="0.58"/>
+      <rect x="8" y="8" width="8" height="8" fill="#170d08" fill-opacity="0.58"/>
+      <line x1="0" y1="4" x2="16" y2="4" stroke="#b91c1c" stroke-width="1" stroke-opacity="0.6"/>
+      <line x1="4" y1="0" x2="4" y2="16" stroke="#b91c1c" stroke-width="1" stroke-opacity="0.6"/>
     </pattern>
-    <radialGradient id="brassBezel" cx="35%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#fff0a8"/>
-      <stop offset="55%" stop-color="#d4af37"/>
-      <stop offset="100%" stop-color="#856312"/>
-    </radialGradient>
   </defs>
-  <circle cx="60" cy="60" r="56" fill="url(#brassBezel)"/>
-  <circle cx="60" cy="60" r="51" fill="url(#plaidPat)" stroke="#23130a" stroke-width="2.5"/>
-  <circle cx="60" cy="60" r="39" fill="#180e09" stroke="#d4af37" stroke-width="2"/>
-  <line x1="60" y1="25" x2="60" y2="32" stroke="#f3e5ab" stroke-width="2.2" stroke-linecap="round"/>
-  <line x1="43" y1="29" x2="47" y2="35" stroke="#f3e5ab" stroke-width="2" stroke-linecap="round"/>
-  <line x1="77" y1="29" x2="73" y2="35" stroke="#f3e5ab" stroke-width="2" stroke-linecap="round"/>
-  <path d="M47 43 L73 43 L70 37 L50 37 Z" fill="#1e4d2b" stroke="#d4af37" stroke-width="1.4"/>
-  <rect x="51" y="43" width="18" height="15" rx="2" fill="#fde68a" fill-opacity="0.28" stroke="#f3e5ab" stroke-width="1.4"/>
-  <ellipse cx="60" cy="51" rx="4.5" ry="6" fill="#fffbeb" fill-opacity="0.88"/>
-  <path d="M48 58 L72 58 L75 72 C75 75 45 75 45 72 Z" fill="#1e4d2b" stroke="#d4af37" stroke-width="1.5"/>
-  <text x="60" y="88" text-anchor="middle" fill="#f3e5ab" font-family="Georgia, serif" font-weight="bold" font-size="14" letter-spacing="1.5">COKER</text>
-  <text x="60" y="100" text-anchor="middle" fill="#d4af37" font-family="monospace" font-weight="bold" font-size="8.5" letter-spacing="2">SHOP</text>
+  <rect x="2" y="2" width="356" height="92" rx="10" fill="url(#longPlaid)" stroke="#d4af37" stroke-width="3"/>
+  <rect x="10" y="10" width="340" height="76" rx="7" fill="#160c07" fill-opacity="0.88" stroke="#f3e5ab" stroke-width="1.2"/>
+  <text x="180" y="45" text-anchor="middle" fill="#f3e5ab" font-family="Georgia, serif" font-weight="bold" font-size="25" letter-spacing="2.5">COKERMANPATCH</text>
+  <text x="180" y="70" text-anchor="middle" fill="#d4af37" font-family="monospace" font-weight="bold" font-size="13" letter-spacing="4">COLEMAN SHOP · EST. BENCH</text>
 </svg>
           <img
             src="COKERMANPATCH LOGO.png"
-            alt="Coker Shop Patch"
-            style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0;"
+            alt="COKERMANPATCH"
+            style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#150c07; opacity:0;"
             onload="this.style.opacity='1';"
           />
         </div>
@@ -574,7 +564,7 @@
           <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
             <span class="brand-display" style="font-size:1.15rem; color:var(--brass-bright);">COKER SHOP — 3D PARTSMART</span>
             <span class="mono-code" style="font-size:0.68rem; font-weight:700; padding:0.14rem 0.45rem; border-radius:4px; background:#b8292f; color:#f3e5ab; border:1px solid rgba(212,175,55,0.6);">
-              COMMUNITY EDITION v14
+              COMMUNITY EDITION v15
             </span>
           </div>
           <div style="font-size:0.74rem; color:var(--parchment-muted);">
@@ -2204,6 +2194,7 @@
 
           var glG = new THREE.Group();
           glStr = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 1.04, 44, 1, true), matGlobe);
+          glStr.userData.globeKind = "straight";
           var bPts = [
             new THREE.Vector2(0.76, -0.52), new THREE.Vector2(0.86, -0.34), new THREE.Vector2(0.95, -0.10),
             new THREE.Vector2(0.97, 0.06), new THREE.Vector2(0.92, 0.26), new THREE.Vector2(0.82, 0.42),
@@ -2211,7 +2202,9 @@
           ];
           var bGeo = new THREE.LatheGeometry(bPts, 44); bGeo.computeVertexNormals();
           glBlg = new THREE.Mesh(bGeo, matGlobe);
+          glBlg.userData.globeKind = "bulged";
           glTap = new THREE.Mesh(new THREE.CylinderGeometry(0.76, 0.89, 1.04, 44, 1, true), matGlobe);
+          glTap.userData.globeKind = "tapered";
           glG.add(glStr, glBlg, glTap);
           registerPart("globe", "Pyrex Glass Globe", "burner", "5. Burner, Globe & Vent", glG, [0, 0.35, 0], [0, 1.62, 0]);
 
@@ -2329,12 +2322,8 @@
               if (!isLantern || globeMode === "hidden") {
                 m.visible = false;
               } else {
-                var parentGrp = m.parent ? m.parent : null;
-                var allowedByModel =
-                  (profile.globeStyle === "straight" && glStr && parentGrp === glStr) ||
-                  (profile.globeStyle === "bulged" && glBlg && parentGrp === glBlg) ||
-                  (profile.globeStyle === "tapered" && glTap && parentGrp === glTap);
-                m.visible = allowedByModel;
+                var gKind = m.userData.globeKind || (m.parent && m.parent.userData && m.parent.userData.globeKind);
+                m.visible = (gKind === profile.globeStyle);
                 m.material.opacity = globeMode === "ghost" ? 0.07 : profile.globeOpacity;
               }
             }
@@ -2413,32 +2402,42 @@
           var grtG = new THREE.Group();
           var yG = yBowl + 0.285;
           var gx0 = -W / 2 + 0.14, gx1 = W / 2 - 0.14, gz0 = -D / 2 + 0.16, gz1 = D / 2 - 0.16;
-          grtG.add(makeTube([[gx0, yG, gz0], [gx1, yG, gz0], [gx1, yG, gz1], [gx0, yG, gz1], [gx0, yG, gz0]], 0.028, matSteel));
+          // Outer rectangular suitcase grate rails
+          grtG.add(makeTube([[gx0, yG, gz0], [gx1, yG, gz0], [gx1, yG, gz1], [gx0, yG, gz1], [gx0, yG, gz0]], 0.026, matSteel));
+          // Corner legs dropping down into the case floor/drip tray
           [[gx0, gz0], [gx1, gz0], [gx1, gz1], [gx0, gz1]].forEach(function (pt) {
-            grtG.add(makeTube([[pt[0], yG, pt[1]], [pt[0], yF + 0.04, pt[1]]], 0.024, matSteel));
+            grtG.add(makeTube([[pt[0], yG, pt[1]], [pt[0], yF + 0.04, pt[1]]], 0.022, matSteel));
           });
+          // Parallel front-to-back grate bars with a clean open window over each burner (no circular grill rings)
           var bCenters = spec.burners === 3 ? [auxLX, masterX, auxRX] : [auxLX, masterX];
-          var zRails = [-D * 0.24, 0, D * 0.24];
-          zRails.forEach(function (rz) {
-            var zBar = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, gx1 - gx0, 10), matSteel);
-            zBar.rotation.z = Math.PI / 2; zBar.position.set(0, yG, rz);
-            grtG.add(zBar);
-          });
-          var xCols = [gx0 + 0.22, gx1 - 0.22];
-          bCenters.forEach(function (bc) { xCols.push(bc - 0.44, bc + 0.44); });
-          xCols.forEach(function (cx) {
-            if (cx > gx0 + 0.04 && cx < gx1 - 0.04) {
-              var xBar = new THREE.Mesh(new THREE.CylinderGeometry(0.019, 0.019, gz1 - gz0, 10), matSteel);
-              xBar.rotation.x = Math.PI / 2; xBar.position.set(cx, yG, 0);
-              grtG.add(xBar);
+          var barCount = spec.burners === 3 ? 15 : 11;
+          for (var bi = 0; bi < barCount; bi++) {
+            var bx = gx0 + 0.16 + (bi / (barCount - 1)) * (gx1 - gx0 - 0.32);
+            var nearBurner = bCenters.some(function (bc) { return Math.abs(bx - bc) < 0.34; });
+            if (!nearBurner) {
+              var barM = new THREE.Mesh(new THREE.CylinderGeometry(0.017, 0.017, gz1 - gz0 - 0.04, 10), matSteel);
+              barM.rotation.x = Math.PI / 2;
+              barM.position.set(bx, yG, 0);
+              grtG.add(barM);
+            } else {
+              // Front and back bridge stubs outside the burner opening
+              var stubLen = (gz1 - gz0) * 0.24;
+              var fStub = new THREE.Mesh(new THREE.CylinderGeometry(0.017, 0.017, stubLen, 10), matSteel);
+              fStub.rotation.x = Math.PI / 2;
+              fStub.position.set(bx, yG, gz1 - 0.02 - stubLen * 0.5);
+              var rStub = fStub.clone();
+              rStub.position.z = gz0 + 0.02 + stubLen * 0.5;
+              grtG.add(fStub, rStub);
             }
+          }
+          // Front and rear tie-bars connecting the parallel slats
+          [-D * 0.31, D * 0.31].forEach(function (tz) {
+            var tieB = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, gx1 - gx0 - 0.04, 10), matSteel);
+            tieB.rotation.z = Math.PI / 2;
+            tieB.position.set(0, yG, tz);
+            grtG.add(tieB);
           });
-          bCenters.forEach(function (bc) {
-            var loopR = new THREE.Mesh(new THREE.TorusGeometry(0.45, 0.021, 10, 32), matSteel);
-            loopR.rotation.x = Math.PI / 2; loopR.position.set(bc, yG, 0);
-            grtG.add(loopR);
-          });
-          registerPart("wireGrate", "Wire Cooking Grate", "case", "1. Case, Lid & Grate", grtG, [0, 0, 0], [0, 1.52, 0]);
+          registerPart("wireGrate", "Suitcase Slatted Grate", "case", "1. Case, Lid & Grate", grtG, [0, 0, 0], [0, 1.52, 0]);
 
           var manG = new THREE.Group();
           manG.add(makeTube([[masterX, yF + 0.36, D / 2 - 0.02], [masterX, yF + 0.20, 0.32], [masterX, yBowl, 0]], 0.125, matCastIron));
